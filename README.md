@@ -1,2 +1,5 @@
 # CWRUmate
-Senior Project for Fall 2023
+
+CSDS 395: Senior Project (Fall 2023)
+
+Amy Churchill, Georgia Martinez, Ari Ostrow, JD Tramonte
