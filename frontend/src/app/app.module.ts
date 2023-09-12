@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
 
 @NgModule({
@@ -13,10 +9,7 @@ import { LoginModule } from './login/login.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CommonModule,
-    FormsModule,
+    SharedModule,
     LoginModule,
   ],
   providers: [],
