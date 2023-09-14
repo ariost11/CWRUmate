@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -6,16 +7,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  firstName = '';
-  lastName = '';
-  birthday = '';
-  email = '';
-  password = '';
+  constructor(private loginService: LoginService) {}
 
+  user = {
+    firstName: '',
+    lastName: '',
+    birthday: '',
+    caseID: '',
+    password: '',
+    fnError: false,
+    bError: false,
+    cError: false,
+    pError: false,
+  };
+  
   submit() {
-    console.log(`Name: ${this.firstName} ${this.lastName}`);
-    console.log(`Birthday: ${this.birthday}`);
-    console.log(`Email: ${this.email}`);
-    console.log(`Password: ${this.password}`);
+    this.user.fnError = !this.user.firstName;
+    this.user.bError = !this.user.birthday;
+    this.user.cError = !this.user.caseID;
+    this.user.pError = !this.user.password; //TODO: Add more password requirements
+
+    console.log(this.user);
+
+    if(!this.user.fnError && !this.user.bError && !this.user.cError && !this.user.pError) {
+      this.loginService.addUser(this.user.firstName, this.user.lastName, this.user.caseID, this.user.birthday, this.user.password).subscribe(data => {
+        console.log(data);
+      });
+    }
   }
 }
