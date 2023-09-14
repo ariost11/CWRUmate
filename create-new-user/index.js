@@ -19,11 +19,16 @@ module.exports = async function (context, req) {
 
     let status = await createUser(newUser);
 
+    let response = {
+        resp : status
+    }
+
     context.res = {
         // status: 200, /* Defaults to 200 */
-        body: status,
+        body: response,
         headers: {   
-            'Access-Control-Allow-Credentials': 'true',
+             'Access-Control-Allow-Origin': '*',
+             'Access-Control-Allow-Credentials' : true
         }
     };
 }
