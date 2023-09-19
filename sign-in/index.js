@@ -42,19 +42,19 @@ async function validateSignIn(user) {
         query: `SELECT * from c WHERE c.caseID = "${user.caseID}"`
     };
 
-    const { resources: users } = await container.items
-    .query(querySpec)
+    const { resources: result } = await container.items
+    .query(caseIDQuery)
     .fetchAll();
 
-    if (users.length == 0) {
+    if (result.length == 0) {
         return "No user with that case id was found"
     }
 
-    if (users.length != 1) {
+    if (result.length != 1) {
         return "Multiple users with that case id were found"
     }
 
-    if (user.password === user.password) {
+    if (result.password === user.password) {
         return "caseID and password combo accepted"
     } else {
         return "caseID and password combo do not exist"
