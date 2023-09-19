@@ -7,7 +7,7 @@ var url = `https://cwrumate.azurewebsites.net/api/create-new-user/`
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class SignUpService {
   constructor(private http: HttpClient) { }
 
   addUser(firstName: string, lastName: string, caseID: string, birthday: string, password: string): Observable<any>{

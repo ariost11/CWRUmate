@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { LoginService } from './login.service';
+import { SignUpService } from './sign-up.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
-export class LoginComponent {
-  constructor(private loginService: LoginService) {}
+export class SignUpComponent {
+  constructor(private signUpService: SignUpService) {}
 
   user = {
     firstName: '',
@@ -30,7 +30,7 @@ export class LoginComponent {
     console.log(this.user);
 
     if(!this.user.fnError && !this.user.bError && !this.user.cError && !this.user.pError) {
-      this.loginService.addUser(this.user.firstName, this.user.lastName, this.user.caseID, this.user.birthday, this.user.password).subscribe(data => {
+      this.signUpService.addUser(this.user.firstName, this.user.lastName, this.user.caseID, this.user.birthday, this.user.password).subscribe(data => {
         console.log(data);
       });
     }

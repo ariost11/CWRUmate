@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { LoginModule } from './login/login.module';
+import { SignUpModule } from './sign-up/sign-up.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import { LoginModule } from './login/login.module';
   ],
   imports: [
     SharedModule,
-    LoginModule,
+    SignUpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

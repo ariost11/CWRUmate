@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 
-import { LoginComponent } from './login.component';
+import { SignUpComponent } from './sign-up.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    SignUpComponent
   ],
   imports: [
     SharedModule,
   ],
 })
-export class LoginModule {}
+export class SignUpModule {}
