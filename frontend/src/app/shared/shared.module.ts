@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { HttpClientModule } from  '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
@@ -19,6 +21,7 @@ import { HttpClientModule } from  '@angular/common/http';
   exports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
