@@ -3,7 +3,14 @@
 
 
 @import "../../node_modules/bootstrap/scss/functions";
-@import "_variables.scss";
+
+// Variable overrides
+$primary: #EE4266;
+$secondary: #3D3B8E;
+$body-bg: #F9F9F9;
+
+
+@import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
 
 
@@ -50,3 +57,8 @@
 // Utilities
 @import "../../node_modules/bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+//Custom forcing
+.btn-primary {
+    color: #fff; 
+}   
