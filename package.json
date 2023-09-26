@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@azure/cosmos": "^3.17.3",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1"
   }
 }
