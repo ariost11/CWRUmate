@@ -47,16 +47,12 @@ async function validateSignIn(user) {
     .fetchAll();
 
     if (result.length == 0) {
-        return "No user with that case id was found"
+        return "USER DNE"
     }
 
-    if (result.length != 1) {
-        return "Multiple users with that case id were found"
-    }
-
-    if (result.password === user.password) {
-        return "caseID and password combo accepted"
+    if (result[0].password === user.password) {
+        return "SUCCESS"
     } else {
-        return "caseID and password combo do not exist"
+        return "INCORRECT PASSWORD"
     }
 }
