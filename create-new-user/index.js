@@ -50,10 +50,10 @@ async function createUser(newUser) {
 
     if (users.length == 0){
         const { resource: createdItem } = await container.items.create(newUser);
-        return "Success."
+        return "SUCCESS"
     }
     else {
-        return "CaseID already in use."
+        return "FAIL"
     }
 
   }
