@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SignUpService } from './sign-up.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,31 +8,38 @@ import { SignUpService } from './sign-up.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  constructor(private signUpService: SignUpService) {}
+  constructor(private signUpService: SignUpService,
+              private router: Router) {}
 
   user = {
-    firstName: '',
-    lastName: '',
-    birthday: '',
     caseID: '',
     password: '',
-    fnError: false,
-    bError: false,
     cError: false,
     pError: false,
   };
+
+  networkError = false;
+  userTaken = false;
   
   submit() {
-    this.user.fnError = !this.user.firstName;
-    this.user.bError = !this.user.birthday;
     this.user.cError = !this.user.caseID;
     this.user.pError = !this.user.password; //TODO: Add more password requirements
 
-    console.log(this.user);
-
-    if(!this.user.fnError && !this.user.bError && !this.user.cError && !this.user.pError) {
-      this.signUpService.addUser(this.user.firstName, this.user.lastName, this.user.caseID, this.user.birthday, this.user.password).subscribe(data => {
-        console.log(data);
+    if(!this.user.cError && !this.user.pError) {
+      this.signUpService.addUser(this.user.caseID, this.user.password).subscribe(data => {
+        switch(data.resp) {
+          case 'SUCCESS':
+            this.router.navigate(['/home']);
+            break;
+          case 'FAIL':
+            this.userTaken = true;
+            this.user.caseID = ''; //TODO: remove more fields if necessary
+            break;
+          default: 
+            this.networkError = true;
+        }
+      }, err => {
+        this.networkError = true;
       });
     }
   }
