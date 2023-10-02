@@ -31,6 +31,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	toProfile() {
-		this.router.navigate(['/profile'], { queryParams: {caseID: this.caseID}, skipLocationChange: true });
+		this.router.navigate(['/profile'], { queryParams: {caseID: this.caseID} });
 	}
 }
