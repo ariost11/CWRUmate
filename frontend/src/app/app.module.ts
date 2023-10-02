@@ -5,6 +5,7 @@ import { SharedModule } from './shared/shared.module';
 import { SignUpModule } from './sign-up/sign-up.module';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HomeModule } from './home/home.module';
     SignUpModule,
     LoginModule,
     HomeModule,
+    ProfileModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

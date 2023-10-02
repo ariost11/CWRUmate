@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card" *ngIf="profileSetup">
+        Setup!
+    </div>
+    <div class="card" *ngIf="!profileSetup">
+        Profile not yet set up! Click here to set up profile now!
+        <button class="btn btn-primary" (click)="toProfile()">Set Up My Profile!</button>
+    </div>
+</div>
