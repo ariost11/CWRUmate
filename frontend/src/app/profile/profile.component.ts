@@ -11,5 +11,8 @@ export class ProfileComponent {
         this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
     }
 
+    questionIndex = 0;
+    questions = ['What is your name?', 'What is your birthday?', 'What is your '];
+    answers = [];
     caseID = '';
 }
