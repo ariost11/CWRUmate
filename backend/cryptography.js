@@ -3,13 +3,13 @@ const CryptoJS = require('crypto-js');
 const { AES, enc } = CryptoJS;
 
 // Encryption function
-function encryptText(text, key) {
+export function encryptText(text, key) {
   const encrypted = AES.encrypt(text, key);
   return encrypted.toString();
 }
 
 // Decryption function
-function decryptText(encryptedText, key) {
+export function decryptText(encryptedText, key) {
   const decrypted = AES.decrypt(encryptedText, key);
   return decrypted.toString(enc.Utf8);
 }

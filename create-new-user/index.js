@@ -6,15 +6,24 @@ const config = {
     databaseId: "cwru-mate",
     containerId: "users",
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
-  };
+};
+
+export function encryptText(text, key) {
+    const encrypted = AES.encrypt(text, key);
+    return encrypted.toString();
+}
 
 module.exports = async function (context, req) {
+    log.console(req.query.password);
+    let encryptedPassword = encryptText(req.query.password, process.env.ENCRYPTION_KEY);
+    log.console(encryptedPassword);
+
     let newUser = {
         firstName: req.query.firstName,
         lastName: req.query.lastName,
         caseID: req.query.caseID,
         birthday: req.query.birthday,
-        password: req.query.password,
+        password: encryptedPassword,
       }
 
     let status = await createUser(newUser);
@@ -56,4 +65,4 @@ async function createUser(newUser) {
         return "CaseID already in use."
     }
 
-  }
+}

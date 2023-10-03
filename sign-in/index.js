@@ -6,7 +6,7 @@ const config = {
     databaseId: "cwru-mate",
     containerId: "users",
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
-  };
+};
 
 
 module.exports = async function (context, req) {
@@ -31,6 +31,11 @@ module.exports = async function (context, req) {
     };
 }
 
+export function decryptText(encryptedText, key) {
+    const decrypted = AES.decrypt(encryptedText, process.env.ENCRYPTION_KEY);
+    return decrypted.toString(enc.Utf8);
+}
+
 // Check if caseID and password combo exists in the database
 async function validateSignIn(user) {
     const { endpoint, key, databaseId, containerId } = config;
@@ -50,7 +55,11 @@ async function validateSignIn(user) {
         return "USER DNE"
     }
 
-    if (result[0].password === user.password) {
+    log.console(result[0].password);
+    let decryptedPassword = decryptText(result[0].password, secretKey)
+    log.console(decryptedPassword);
+
+    if (user.password === decryptedPassword) {
         return "SUCCESS"
     } else {
         return "INCORRECT PASSWORD"
