@@ -1,3 +1,7 @@
+// Import necessary CryptoJS modules
+const CryptoJS = require('crypto-js');
+const { AES } = CryptoJS;
+
 const CosmosClient = require("@azure/cosmos").CosmosClient;
 
 const config = {
@@ -8,15 +12,18 @@ const config = {
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
 };
 
-export function encryptText(text, key) {
-    const encrypted = AES.encrypt(text, key);
+function encryptText(text) {
+    const encrypted = AES.encrypt(text, "hello");
     return encrypted.toString();
 }
 
 module.exports = async function (context, req) {
-    log.console(req.query.password);
-    let encryptedPassword = encryptText(req.query.password, process.env.ENCRYPTION_KEY);
-    log.console(encryptedPassword);
+    console.log("Hello World!");
+    console.log(process.env.ENCRYPTION_KEY);
+    console.log(typeof(process.env.ENCRYPTION_KEY));
+    // console.log(JSON.stringify(JSON.parse(process.env.ENCRYPTION_KEY)));
+
+    let encryptedPassword = encryptText(req.query.password);
 
     let newUser = {
         firstName: req.query.firstName,
