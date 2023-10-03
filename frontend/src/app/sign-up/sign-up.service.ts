@@ -10,17 +10,12 @@ var url = `https://cwrumate.azurewebsites.net/api/create-new-user/`
 export class SignUpService {
   constructor(private http: HttpClient) { }
 
-  addUser(firstName: string, lastName: string, caseID: string, birthday: string, password: string): Observable<any>{
+  addUser(caseID: string, password: string): Observable<any>{
     return this.http.get(url,
       {
-        headers: {
-          
-        },
+        headers: {},
         params: {
-          firstName: firstName,
-          lastName: lastName,
           caseID: caseID,
-          birthday: birthday,
           password: password
         }
       });

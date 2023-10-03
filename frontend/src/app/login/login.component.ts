@@ -9,7 +9,7 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent {
   constructor(private loginService: LoginService,
-    private router: Router) {}
+              private router: Router) {}
 
   user = {
     caseID: '',
@@ -18,15 +18,39 @@ export class LoginComponent {
     passwordError: false,
   };
 
+  networkError = false;
+  wrongPassword = false;
+  notAUser = false;
+
   signIn() {
+    this.router.navigate(['/home'], { queryParams: {caseID: this.user.caseID} });
+    return; //TODO: remove this and router above
+
     this.user.caseIDError = !this.user.caseID;
     this.user.passwordError = !this.user.password;
 
     if(!this.user.caseIDError && !this.user.passwordError) {
       this.loginService.login(this.user.caseID, this.user.password).subscribe(loginData => {
         console.log(loginData);
+        switch(loginData.resp) {
+          case 'SUCCESS':
+            this.router.navigate(['/home'],  { queryParams: {caseID: this.user.caseID}, skipLocationChange: true });
+            break;
+          case 'INCORRECT PASSWORD':
+            this.wrongPassword = true;
+            this.user.password = '';
+            break;
+          case 'USER DNE':
+            this.notAUser = true;
+            this.user.caseID = '';
+            this.user.password = '';
+            break;
+          default:
+            this.networkError = true;
+        }
+      }, err => {
+        this.networkError = true;
       });
-      //this.router.navigate(['/home']);
     }
   }
 }
