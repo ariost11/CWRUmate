@@ -23,9 +23,6 @@ export class LoginComponent {
   notAUser = false;
 
   signIn() {
-    this.router.navigate(['/home'], { state: {caseID: this.user.caseID} });
-    return; //TODO: remove this and router above
-
     this.user.caseIDError = !this.user.caseID;
     this.user.passwordError = !this.user.password;
 
@@ -34,7 +31,7 @@ export class LoginComponent {
         console.log(loginData);
         switch(loginData.resp) {
           case 'SUCCESS':
-            this.router.navigate(['/home'],  { queryParams: {caseID: this.user.caseID}, skipLocationChange: true });
+            this.router.navigate(['/home'],  { state: {caseID: this.user.caseID} });
             break;
           case 'INCORRECT PASSWORD':
             this.wrongPassword = true;
