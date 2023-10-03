@@ -1,1 +1,10 @@
-<p>profile works!</p>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="card">
+        <h1>Question {{questionIndex + 1}}</h1>
+        <p>{{questions[questionIndex]}}</p>
+        <div>
+            <button class="btn btn-outline-primary" *ngIf="questionIndex !== 0" (click)="questionIndex = questionIndex - 1">Back</button>
+            <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1">Next</button>
+        </div>
+    </div>
+</div>

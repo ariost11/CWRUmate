@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +9,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 	constructor(private homeService: HomeService,
-				private route: ActivatedRoute,
-				private router: Router) {}
+				private router: Router) {
+					this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
+				}
 
 	caseID = '';
 	profileSetup = false;
 	invalidSession = false;
 
 	ngOnInit() {
-		this.route.queryParams.subscribe(params => {
-			this.caseID = params['caseID'];
-		}, err => this.invalidSession = true);
-
 		if(this.caseID) {
 			this.homeService.getProfile(this.caseID).subscribe(profile => {
 				console.log('profile: ', profile);
@@ -31,6 +28,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	toProfile() {
-		this.router.navigate(['/profile'], { queryParams: {caseID: this.caseID} });
+		this.router.navigate(['/profile'], { state: {caseID: this.caseID} });
 	}
 }
