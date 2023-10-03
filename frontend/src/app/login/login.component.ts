@@ -23,7 +23,7 @@ export class LoginComponent {
   notAUser = false;
 
   signIn() {
-    this.router.navigate(['/home'], { queryParams: {caseID: this.user.caseID} });
+    this.router.navigate(['/home'], { state: {caseID: this.user.caseID} });
     return; //TODO: remove this and router above
 
     this.user.caseIDError = !this.user.caseID;
