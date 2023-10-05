@@ -1,11 +1,17 @@
 <div class="d-flex align-items-center justify-content-center">
   <div class="card">
     <form class="card-body needs-validation">
+        <h3 class="card-title">
+          Log In To Your Account
+        </h3>
         <div class="form-group">
             <label>Case ID</label>
             <input class="form-control" id="caseID" name="caseID" required placeholder="Enter Case ID" [(ngModel)]="user.caseID" #caseID="ngModel">
             <div *ngIf="caseID.invalid && (caseID.dirty || caseID.touched)">
-              <div *ngIf="caseID.errors?.['required']" class="alert alert-danger">
+              <div *ngIf="notAUser" class="alert alert-danger">
+                There is no account with this Case ID.
+              </div>
+              <div *ngIf="caseID.errors?.['required'] && !notAUser" class="alert alert-danger">
                 Name is required.
               </div>
             </div>
@@ -14,15 +20,19 @@
             <label>Password</label>
             <input class="form-control" id="password" name="password" required placeholder="Enter Password" [(ngModel)]="user.password" #password="ngModel" type="password">
             <div *ngIf="password.invalid && (password.dirty || password.touched)">
-              <div *ngIf="password.errors?.['required']" class="alert alert-danger">
+              <div *ngIf="wrongPassword" class="alert alert-danger">
+                Incorrect Password.
+              </div>
+              <div *ngIf="password.errors?.['required'] && !wrongPassword" class="alert alert-danger">
                 Please enter your password.
               </div>
             </div>
         </div>
         <button class="btn btn-primary" (click)="signIn()">Sign In</button>
+        <div>
+          Don't have an account? <a [routerLink]="['/sign-up']">Sign Up.</a>
+        </div>
     </form>
-    <div>
-        Don't have an account? <a [routerLink]="['/sign-up']">Sign Up.</a>
-    </div>
+    
   </div>
 </div>
