@@ -1,4 +1,3 @@
-// Import necessary CryptoJS modules
 const CryptoJS = require('crypto-js');
 const { AES } = CryptoJS;
 

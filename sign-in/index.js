@@ -1,4 +1,3 @@
-// Import necessary CryptoJS modules
 const CryptoJS = require('crypto-js');
 const { AES, enc } = CryptoJS;
 
@@ -36,7 +35,7 @@ module.exports = async function (context, req) {
 }
 
 function decryptText(encryptedText) {
-    const decrypted = AES.decrypt(encryptedText, JSON.stringify(JSON.parse(process.env.ENCRYPTION_KEY)));
+    const decrypted = AES.decrypt(encryptedText, process.env.ENCRYPTION_KEY);
     return decrypted.toString(enc.Utf8);
 }
 
