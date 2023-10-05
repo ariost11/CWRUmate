@@ -2,6 +2,13 @@
     <div class="card">
         <h1>Question {{questionIndex + 1}}</h1>
         <p>{{questions[questionIndex]}}</p>
+        <div class="form-group">
+            <!-- <label>label</label> -->
+            <input class="form-control" id="caseID" name="caseID" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
+            <div *ngIf="caseID.errors?.['required']" class="alert alert-danger">
+                Name is required.
+            </div>
+        </div>
         <div>
             <button class="btn btn-outline-primary" *ngIf="questionIndex !== 0" (click)="questionIndex = questionIndex - 1">Back</button>
             <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1">Next</button>
