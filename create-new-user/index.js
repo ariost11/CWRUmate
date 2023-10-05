@@ -22,10 +22,7 @@ module.exports = async function (context, req) {
     let encryptedPassword = encryptText(req.query.password);
 
     let newUser = {
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
         caseID: req.query.caseID,
-        birthday: req.query.birthday,
         password: encryptedPassword,
       }
 
