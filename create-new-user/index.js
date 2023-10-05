@@ -13,15 +13,11 @@ const config = {
 };
 
 function encryptText(text) {
-    const encrypted = AES.encrypt(text, "hello");
+    const encrypted = AES.encrypt(text, process.env.ENCRYPTION_KEY);
     return encrypted.toString();
 }
 
 module.exports = async function (context, req) {
-    console.log("Hello World!");
-    console.log(process.env.ENCRYPTION_KEY);
-    console.log(typeof(process.env.ENCRYPTION_KEY));
-    // console.log(JSON.stringify(JSON.parse(process.env.ENCRYPTION_KEY)));
 
     let encryptedPassword = encryptText(req.query.password);
 
