@@ -12,7 +12,7 @@ export class ProfileComponent {
     }
 
     questionIndex = 0;
-    questions = ['What is your name?', 'What is your birthday?', 'What is your '];
-    answers = [];
+    questions = ['What is your name?', 'What are your pronouns?', 'When is your birthday?', 'What is your Major?', 'What clubs are you apart of?', ''];
+    answers: string[] = [];
     caseID = '';
 }
