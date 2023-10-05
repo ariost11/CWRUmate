@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_html():
+    """
+    Gets the html content from campus groups. This method should only be run once.
+    """
+
     url = "https://community.case.edu/club_signup?view=all&"
 
     response = requests.get(url)
@@ -13,6 +17,10 @@ def get_html():
         file.write(html_content)
 
 def get_club_name(tag):
+    """
+    Find the club name nested in a given tag
+    """
+
     if tag.name == 'h2':
         a_tag = tag.find('a')
         if a_tag:
@@ -25,7 +33,11 @@ def get_club_name(tag):
         
     return None
 
-if __name__ == "__main__":
+def print_clubs():
+    """
+    Parse the campus groups HTML and print out the club names
+    """
+
     with open("campus_groups.html", "r") as file:
         html_content = file.read()
 
@@ -39,3 +51,6 @@ if __name__ == "__main__":
         if club_name:
             club_name = club_name.text.strip()
             print(club_name)
+
+if __name__ == "__main__":
+    print_clubs()
