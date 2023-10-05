@@ -4,7 +4,7 @@ const config = {
     endpoint: process.env.COSMOS_ENDPOINT,
     key: process.env.COSMOS_KEY,
     databaseId: "cwru-mate",
-    containerId: "users",
+    containerId: "profiles",
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
 };
 
