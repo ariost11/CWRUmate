@@ -8,7 +8,6 @@ const config = {
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
 };
 
-
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
     let status = await getProfile(caseID);
