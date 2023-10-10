@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 				}
 
 	caseID = '';
-	profileSetup = false;
+	profileSetup = true;
 	invalidSession = false;
 
 	ngOnInit() {
