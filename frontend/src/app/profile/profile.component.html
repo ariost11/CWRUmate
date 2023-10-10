@@ -2,7 +2,7 @@
     <div class="card">
         <h1>Question {{questionIndex + 1}}</h1>
         <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7">(seperate majors with commas).</p>
-        <div class="form-group" *ngIf="questionIndex !== 1 && questionIndex !== 2 && questionIndex !== 7">
+        <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4">
             <input class="form-control" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
             <!-- <div *ngIf="caseID.invalid && (caseID.dirty || caseID.touched)" class="alert alert-danger">
                 Please provide an answer.
@@ -17,7 +17,29 @@
             <div class="invalid-feedback">
               Please enter your birthday.
             </div>
-          </div>
+        </div>
+        <select class="form-select" aria-label="Select a year" *ngIf="questionIndex === 3" [(ngModel)]="answers[questionIndex]">
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+            <option value="5th Year">5th Year</option>
+            <option value="Graduate Student">Graduate Student</option>
+        </select>
+        <div *ngIf="questionIndex === 5"> 
+            <div class="form-check" *ngFor="let gender of genderOptions">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" [value]="gender">
+                {{gender}}
+            </div>
+        </div>
+        <div *ngIf="questionIndex === 6">
+            <div class="form-check" *ngFor="let gender of genderOptions">
+                <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateGenderPrefs()">
+                <label class="form-check-label">
+                    {{gender}}
+                </label>
+            </div>
+        </div>
         <div class="form-group" *ngIf="questionIndex === 7">
             <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[questionIndex]">
             <datalist id="datalistOptions">
@@ -28,4 +50,5 @@
             <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="!answers[questionIndex]">Next</button>
         </div>
     </div>
+    <!-- {{answers[questionIndex]}} -->
 </div>

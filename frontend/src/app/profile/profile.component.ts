@@ -94,7 +94,7 @@ export class ProfileComponent {
 		'Please upload a few photos of yourself!',
 		'When is your birthday?',
 		'What year are you?',
-		'Please create your bio (in 200 characters or less)!',
+		'Please create your bio!',
 		'What is your gender?',
 		'What gender(s) are you looking for?', 
 		'What is your Major?', 
@@ -112,6 +112,9 @@ export class ProfileComponent {
     answers: any[] = [];
     caseID = '';
 	url: [string | ArrayBuffer | null] = [''];
+	genderOptions = [
+		'Man', 'Woman', 'Non-Binary', 'Gender Fluid'
+	]
 
 	onFilesSelected(event: any) {
 		const files = event.target.files;
@@ -125,8 +128,18 @@ export class ProfileComponent {
 				this.url.push(reader.result); 
 			}
 		}
-		
+
 		if(this.url[0] === '')
 			this.url.shift();
+	}
+
+	updateGenderPrefs() {
+		var array = [];
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+		
+		for (var i = 0; i < checkboxes.length; i++)
+			array.push((checkboxes[i] as HTMLInputElement).value);
+
+			this.answers[this.questionIndex] = array;
 	}
 }
