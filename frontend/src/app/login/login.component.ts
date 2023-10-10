@@ -22,13 +22,15 @@ export class LoginComponent {
   wrongPassword = false;
   notAUser = false;
 
+  loading = false;
+
   signIn() {
     this.user.caseIDError = !this.user.caseID;
     this.user.passwordError = !this.user.password;
 
     if(!this.user.caseIDError && !this.user.passwordError) {
+      this.loading = true;
       this.loginService.login(this.user.caseID, this.user.password).subscribe(loginData => {
-        console.log(loginData);
         switch(loginData.resp) {
           case 'SUCCESS':
             this.router.navigate(['/home'],  { state: {caseID: this.user.caseID} });
@@ -47,6 +49,8 @@ export class LoginComponent {
         }
       }, err => {
         this.networkError = true;
+      }, () => {
+        this.loading = false;
       });
     }
   }
