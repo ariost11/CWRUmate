@@ -10,7 +10,7 @@ const config = {
 
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
-    let users = await getPotentialMatches(caseID);
+    let users = await getPotentialMatches(caseID, context);
     let response = {
         resp : users
     }
@@ -23,18 +23,28 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getPotentialMatches(caseID) {
+async function getPotentialMatches(caseID, context) {
     const { endpoint, key, databaseId, containerId } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
     const container = database.container(containerId);
 
-    // query to check if the caseID is already used
-    const querySpec = {
+    const queryGetUser = {
+        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
+    };
+    const { resources: user } = await container.items
+    .query(queryGetUser)
+    .fetchAll();
+
+    const queryGetMatches = {
         query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
     };
-    const { resources: users } = await container.items
-    .query(querySpec)
+    const { resources: matches } = await container.items
+    .query(queryGetMatches)
     .fetchAll();
-    return users
+    context.log(user[0].gender_preferences)
+
+    const userA = user[0]
+    const filteredUsers = matches.filter(userB => userA.gender_preferences.includes(userB.gender_identity) && userB.gender_preferences.includes(userA.gender_identity))
+    return filteredUsers
 }
