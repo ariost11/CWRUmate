@@ -10,9 +10,9 @@ const config = {
 
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
-    let status = await getProfile(caseID);
+    let users = await getPotentialMatches(caseID);
     let response = {
-        resp : status
+        resp : users
     }
     context.res = {
         body: response,
@@ -23,7 +23,7 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getProfile(caseID) {
+async function getPotentialMatches(caseID) {
     const { endpoint, key, databaseId, containerId } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
@@ -31,17 +31,10 @@ async function getProfile(caseID) {
 
     // query to check if the caseID is already used
     const querySpec = {
-        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
+        query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
     };
     const { resources: users } = await container.items
     .query(querySpec)
     .fetchAll();
-
-    if (users.length == 1){
-        return "SUCCESS"
-    }
-    else {
-        return "FAIL"
-    }
-
+    return users
 }
