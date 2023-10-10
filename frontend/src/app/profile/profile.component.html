@@ -1,5 +1,6 @@
 <div class="d-flex align-items-center justify-content-center">
     <div class="card">
+        <!-- ADD BACK FORM BUT ITS NOT LETTING NEXT BUTTON WORK @JD -->
         <h1>Question {{questionIndex + 1}}</h1>
         <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7">(seperate majors with commas).</p>
         <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4">
@@ -15,7 +16,7 @@
             <label>Birthday</label>
             <input class="form-control" name="birthday" type="date" [(ngModel)]="answers[questionIndex]"/>
             <div class="invalid-feedback">
-              Please enter your birthday.
+            Please enter your birthday.
             </div>
         </div>
         <select class="form-select" aria-label="Select a year" *ngIf="questionIndex === 3" [(ngModel)]="answers[questionIndex]">
