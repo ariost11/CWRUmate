@@ -10,7 +10,7 @@ const config = {
 
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
-    let users = await getPotentialMatches(caseID, context);
+    let users = await getPotentialMatches(caseID);
     let response = {
         resp : users
     }
@@ -23,7 +23,7 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getPotentialMatches(caseID, context) {
+async function getPotentialMatches(caseID) {
     const { endpoint, key, databaseId, containerId } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
@@ -32,19 +32,22 @@ async function getPotentialMatches(caseID, context) {
     const queryGetUser = {
         query: `SELECT * from c WHERE c.caseID = "${caseID}"`
     };
+
     const { resources: user } = await container.items
-    .query(queryGetUser)
-    .fetchAll();
+        .query(queryGetUser)
+        .fetchAll();
 
     const queryGetMatches = {
         query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
     };
+
     const { resources: matches } = await container.items
-    .query(queryGetMatches)
-    .fetchAll();
-    context.log(user[0].gender_preferences)
+        .query(queryGetMatches)
+        .fetchAll();
 
     const userA = user[0]
-    const filteredUsers = matches.filter(userB => userA.gender_preferences.includes(userB.gender_identity) && userB.gender_preferences.includes(userA.gender_identity))
-    return filteredUsers
+    const filteredUsers = matches.filter(userB => userA.gender_preferences.includes(userB.gender_identity) && 
+                                                  userB.gender_preferences.includes(userA.gender_identity));
+
+    return filteredUsers;
 }
