@@ -1,9 +1,21 @@
-<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="card" *ngIf="!profileSetup">
-        Your profile is not yet set up! You cannot view others until you set up your profile.
+<div class="d-flex align-items-center justify-content-center">
+    <div class="card border-0 align-items-center justify-content-center" *ngIf="!profileSetup">
+        <div>Your profile is not yet set up! You cannot view others until you set up your profile.</div>
         <button class="btn btn-primary" (click)="toProfile()">Set Up My Profile!</button>
     </div>
-    <div class="card" *ngIf="profileSetup">
-        Setup!
+    <div class="card mb-3" *ngIf="profileSetup" style="max-width: 70vh; max-height: 85vh">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start"/>
+            </div>
+            <div class="col-sm-8">
+                <div class="card-body" data-bs-spy="scroll">
+                    <h3 class="card-title">*First Name Here*</h3>
+                    <h4>Major</h4>
+                    <div>Comp Sci<i class="fa-solid fa-computer"></i></div>
+                    <h4></h4>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
