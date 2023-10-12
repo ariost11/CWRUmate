@@ -45,9 +45,23 @@ async function getPotentialMatches(caseID) {
         .query(queryGetMatches)
         .fetchAll();
 
-    const userA = user[0]
+    const userA = user[0];
+
+    if (!isProfileSet(userA)) {
+        return "PROFILE NOT SET";
+    }
+
     const filteredUsers = matches.filter(userB => userA.gender_preferences.includes(userB.gender_identity) && 
                                                   userB.gender_preferences.includes(userA.gender_identity));
 
     return filteredUsers;
+}
+
+// Check if user finished setting up their profile
+function isProfileSet(user) {
+    const keys = Object.keys(user);
+    const lastKey = keys[keys.length - 1];
+    const lastValue = user[lastKey];
+
+    return lastValue !== undefined;
 }
