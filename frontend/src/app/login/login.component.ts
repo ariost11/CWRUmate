@@ -29,7 +29,6 @@ export class LoginComponent {
     this.user.passwordError = !this.user.password;
 
     if(!this.user.caseIDError && !this.user.passwordError) {
-      this.loading = true;
       this.loginService.login(this.user.caseID, this.user.password).subscribe(loginData => {
         switch(loginData.resp) {
           case 'SUCCESS':
@@ -53,5 +52,22 @@ export class LoginComponent {
         this.loading = false;
       });
     }
+
+    // FOLLOWING CODE IS FROM https://getbootstrap.com/docs/5.0/forms/validation/
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach( (form) => {
+        form.addEventListener('submit',  (event: { preventDefault: () => void; stopPropagation: () => void; }) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
   }
 }

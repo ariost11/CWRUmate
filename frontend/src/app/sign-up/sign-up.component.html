@@ -1,28 +1,28 @@
 <div class="d-flex align-items-center justify-content-center">
   <div class="card">
     
-    <form class="card-body needs-validation">
+    <form class="card-body needs-validation" novalidate>
       <h3 class="card-title">
         Create Account
       </h3>
       
       <div class="form-group">
-          <label>Case ID</label>
+          <label for="caseID" class="form-label">Case ID</label>
           <input class="form-control" id="caseID" name="caseID" required placeholder="Enter Case ID" [(ngModel)]="user.caseID" #caseID="ngModel">
-          <div *ngIf="caseID.invalid && (caseID.dirty || caseID.touched)">
-            <div *ngIf="userTaken" class="alert alert-danger text-center">THIS USER IS TAKEN <br> PLEASE SIGN IN OR USE ANOTHER CASEID</div>
-            <div *ngIf="caseID.errors?.['required'] && !userTaken" class="alert alert-danger">
+          <div class="invalid-feedback">  
+            <div *ngIf="userTaken">
+              This user already has an account.
+            </div>
+            <div *ngIf="!userTaken">
               Name is required.
             </div>
           </div>
         </div>
       <div class="form-group">
-          <label>Password</label>
+          <label for="password" class="form-label">Password</label>
           <input class="form-control" id="password" name="password" required placeholder="Enter Password" [(ngModel)]="user.password" #password="ngModel" type="password">
-          <div *ngIf="password.invalid && (password.dirty || password.touched)">
-            <div *ngIf="password.errors?.['required']" class="alert alert-danger">
+          <div class="invalid-feedback">
               Please enter your password.
-            </div>
           </div>
       </div>
       <button (click)="submit()" class="btn btn-primary">Submit</button>
