@@ -1,18 +1,29 @@
-<div class="d-flex align-items-center justify-content-center">
-    <div class="card mb-3" style="max-width: 70vh; max-height: 85vh">
+<div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="!profiles[0]">
+    <span class="sr-only"></span>
+</div>
+
+<div *ngIf="profiles[0]" class="d-flex align-items-center justify-content-center">
+    <button id="no" (click)="decline()" class="col-sm-3 no btn btn-outline-danger"> 
+        <i class="fa-solid fa-face-meh fa-2xl"></i>
+    </button>
+    <div class="col-sm-6 card mb-3">
         <div class="row">
             <div class="col-sm-4">
                 <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start"/>
             </div>
             <div class="col-sm-8">
                 <div class="card-body" data-bs-spy="scroll">
-                    <h3 class="card-title">*First Name Here*</h3>
+                    <h3>{{profiles[profiles_index].name}}</h3>
+                    <!-- <h3 class="card-title">*First Name Here*</h3>
                     <h5>Major</h5>
                     <div>Comp Sci <i class="fa-solid fa-computer"></i></div>
                     <h5>Bio</h5>
-                    <div>THIS IS ABOUT ME, I LIKE THESE THINGS... <i class="fa-solid fa-computer"></i></div>
+                    <div>THIS IS ABOUT ME, I LIKE THESE THINGS... <i class="fa-solid fa-computer"></i></div> -->
                 </div>
             </div>
         </div>
     </div>
+    <button id="yes" (click)="accept()" class="col-sm-3 yes btn btn-outline-info">
+        <i class="fa-solid fa-face-smile fa-2xl"></i>
+    </button>
 </div>

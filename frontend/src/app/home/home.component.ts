@@ -16,13 +16,25 @@ export class HomeComponent implements OnInit {
 	caseID = '';
 	invalidSession = false;
 
+	profiles: any[] = [];
+	profiles_index = 0;
+
+	accept() {
+		this.profiles_index++;
+	}
+
+	decline() {
+		this.profiles_index++;
+	}
+
 	ngOnInit() {
 		if(this.caseID) {
 			this.homeService.getProfiles(this.caseID).subscribe(profiles => {
 				if(profiles.resp === 'PROFILE NOT SET')
 					this.toProfile();
-
-				//TODO: configure profileSetup variable with API!
+			
+				console.log(profiles)
+				this.profiles = profiles.resp;
 			}, err => this.invalidSession = true);
 		} else
 			this.invalidSession = true;

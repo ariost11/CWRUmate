@@ -11859,4 +11859,20 @@ textarea.form-control-lg {
   margin-bottom: 10px;
 }
 
+.yes {
+  height: 86vh;
+}
+
+.no {
+  height: 86vh;
+}
+
+.header {
+  height: 7vh;
+}
+
+.footer {
+  height: 7vh;
+}
+
 /*# sourceMappingURL=style.css.map */
