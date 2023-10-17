@@ -3,30 +3,30 @@
     <span class="sr-only"></span>
   </div>
   <div class="card" *ngIf="!loading">
-    <form class="card-body needs-validation">
+    <form class="card-body needs-validation" novalidate>
         <h3 class="card-title">
           Log In To Your Account
         </h3>
         <div class="form-group">
-            <label>Case ID</label>
+            <label for="caseID" class="form-label">Case ID</label>
             <input class="form-control" id="caseID" name="caseID" required placeholder="Enter Case ID" [(ngModel)]="user.caseID" #caseID="ngModel">
-            <div *ngIf="caseID.invalid && (caseID.dirty || caseID.touched)">
-				<div *ngIf="notAUser" class="alert alert-danger">
-						There is no account with this Case ID.
-				</div>
-				<div *ngIf="caseID.errors?.['required'] && !notAUser" class="alert alert-danger">
-						Name is required.
-				</div>
+            <div class="invalid-feedback">
+              <div *ngIf="notAUser">
+                  There is no account with this Case ID.
+              </div>
+              <div *ngIf="!notAUser">
+                  Name is required.
+              </div>
             </div>
         </div>
         <div class="form-group">
-            <label>Password</label>
+            <label for="password" class="form-label">Password</label>
             <input class="form-control" id="password" name="password" required placeholder="Enter Password" [(ngModel)]="user.password" #password="ngModel" type="password">
-            <div *ngIf="password.invalid && (password.dirty || password.touched)">
-              <div *ngIf="wrongPassword" class="alert alert-danger">
+            <div class="invalid-feedback">
+              <div *ngIf="wrongPassword">
                 Incorrect Password.
               </div>
-              <div *ngIf="password.errors?.['required'] && !wrongPassword" class="alert alert-danger">
+              <div *ngIf="!wrongPassword">
                 Please enter your password.
               </div>
             </div>

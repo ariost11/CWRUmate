@@ -42,5 +42,22 @@ export class SignUpComponent {
         this.networkError = true;
       });
     }
+
+    // FOLLOWING CODE IS FROM https://getbootstrap.com/docs/5.0/forms/validation/
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach( (form) => {
+        form.addEventListener('submit',  (event: { preventDefault: () => void; stopPropagation: () => void; }) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
   }
 }

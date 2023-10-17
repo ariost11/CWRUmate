@@ -1,10 +1,9 @@
 <div class="d-flex align-items-center justify-content-center">
     <div class="card">
         <div class="card-body">
-            <!-- ADD BACK FORM BUT ITS NOT LETTING NEXT BUTTON WORK @JD -->
-            <h1 class="card-title">Question {{questionIndex + 1}}</h1>
+            <h3 class="card-title">Question {{questionIndex + 1}}</h3>
             <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7">(seperate majors with commas).</p>
-            <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4">
+            <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4 || questionIndex == 9 || questionIndex === 13 || questionIndex === 14 || questionIndex === 15 || questionIndex === 17">
                 <input class="form-control" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
                 
             </div>
@@ -32,7 +31,7 @@
             </div>
             <div *ngIf="questionIndex === 6">
                 <div class="form-check" *ngFor="let gender of genderOptions">
-                    <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateGenderPrefs()">
+                    <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateCheckbox()">
                     <label class="form-check-label">
                         {{gender}}
                     </label>
@@ -44,8 +43,65 @@
                     <option *ngFor="let major of majors" [value]="major">
                 </datalist>
             </div>
+            <div class="form-group" *ngIf="questionIndex === 8">
+                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[questionIndex]">
+                <datalist id="datalistOptions">
+                    <option *ngFor="let club of clubs" [value]="club">
+                </datalist>
+            </div>
+            <div *ngIf="questionIndex === 10">
+                <div class="form-check" *ngFor="let options of lookingForOptions">
+                    <input class="form-check-input" type="checkbox" [value]="options" (change)="updateCheckbox()">
+                    <label class="form-check-label">
+                        {{options}}
+                    </label>
+                </div>
+            </div>
+            <div *ngIf="questionIndex === 11"> 
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="democrat">
+                    <i class="fa-solid fa-democrat"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="republican">
+                    <i class="fa-solid fa-republican"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="trash">
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="bath">
+                    <i class="fa-solid fa-bath"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="fish">
+                    <i class="fa-solid fa-fish"></i>
+                </div>
+            </div>
+            <div *ngIf="questionIndex === 12"> 
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="android">
+                    <i class="fa-brands fa-android"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="apple">
+                    <i class="fa-brands fa-apple"></i>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" value="phone">
+                    <i class="fa-solid fa-phone-flip"></i>
+                </div>
+            </div>
+            <select class="form-select" aria-label="Select a food option" *ngIf="questionIndex === 16" [(ngModel)]="answers[questionIndex]">
+                <option *ngFor="let option of tinkFoods" [value]="option">{{option}}</option>
+            </select>
+            <select class="form-select" aria-label="Select a season" *ngIf="questionIndex === 18" [(ngModel)]="answers[questionIndex]">
+                <option *ngFor="let option of seasons" [value]="option">{{option}}</option>
+            </select>
             <div>
-                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="!answers[questionIndex]">Next</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="false && !answers[questionIndex]">Next</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex === questions.length - 1" (click)="setProfile()" [disabled]="!answers[questionIndex]">Create Profile!</button>
             </div>
         </div>
     </div>
