@@ -100,7 +100,7 @@
                 <option *ngFor="let option of seasons" [value]="option">{{option}}</option>
             </select>
             <div>
-                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="false && !answers[questionIndex]">Next</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="!answers[questionIndex]">Next</button>
                 <button class="btn btn-outline-primary" *ngIf="questionIndex === questions.length - 1" (click)="setProfile()" [disabled]="!answers[questionIndex]">Create Profile!</button>
             </div>
         </div>

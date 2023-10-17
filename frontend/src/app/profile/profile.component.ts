@@ -1,5 +1,6 @@
 import { Component, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProfileService } from './profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,11 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-    constructor(private router: Router) {
+    constructor(private profileService: ProfileService,
+				private router: Router) {
         this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
     }
 
-
+	invalidSession = false;
     majors = ["Ancient Near / East Egyptian Studies",
 		"Anthropology",
 		"Art Education",
@@ -979,7 +981,7 @@ export class ProfileComponent {
 	];
     questionIndex = 0;
     questions = [
-		'What is your name?', 
+		'What is your name?',
 		'Please upload a few photos of yourself!',
 		'When is your birthday?',
 		'What year are you?',
@@ -1036,6 +1038,14 @@ export class ProfileComponent {
 
 	setProfile() {
 		//setup API call
-		this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
+		console.log(this.answers);
+		this.profileService.setProfile(this.caseID, this.answers).subscribe(resp => {
+			console.log(resp);
+			if(resp.resp === 'SUCCESS') {
+				this.invalidSession = false;
+				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
+			} else 
+				this.invalidSession = true;
+		}, err => this.invalidSession = true);
 	}
 }
