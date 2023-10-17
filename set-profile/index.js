@@ -10,15 +10,29 @@ const config = {
 
 module.exports = async function (context, req) {
 
-    let encryptedPassword = encryptText(req.query.password);
-
     let newProfile = {
         caseID: req.query.caseID,
+        name: req.query.name,
+        photo: req.query.photo,
+        birthday: req.query.birthday,
+        year: req.query.year,
         gender_identity: req.query.gender_identity,
         gender_preferences: req.query.gender_preferences,
+        majors: req.query.majors,
+        clubs: req.query.clubs,
+        ideal_date: req.query.ideal_date,
+        looking_for: req.query.looking_for,
+        political_leaning: req.query.political_leaning,
+        apple_android: req.query.apple_android,
+        religion: req.query.religion,
+        mothers_maiden_name: req.query.mothers_maiden_name,
+        passphrase: req.query.passphrase,
+        tink: req.query.tink,
+        study_spot: req.query.study_spot,
+        season: req.query.season,
       }
 
-    let status = await createProfile(newUser);
+    let status = await createProfile(newProfile);
 
     let response = {
         resp : status
