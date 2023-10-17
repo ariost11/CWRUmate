@@ -1,9 +1,5 @@
 <div class="d-flex align-items-center justify-content-center">
-    <div class="card border-0 align-items-center justify-content-center" *ngIf="!profileSetup">
-        <div>Your profile is not yet set up! You cannot view others until you set up your profile.</div>
-        <button class="btn btn-primary" (click)="toProfile()">Set Up My Profile!</button>
-    </div>
-    <div class="card mb-3" *ngIf="profileSetup" style="max-width: 70vh; max-height: 85vh">
+    <div class="card mb-3" style="max-width: 70vh; max-height: 85vh">
         <div class="row">
             <div class="col-sm-4">
                 <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start"/>

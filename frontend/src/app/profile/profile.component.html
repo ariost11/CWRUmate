@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Question {{questionIndex + 1}}</h3>
-            <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7">(seperate majors with commas).</p>
+            <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7 || questionIndex === 8"><i>Seperate entries with commas.</i></p>
             <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4 || questionIndex == 9 || questionIndex === 13 || questionIndex === 14 || questionIndex === 15 || questionIndex === 17">
                 <input class="form-control" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
                 

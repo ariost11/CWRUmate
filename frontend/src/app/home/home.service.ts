@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-var url = `https://cwrumate.azurewebsites.net/api/get-profile`
+var url = `https://cwrumate.azurewebsites.net/api/get-potential-matches`
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ var url = `https://cwrumate.azurewebsites.net/api/get-profile`
 export class HomeService {
   constructor(private http: HttpClient) { }
 
-  getProfile(caseID: string): Observable<any>{
+  getProfiles(caseID: string): Observable<any>{
     return this.http.get(url, 
       {
         params: {

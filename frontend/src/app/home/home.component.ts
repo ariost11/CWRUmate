@@ -14,13 +14,14 @@ export class HomeComponent implements OnInit {
 				}
 
 	caseID = '';
-	profileSetup = true;
 	invalidSession = false;
 
 	ngOnInit() {
 		if(this.caseID) {
-			this.homeService.getProfile(this.caseID).subscribe(profile => {
-				console.log('profile: ', profile);
+			this.homeService.getProfiles(this.caseID).subscribe(profiles => {
+				if(profiles.resp === 'PROFILE NOT SET')
+					this.toProfile();
+
 				//TODO: configure profileSetup variable with API!
 			}, err => this.invalidSession = true);
 		} else
