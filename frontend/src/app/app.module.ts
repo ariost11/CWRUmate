@@ -6,6 +6,7 @@ import { SignUpModule } from './sign-up/sign-up.module';
 import { LoginModule } from './login/login.module';
 import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
+import { MessagesModule } from './messages/messages.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ProfileModule } from './profile/profile.module';
     LoginModule,
     HomeModule,
     ProfileModule,
+    MessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
