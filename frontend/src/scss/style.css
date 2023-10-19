@@ -11854,6 +11854,10 @@ textarea.form-control-lg {
   color: #fff;
 }
 
+.btn-outline-info:hover {
+  color: #fff;
+}
+
 .btn {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -11873,6 +11877,12 @@ textarea.form-control-lg {
 
 .footer {
   height: 7vh;
+}
+
+.profile {
+  overflow: auto;
+  max-height: 70vh;
+  margin: 2px;
 }
 
 /*# sourceMappingURL=style.css.map */

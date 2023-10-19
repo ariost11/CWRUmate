@@ -9,27 +9,43 @@
 </div>
 
 <div *ngIf="profiles[0] && !noMatches" class="d-flex align-items-center justify-content-center">
-    <button id="no" (click)="decline()" class="col-sm-3 no btn btn-outline-danger"> 
+    <button id="no" (click)="decline()" class="col-md-3 no btn btn-outline-danger"> 
         <i class="fa-solid fa-face-meh fa-2xl"></i>
     </button>
-    <div class="col-sm-6 card mb-3">
+    <div class="col-md-6 card mb-3">
         <div class="row">
             <div class="col-sm-4">
-                <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start"/>
+                <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start" style="max-height: 72vh;"/>
             </div>
-            <div class="col-sm-8">
-                <div class="card-body" data-bs-spy="scroll">
-                    <h3>{{profiles[profiles_index].name}}</h3>
-                    <!-- <h3 class="card-title">*First Name Here*</h3>
-                    <h5>Major</h5>
-                    <div>Comp Sci <i class="fa-solid fa-computer"></i></div>
-                    <h5>Bio</h5>
-                    <div>THIS IS ABOUT ME, I LIKE THESE THINGS... <i class="fa-solid fa-computer"></i></div> -->
+            <div class="col-sm-8" style="max-height: 72vh;">
+                <div class="card-body row profile">
+                    <h3 class="card-title">{{profiles[profiles_index].name}} {{age(profiles[profiles_index].birthday)}}  <i [class]="phone_pref(profiles[profiles_index].apple_android)"></i> <i [class]="political_pref(profiles[profiles_index].political_leaning)"></i> {{profiles[profiles_index].season}}</h3>
+                    <p>{{profiles[profiles_index].year}} {{profiles[profiles_index].gender_identity}}</p>
+                    <div class="col-sm-6">
+                        <h5>Major</h5>
+                        <div>{{majorString(profiles[profiles_index].majors)}} </div>
+                        <h5>Bio</h5>
+                        <div>{{profiles[profiles_index].bio}}</div>
+                        <h5>Clubs</h5>
+                        <div>{{majorString(profiles[profiles_index].clubs)}}</div>
+                        <h5>Religion</h5>
+                        <div>{{profiles[profiles_index].religion}}</div>
+                        <h5></h5>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Ideal Date</h5>
+                        <div>{{profiles[profiles_index].ideal_date}}</div>
+                        <h5>Looking For</h5>
+                        <div>{{majorString(profiles[profiles_index].looking_for)}}</div>
+                        <h5>Favorite Tinkham Meal & Study Spot</h5>
+                        <div>{{profiles[profiles_index].tink}} & {{profiles[profiles_index].study_spot}}</div>
+                        <h5></h5>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <button id="yes" (click)="accept()" class="col-sm-3 yes btn btn-outline-info">
+    <button id="yes" (click)="accept()" class="col-md-3 yes btn btn-outline-info">
         <i class="fa-solid fa-face-smile fa-2xl"></i>
     </button>
 </div>

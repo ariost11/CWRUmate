@@ -20,12 +20,45 @@ export class HomeComponent implements OnInit {
 	profiles: any[] = [];
 	profiles_index = 0;
 
+	apple_map: {[key: string]: string} = {"apple": "fa-brands fa-apple", "android": "fa-brands fa-android", "phone": "fa-solid fa-phone-flip"}
+	political_map: {[key: string]: string} = {"democrat": "fa-solid fa-democrat", "republican": "fa-solid fa-republican", "trash": "fa-solid fa-trash", "bath": "fa-solid fa-bath", "fish": "fa-solid fa-fish"}
+
 	accept() {
 		this.profiles_index++;
+		if (this.profiles_index >= this.profiles.length){
+			this.noMatches = true;
+		}
 	}
 
 	decline() {
 		this.profiles_index++;
+		if (this.profiles_index >= this.profiles.length){
+			this.noMatches = true;
+		}
+	}
+
+	majorString(str:string[]){
+		var final = "";
+		str.forEach((major, i) => {
+			final += major;
+			if (i < str.length - 1)
+				final += ", "
+		});
+		return final;
+	}
+
+	age(str: string){
+		var birthday = new Date(str);
+		var diff = Math.abs(Date.now() - birthday.getTime())
+		return Math.floor(diff / (1000 * 3600 * 24)/365.25)
+	}
+
+	phone_pref(str:string){
+		return this.apple_map[str];
+	}
+
+	political_pref(str: string){
+		return this.political_map[str];
 	}
 
 	ngOnInit() {

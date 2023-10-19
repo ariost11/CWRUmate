@@ -10,6 +10,7 @@ $secondary: #adb5bd;
 $body-bg: #F9F9F9;
 
 
+
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
 
@@ -62,6 +63,11 @@ $body-bg: #F9F9F9;
 .btn-primary {
     color: #fff; 
 }
+
+.btn-outline-info:hover{
+    color: #fff
+}
+
 .btn {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -81,4 +87,10 @@ $body-bg: #F9F9F9;
 
 .footer {
     height: 7vh;
+}
+
+.profile {
+    overflow: auto;
+    max-height: 70vh;
+    margin: 2px;
 }
