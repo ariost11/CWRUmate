@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
 	caseID = '';
 	invalidSession = false;
+	noMatches = false;
 
 	profiles: any[] = [];
 	profiles_index = 0;
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit {
 			
 				console.log(profiles)
 				this.profiles = profiles.resp;
+				if(this.profiles.length === 0)
+					this.noMatches = true;
 			}, err => this.invalidSession = true);
 		} else
 			this.invalidSession = true;

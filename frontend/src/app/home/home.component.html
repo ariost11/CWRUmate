@@ -1,8 +1,14 @@
-<div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="!profiles[0]">
+<div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="!profiles[0] && !noMatches">
     <span class="sr-only"></span>
 </div>
 
-<div *ngIf="profiles[0]" class="d-flex align-items-center justify-content-center">
+<div class="card">
+    <div class="card-body">
+        You have seen all compatible CWRUmates, please come back later to see if there are more.
+    </div>
+</div>
+
+<div *ngIf="profiles[0] && !noMatches" class="d-flex align-items-center justify-content-center">
     <button id="no" (click)="decline()" class="col-sm-3 no btn btn-outline-danger"> 
         <i class="fa-solid fa-face-meh fa-2xl"></i>
     </button>
