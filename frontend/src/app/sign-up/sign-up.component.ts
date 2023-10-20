@@ -29,7 +29,7 @@ export class SignUpComponent {
       this.signUpService.addUser(this.user.caseID, this.user.password).subscribe(data => {
         switch(data.resp) {
           case 'SUCCESS':
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home'], { state: {caseID: this.user.caseID} });
             break;
           case 'FAIL':
             this.userTaken = true;
