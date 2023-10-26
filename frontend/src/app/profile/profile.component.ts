@@ -1003,7 +1003,7 @@ export class ProfileComponent {
     ];
     answers: any[] = [];
     caseID = '';
-	url: [string | ArrayBuffer | null] = [''];
+	pictures: [string] = [''];
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
@@ -1018,12 +1018,14 @@ export class ProfileComponent {
 		for(let file of files) {
 			reader.readAsDataURL(file); 
 			reader.onload = (_event) => { 
-				this.url.push(reader.result); 
+				this.pictures.push(String(reader.result).split(',')[1]);
 			}
 		}
 
-		if(this.url[0] === '')
-			this.url.shift();
+		if(this.pictures[0] === '')
+			this.pictures.shift();
+
+		this.answers[this.questionIndex] = this.pictures;
 	}
 
 	updateCheckbox() {
