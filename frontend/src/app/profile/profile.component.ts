@@ -1011,15 +1011,17 @@ export class ProfileComponent {
 
 	onFilesSelected(event: any) {
 		const file = event.target.files[0];
+		this.answers[this.questionIndex] = file;
 		// if (files.length === 0)
 		// 	return;
 
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = (_event) => {
-			this.picture = String(reader.result).split(',')[1];
-			this.answers[this.questionIndex] = this.picture;
-		}
+		// code for single file
+		// const reader = new FileReader();
+		// reader.readAsDataURL(file);
+		// reader.onload = (_event) => {
+		// 	this.picture = String(reader.result).split(',')[1];
+		// 	this.answers[this.questionIndex] = this.picture;
+		// }
 
 		// for(let file of files) {
 		// 	reader.readAsDataURL(file); 

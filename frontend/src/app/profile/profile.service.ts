@@ -12,7 +12,7 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   setProfile(caseID: string, answers: any[]): Observable<any>{
-    return this.http.get(url, 
+    return this.http.post(url, 
     	{
 			params: {
 				caseID: caseID,
