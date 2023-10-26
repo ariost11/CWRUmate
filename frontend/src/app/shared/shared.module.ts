@@ -6,10 +6,13 @@ import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ModalComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +28,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    ModalComponent,
   ]
 })
 export class SharedModule { }
