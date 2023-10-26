@@ -8,7 +8,7 @@
                 
             </div>
             <div class="form-group" *ngIf="questionIndex === 1">
-                <input type="file" class="form-control" id="customFile" multiple [(ngModel)]="answers[questionIndex]" (change)="onFilesSelected($event)"/>
+                <input type="file" class="form-control" id="customFile" multiple (change)="onFilesSelected($event)"/>
             </div>
             <div class="form-group date" data-provide="datepicker" *ngIf="questionIndex === 2">
                 <label>Birthday</label>
