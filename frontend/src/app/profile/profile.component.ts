@@ -982,7 +982,7 @@ export class ProfileComponent {
     questionIndex = 0;
     questions = [
 		'What is your name?',
-		'Please upload a few photos of yourself!',
+		'Please upload a photo of yourself! (Portrait Aspect Ratio Recommended 9:16)',
 		'When is your birthday?',
 		'What year are you?',
 		'Please create your bio!',
