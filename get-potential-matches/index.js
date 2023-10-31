@@ -44,7 +44,38 @@ async function getPotentialMatches(context, caseID) {
 
     const userA = userProfile[0];
 
+    // Get potential matches
+    const queryGetMatches = {
+        query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
+    };
+
+    const { resources: matches } = await profilesContainer.items.query(queryGetMatches).fetchAll();
+
     // Get list of users that have already been swiped on 
+    const seenProfilesA = await getSeenProfiles(profilesSeenContainer, userA);
+
+    // List of users that have NOT been swiped on yet
+    const filteredUsers = [];
+
+    for (let i = 0; i < matches.length; i++) {
+        const userB = matches[i];
+        const seenProfilesB = await getSeenProfiles(profilesSeenContainer, userB);
+
+        if (seenProfilesA.includes(userB.caseID)) continue; 
+        if (seenProfilesB.includes(userA.caseID)) continue;
+        
+        if (userA.gender_preferences.includes(userB.gender_identity) &&
+        userB.gender_preferences.includes(userA.gender_identity)) {
+            filteredUsers.push(userB);
+        }
+    }
+
+    return filteredUsers;
+}
+
+async function getSeenProfiles(profilesSeenContainer, user) {
+    let caseID = user.caseID;
+
     const queryGetUserProfilesSeen = {
         query: `SELECT * from c WHERE c.caseID = "${caseID}"`
     }
@@ -57,17 +88,5 @@ async function getPotentialMatches(context, caseID) {
         seenProfiles = [...userFromProfilesSeen[0].yes, ...userFromProfilesSeen[0].no];
     }
 
-    // Get potential matches
-    const queryGetMatches = {
-        query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
-    };
-
-    const { resources: matches } = await profilesContainer.items.query(queryGetMatches).fetchAll();
-
-    // List of users that have NOT been swiped on yet
-    const filteredUsers = matches.filter(userB => !seenProfiles.includes(userB.caseID) && 
-                                                    userA.gender_preferences.includes(userB.gender_identity) && 
-                                                    userB.gender_preferences.includes(userA.gender_identity));
-
-    return filteredUsers;
+    return seenProfiles;
 }
