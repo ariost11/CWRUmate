@@ -47,7 +47,7 @@ async function addSwipeResult(swipe) {
 
     if (users.length == 0){
         item = {
-            caseID: userA,
+            caseID: swipe.userA,
             yes: [],
             no: []
         }
@@ -72,7 +72,7 @@ function addToSwipeList(item, swipe) {
     } else if (swipe.result === "NO") {
         item.no.push(swipe.userB);
         return true;
-        
+
     } else {
         return false;
     }
