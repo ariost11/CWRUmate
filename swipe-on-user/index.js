@@ -55,7 +55,9 @@ async function addSwipeResult(swipe) {
         item = users[0];
     }
 
-    addToSwipeList(item, swipe);
+    if (!addToSwipeList(item, swipe)) {
+        return "ERROR";
+    }
 
     const { resource: updatedItem } = await container.items.upsert(item);
 
@@ -65,7 +67,13 @@ async function addSwipeResult(swipe) {
 function addToSwipeList(item, swipe) {
     if (swipe.result === "YES") {
         item.yes.push(swipe.userB);
-    } else {
+        return true;
+
+    } else if (swipe.result === "NO") {
         item.no.push(swipe.userB);
+        return true;
+        
+    } else {
+        return false;
     }
 }
