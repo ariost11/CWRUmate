@@ -9,16 +9,16 @@
 </div>
 
 <div *ngIf="profiles[0] && !noMatches" class="d-flex align-items-center justify-content-center">
-    <button id="no" (click)="decline()" class="col-md-3 no btn btn-outline-danger"> 
+    <button id="no" (click)="decline()" class="col-sm-3 no btn btn-outline-danger"> 
         <i class="fa-solid fa-face-meh fa-2xl"></i>
     </button>
-    <div class="col-md-6 card mb-3">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="../../assets/cute-dog.jpg" class="img-fluid rounded-start" style="max-height: 72vh;"/>
+    <div class="col-sm-6 card mb-3 profile-card">
+        <div class="row g-0">
+            <div class="col-lg-5 picture-box">
+                <img (src)="profiles[profiles_index].photo" class="rounded-start picture"/>
             </div>
-            <div class="col-sm-8" style="max-height: 72vh;">
-                <div class="card-body row profile">
+            <div class="col-lg-7">
+                <div class="card-body row profile-text">
                     <h3 class="card-title">{{profiles[profiles_index].name}} {{age(profiles[profiles_index].birthday)}}  <i [class]="phone_pref(profiles[profiles_index].apple_android)"></i> <i [class]="political_pref(profiles[profiles_index].political_leaning)"></i> {{profiles[profiles_index].season}}</h3>
                     <p>{{profiles[profiles_index].year}} {{profiles[profiles_index].gender_identity}}</p>
                     <div class="col-sm-6">
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <button id="yes" (click)="accept()" class="col-md-3 yes btn btn-outline-info">
+    <button id="yes" (click)="accept()" class="col-sm-3 yes btn btn-outline-info">
         <i class="fa-solid fa-face-smile fa-2xl"></i>
     </button>
 </div>

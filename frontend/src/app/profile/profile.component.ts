@@ -982,7 +982,7 @@ export class ProfileComponent {
     questionIndex = 0;
     questions = [
 		'What is your name?',
-		'Please upload a few photos of yourself!',
+		'Please upload a photo of yourself! (Portrait Aspect Ratio Recommended 9:16)',
 		'When is your birthday?',
 		'What year are you?',
 		'Please create your bio!',
@@ -1003,29 +1003,35 @@ export class ProfileComponent {
     ];
     answers: any[] = [];
     caseID = '';
-	pictures: [string] = [''];
+	picture: string = '';
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
 	seasons = ['Autumn', 'Winter', 'Spring', 'Summer'];
 
 	onFilesSelected(event: any) {
-		const files = event.target.files;
-		if (files.length === 0)
-			return;
+		const file = event.target.files[0];
+		this.answers[this.questionIndex] = file;
+		// if (files.length === 0)
+		// 	return;
 
-		const reader = new FileReader();
-		for(let file of files) {
-			reader.readAsDataURL(file); 
-			reader.onload = (_event) => { 
-				this.pictures.push(String(reader.result).split(',')[1]);
-			}
-		}
+		// code for single file
+		// const reader = new FileReader();
+		// reader.readAsDataURL(file);
+		// reader.onload = (_event) => {
+		// 	this.picture = String(reader.result).split(',')[1];
+		// 	this.answers[this.questionIndex] = this.picture;
+		// }
 
-		if(this.pictures[0] === '')
-			this.pictures.shift();
+		// for(let file of files) {
+		// 	reader.readAsDataURL(file); 
+		// 	reader.onload = (_event) => { 
+		// 		this.pictures.push(String(reader.result).split(',')[1]);
+		// 	}
+		// }
 
-		this.answers[this.questionIndex] = this.pictures;
+		// if(this.pictures[0] === '')
+		// 	this.pictures.shift();
 	}
 
 	updateCheckbox() {
