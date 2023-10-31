@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
 	caseID = '';
 	invalidSession = false;
 	noMatches = false;
+	swipeFailed = false;
+	loading = false;
 
 	profiles: any[] = [];
 	profiles_index = 0;
@@ -24,17 +26,41 @@ export class HomeComponent implements OnInit {
 	political_map: {[key: string]: string} = {"democrat": "fa-solid fa-democrat", "republican": "fa-solid fa-republican", "trash": "fa-solid fa-trash", "bath": "fa-solid fa-bath", "fish": "fa-solid fa-fish"}
 
 	accept() {
-		this.profiles_index++;
-		if (this.profiles_index >= this.profiles.length){
-			this.noMatches = true;
-		}
+		this.loading = true;
+		this.homeService.swipe(this.caseID, this.profiles[this.profiles_index].caseID, 'YES').subscribe(result => {
+			this.swipeFailed = false;
+			if(result.resp === 'ERROR')
+				this.swipeFailed = true;
+		}, err => {
+			this.swipeFailed = true;
+		}, () => {
+			if(!this.swipeFailed) {
+				this.profiles_index++;
+				if (this.profiles_index >= this.profiles.length){
+					this.noMatches = true;
+				}
+			}
+			this.loading = false;
+		});
 	}
 
 	decline() {
-		this.profiles_index++;
-		if (this.profiles_index >= this.profiles.length){
-			this.noMatches = true;
-		}
+		this.loading = true;
+		this.homeService.swipe(this.caseID, this.profiles[this.profiles_index].caseID, 'NO').subscribe(result => {
+			this.swipeFailed = false;
+			if(result.resp === 'ERROR')
+				this.swipeFailed = true;
+		}, err => {
+			this.swipeFailed = true;
+		}, () => {
+			if(!this.swipeFailed) {
+				this.profiles_index++;
+				if (this.profiles_index >= this.profiles.length){
+					this.noMatches = true;
+				}
+			}
+			this.loading = false;
+		});
 	}
 
 	majorString(str:string[]){
