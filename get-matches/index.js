@@ -9,14 +9,9 @@ const config = {
 };
 
 module.exports = async function (context, req) {
-    // userA and userB are caseIDs
-    let swipe = {
-        userA: req.query.userA,
-        userB: req.query.userB,
-        result: req.query.result
-    }
+    let caseID = req.query.caseID;
 
-    let status = await addSwipeResult(swipe);
+    let status = await getMatches(caseID);
 
     let response = {
         resp : status
@@ -31,49 +26,26 @@ module.exports = async function (context, req) {
     };
 }
 
-async function addSwipeResult(swipe) {
+async function getMatches(caseID) {
     const { endpoint, key, databaseId, containerId } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
     const container = database.container(containerId);
 
     const querySpec = {
-        query: `SELECT * from c WHERE c.caseID = "${swipe.userA}"`
+        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
     };
 
     const { resources: users } = await container.items.query(querySpec).fetchAll();
 
     let item;
 
-    if (users.length == 0){
-        item = {
-            caseID: swipe.userA,
-            yes: [],
-            no: []
-        }
-    } else {
-        item = users[0];
+    if (users.length == 0) {
+        return "ERROR"
     }
 
-    if (!addToSwipeList(item, swipe)) {
-        return "ERROR";
-    }
 
     const { resource: updatedItem } = await container.items.upsert(item);
 
     return "SUCCESS";
-}
-
-function addToSwipeList(item, swipe) {
-    if (swipe.result === "YES") {
-        item.yes.push(swipe.userB);
-        return true;
-
-    } else if (swipe.result === "NO") {
-        item.no.push(swipe.userB);
-        return true;
-
-    } else {
-        return false;
-    }
 }

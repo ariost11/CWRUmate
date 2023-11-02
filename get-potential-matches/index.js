@@ -5,12 +5,13 @@ const config = {
     key: process.env.COSMOS_KEY,
     databaseId: "cwru-mate",
     containerId: "profiles",
+    containerId2: "profiles-seen",
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
 };
 
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
-    let users = await getPotentialMatches(caseID);
+    let users = await getPotentialMatches(context, caseID);
     let response = {
         resp : users
     }
@@ -23,37 +24,70 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getPotentialMatches(caseID) {
-    const { endpoint, key, databaseId, containerId } = config;
+async function getPotentialMatches(context, caseID) {
+    const { endpoint, key, databaseId, containerId, containerId2 } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
-    const container = database.container(containerId);
+    const profilesContainer = database.container(containerId);
+    const profilesSeenContainer  = database.container(containerId2)
 
-    const queryGetUser = {
+    // Get the current user from the profiles database
+    const queryGetUserProfile = {
         query: `SELECT * from c WHERE c.caseID = "${caseID}"`
     };
 
-    const { resources: user } = await container.items
-        .query(queryGetUser)
-        .fetchAll();
+    const { resources: userProfile } = await profilesContainer.items.query(queryGetUserProfile).fetchAll();
 
+    if (userProfile.length == 0) {
+        return "PROFILE NOT SET";
+    }
+
+    const userA = userProfile[0];
+
+    // Get potential matches
     const queryGetMatches = {
         query: `SELECT * from c WHERE c.caseID <> "${caseID}"`
     };
 
-    const { resources: matches } = await container.items
-        .query(queryGetMatches)
-        .fetchAll();
+    const { resources: matches } = await profilesContainer.items.query(queryGetMatches).fetchAll();
 
-    if (user.length == 0) {
-        return "PROFILE NOT SET";
+    // Get list of users that have already been swiped on 
+    const seenProfilesA = await getSeenProfiles(userA, profilesSeenContainer);
+    const yesListA = seenProfilesA[0];
+    const noListA = seenProfilesA[1];
+
+    // List of users that have NOT been swiped on yet
+    const filteredUsers = [];
+
+    for (let i = 0; i < matches.length; i++) {
+        const userB = matches[i];
+        const seenProfilesB = await getSeenProfiles(userB, profilesSeenContainer);
+        const noListB = seenProfilesB[1];
+
+        if (yesListA.includes(userB.caseID) || noListA.includes(userB.caseID)) continue; 
+        if (noListB.includes(userA.caseID)) continue;
+        
+        if (userA.gender_preferences.includes(userB.gender_identity) &&
+            userB.gender_preferences.includes(userA.gender_identity)) {
+            filteredUsers.push(userB);
+        }
     }
 
-    const userA = user[0];
-
-
-    const filteredUsers = matches.filter(userB => userA.gender_preferences.includes(userB.gender_identity) && 
-                                                  userB.gender_preferences.includes(userA.gender_identity));
-
     return filteredUsers;
+}
+
+async function getSeenProfiles(user, profilesSeenContainer) {
+    let caseID = user.caseID;
+
+    const queryGetUserProfilesSeen = {
+        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
+    }
+
+    const { resources: userFromProfilesSeen } = await profilesSeenContainer.items.query(queryGetUserProfilesSeen).fetchAll();
+
+    if (userFromProfilesSeen.length == 0) {
+        return [[], []];
+    }
+
+    return [userFromProfilesSeen[0].yes, userFromProfilesSeen[0].no]
 }

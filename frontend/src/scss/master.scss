@@ -110,8 +110,13 @@ $body-bg: #F9F9F9;
     object-fit: cover;
 }
 
+.container {
+    width: 100%;
+}
+
 .profile-card {
     height: 72vh;
+    width: 100%;
 }
 
 .matches{
