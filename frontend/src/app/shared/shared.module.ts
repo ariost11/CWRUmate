@@ -8,10 +8,9 @@ import { HttpClientModule } from  '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 
-
 @NgModule({
   declarations: [
-    ModalComponent
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

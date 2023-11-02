@@ -1,15 +1,18 @@
 <div class="d-flex justify-content-center align-items-center">
     <nav class="fixed-top navbar navbar-dark bg-primary header">
-        <a class="navbar-brand" href="#">
-            <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
-            CWRUmate
-        </a>
-        <!-- <a class="navbar-brand" [routerLink]="['/home']">
-            Swipe!
-        </a>
-        <a class="navbar-brand" [routerLink]="['/messages']">
-            Messages
-        </a> -->
+        <div>
+            <a class="navbar-brand">
+                CWRUmate
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeHome()' [routerLink]="['/home']">
+                Swipe!
+            </button>
+            <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeMessages()' [routerLink]="['/messages']">
+                Messages
+            </button>
+        </div>
     </nav>
     <router-outlet style="height: 100vh;"></router-outlet>
     <footer class="fixed-bottom bg-dark text-center text-lg-start footer">

@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
+import { UserLoginStatusService } from '../shared/user-login-status.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService,
+              private userLoginStatusService: UserLoginStatusService,
               private router: Router) {}
 
   user = {
@@ -24,6 +26,12 @@ export class LoginComponent {
 
   loading = false;
 
+  ngOnInit() {
+    this.userLoginStatusService.updateLoggedInStatus(false);
+    this.userLoginStatusService.updateCaseID('');
+    this.router.navigate(['/login']);
+  }
+
   signIn() {
     this.user.caseIDError = !this.user.caseID;
     this.user.passwordError = !this.user.password;
@@ -32,6 +40,8 @@ export class LoginComponent {
       this.loginService.login(this.user.caseID, this.user.password).subscribe(loginData => {
         switch(loginData.resp) {
           case 'SUCCESS':
+            this.userLoginStatusService.updateLoggedInStatus(true);
+            this.userLoginStatusService.updateCaseID(this.user.caseID);
             this.router.navigate(['/home'],  { state: {caseID: this.user.caseID} });
             break;
           case 'INCORRECT PASSWORD':

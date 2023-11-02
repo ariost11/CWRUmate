@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SignUpService } from './sign-up.service';
 import { Router } from '@angular/router';
+import { UserLoginStatusService } from '../shared/user-login-status.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   constructor(private signUpService: SignUpService,
+              private userLoginStatusService: UserLoginStatusService,
               private router: Router) {}
 
   user = {
@@ -20,6 +22,12 @@ export class SignUpComponent {
 
   networkError = false;
   userTaken = false;
+
+  ngOnInit() {
+    this.userLoginStatusService.updateLoggedInStatus(false);
+    this.userLoginStatusService.updateCaseID('');
+    this.router.navigate(['/sign-up']);
+  }
   
   submit() {
     this.user.cError = !this.user.caseID;
@@ -29,6 +37,8 @@ export class SignUpComponent {
       this.signUpService.addUser(this.user.caseID, this.user.password).subscribe(data => {
         switch(data.resp) {
           case 'SUCCESS':
+            this.userLoginStatusService.updateLoggedInStatus(true);
+            this.userLoginStatusService.updateCaseID(this.user.caseID);
             this.router.navigate(['/home'], { state: {caseID: this.user.caseID} });
             break;
           case 'FAIL':
