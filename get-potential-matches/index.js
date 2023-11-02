@@ -52,20 +52,23 @@ async function getPotentialMatches(context, caseID) {
     const { resources: matches } = await profilesContainer.items.query(queryGetMatches).fetchAll();
 
     // Get list of users that have already been swiped on 
-    const seenProfilesA = await getSeenProfiles(profilesSeenContainer, userA);
+    const seenProfilesA = await getSeenProfiles(userA, profilesSeenContainer);
+    const yesListA = seenProfilesA[0];
+    const noListA = seenProfilesA[1];
 
     // List of users that have NOT been swiped on yet
     const filteredUsers = [];
 
     for (let i = 0; i < matches.length; i++) {
         const userB = matches[i];
-        const seenProfilesB = await getSeenProfiles(profilesSeenContainer, userB);
+        const seenProfilesB = await getSeenProfiles(userB, profilesSeenContainer);
+        const noListB = seenProfilesB[1];
 
-        if (seenProfilesA.includes(userB.caseID)) continue; 
-        if (seenProfilesB.includes(userA.caseID)) continue;
+        if (yesListA.includes(userB.caseID) || noListA.includes(userB.caseID)) continue; 
+        if (noListB.includes(userA.caseID)) continue;
         
         if (userA.gender_preferences.includes(userB.gender_identity) &&
-        userB.gender_preferences.includes(userA.gender_identity)) {
+            userB.gender_preferences.includes(userA.gender_identity)) {
             filteredUsers.push(userB);
         }
     }
@@ -73,7 +76,7 @@ async function getPotentialMatches(context, caseID) {
     return filteredUsers;
 }
 
-async function getSeenProfiles(profilesSeenContainer, user) {
+async function getSeenProfiles(user, profilesSeenContainer) {
     let caseID = user.caseID;
 
     const queryGetUserProfilesSeen = {
@@ -82,11 +85,9 @@ async function getSeenProfiles(profilesSeenContainer, user) {
 
     const { resources: userFromProfilesSeen } = await profilesSeenContainer.items.query(queryGetUserProfilesSeen).fetchAll();
 
-    let seenProfiles = [];
-
-    if (userFromProfilesSeen.length != 0) {
-        seenProfiles = [...userFromProfilesSeen[0].yes, ...userFromProfilesSeen[0].no];
+    if (userFromProfilesSeen.length == 0) {
+        return [[], []];
     }
 
-    return seenProfiles;
+    return [userFromProfilesSeen[0].yes, userFromProfilesSeen[0].no]
 }
