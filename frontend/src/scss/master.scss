@@ -74,19 +74,19 @@ $body-bg: #F9F9F9;
 }
 
 .yes {
-    height: 86vh;
+    height: calc(100vh - 100px);
 }
 
 .no {
-    height: 86vh;
+    height: calc(100vh - 100px);
 }
 
 .header {
-    height: 7vh;
+    height: 50px;
 }
 
 .footer {
-    height: 7vh;
+    height: 50px;
 }
 
 .profile-text {
@@ -110,10 +110,6 @@ $body-bg: #F9F9F9;
     object-fit: cover;
 }
 
-.container {
-    width: 100%;
-}
-
 .profile-card {
     height: 72vh;
     width: 100%;
@@ -121,4 +117,23 @@ $body-bg: #F9F9F9;
 
 .matches{
     height: 86vh;
+}
+
+.holder{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: calc(100vh - 100px);
+}
+
+html {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+body {
+    overflow: hidden;
+    margin:0;
+    padding:0;
+    height:100%;
 }

@@ -1,14 +1,17 @@
-<div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="(!profiles[0] && !noMatches) || loading">
-    <span class="sr-only"></span>
-</div>
+<div class="row align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="(!profiles[0] && !noMatches) || loading">
+        <span class="sr-only"></span>
+    </div>
 
-<div class="card" *ngIf="noMatches">
-    <div class="card-body">
-        You have seen all compatible CWRUmates, please come back later to see if there are more.
+
+    <div class="card col-sm-6 d-flex align-items-center" *ngIf="noMatches">
+        <div class="card-body">
+            You have seen all compatible CWRUmates, please come back later to see if there are more.
+        </div>
     </div>
 </div>
 
-<div *ngIf="profiles[0] && !noMatches && !loading" class="row align-items-center justify-content-center">
+<div *ngIf="profiles[0] && !noMatches && !loading" class="d-flex align-items-center justify-content-center holder">
     <button id="no" (click)="decline()" class="col-lg-3 no btn btn-outline-danger"> 
         <i class="fa-solid fa-face-meh fa-2xl"></i>
     </button>
@@ -17,7 +20,7 @@
         <div class="card profile-card">
             <div class="row g-0">
                 <div class="col-lg-5 picture-box">
-                    <img (src)="profiles[profiles_index].photo" class="rounded-start picture"/>
+                    <img src="../../assets/cute-dog.jpg" class="rounded-start picture"/>
                 </div>
                 <div class="col-lg-7">
                     <div class="card-body row profile-text">

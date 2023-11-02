@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styles: [`
     :host {
       width: 100vw;
+	  height: 100vh;
     }`],
   styleUrls: ['./home.component.css']
 })
