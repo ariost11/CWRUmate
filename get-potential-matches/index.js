@@ -29,7 +29,7 @@ async function getPotentialMatches(context, caseID) {
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
     const profilesContainer = database.container(containerId);
-    const profilesSeenContainer  = database.container(containerId2)
+    const profilesSeenContainer  = database.container(containerId2);
 
     // Get the current user from the profiles database
     const queryGetUserProfile = {
