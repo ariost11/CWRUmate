@@ -1,4 +1,4 @@
 <div class="card messages">
-    <message-modal/>
+    <message-modal *ngFor="let match of matches" [name]="match.name" [lastMessage]="match.lastMessage" [from]="match.from" [picture]="match.picture"/>
 </div>
 

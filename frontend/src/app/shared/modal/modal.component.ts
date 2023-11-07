@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'message-modal',
@@ -6,7 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent {
-    name = 'Ari';
+
+	@Input() name = '';
+	@Input() lastMessage = '';
+	@Input() from = '';
+	@Input() picture: any;
 
 	display = 'none';
 
