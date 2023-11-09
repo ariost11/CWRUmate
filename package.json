@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@azure/cosmos": "^3.17.3",
+    "@azure/storage-blob": "^12.16.0",
     "crypto-js": "^4.1.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "parse-multipart": "^1.0.4"
   }
 }

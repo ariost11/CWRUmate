@@ -1,4 +1,6 @@
 const CosmosClient = require("@azure/cosmos").CosmosClient;
+const { BlobServiceClient } = require('@azure/storage-blob');
+var multipart = require('parse-multipart');
 
 const config = {
     endpoint: process.env.COSMOS_ENDPOINT,
@@ -8,12 +10,29 @@ const config = {
     partitionKey: { kind: "Hash", paths: ["/caseID"] }
 };
 
+const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
+
 module.exports = async function (context, req) {
+    const caseID = req.query.caseID
+
+    // upload image with caseID as image name
+    var bodyBuffer = Buffer.from(req.body)
+    var boundary = multipart.getBoundary(req.headers['content-type'])
+    var parts = multipart.Parse(bodyBuffer, boundary)
+    const blobServiceClient = await BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+    const container = "cwru-mate-images"
+    const containerClient = await blobServiceClient.getContainerClient(container)
+    const fileName = caseID + ".jpg"
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+    // Set the content type (MIME type) of the blob
+    const contentType = 'image/jpeg'; // Set the appropriate content type for your image
+    const options = { blobHTTPHeaders: { blobContentType: contentType } };
+    const uploadBlobResponse = await blockBlobClient.upload(parts[0].data, parts[0].data.length, options);
 
     let newProfile = {
-        caseID: req.query.caseID,
+        caseID: caseID,
         name: req.query.name,
-        photo: req.query.photo,
+        photo: "https://cwrumate72d1ab.blob.core.windows.net/cwru-mate-images/" + fileName,
         birthday: req.query.birthday,
         year: req.query.year,
         bio: req.query.bio,
@@ -34,10 +53,18 @@ module.exports = async function (context, req) {
       }
 
     let status = await createProfile(newProfile);
-
+    
     let response = {
         resp : status
     }
+
+    /* for debugging:
+    let response = {
+        name : parts[0].filename,
+        type : parts[0].type,
+        data : parts[0].data.length
+    }
+    */
 
     context.res = {
         // status: 200, /* Defaults to 200 */
@@ -73,3 +100,12 @@ async function createProfile(newUser) {
     }
 
 }
+
+async function uploadBlobFromBuffer(containerClient, blobName, buffer) {
+
+    // Create blob client from container client
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  
+    // Upload buffer
+    await blockBlobClient.uploadData(buffer);
+  }
