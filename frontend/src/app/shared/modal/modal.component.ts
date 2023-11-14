@@ -11,6 +11,7 @@ export class ModalComponent {
 	@Input() lastMessage = '';
 	@Input() from = '';
 	@Input() picture: any;
+	@Input() read: boolean = false;
 
 	display = 'none';
 
