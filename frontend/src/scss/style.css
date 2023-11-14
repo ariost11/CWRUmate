@@ -11921,6 +11921,10 @@ textarea.form-control-lg {
   max-width: 75vw;
 }
 
+.btn-nav {
+  margin: 0;
+}
+
 .messages-btn {
   padding-top: 0;
   margin: 0;
