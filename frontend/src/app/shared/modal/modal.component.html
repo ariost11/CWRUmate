@@ -1,7 +1,18 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chatModal">
-    < PICTURE >
-    {{name}}
+<button type="button" class="btn messages-btn" data-bs-toggle="modal" data-bs-target="#chatModal">
+    <div class="row">
+        <div class="col-sm-4"> 
+            <img src="" class="profile-mini"/>
+        </div> 
+        <div class="col-sm-6">
+            <div class="row message-name justify-content-left">{{name}}</div>
+            <div class="row message-last justify-content-left">{{lastMessage}}</div>
+        </div>
+        <div class="col-sm-2">
+            <img *ngIf="!read" class="read-bubble" src="../../../assets/icons8-filled-circle-24.png"/>
+        </div>
+    </div>
+   
 </button>
   
   <!-- Modal -->

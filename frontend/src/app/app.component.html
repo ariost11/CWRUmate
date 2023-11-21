@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center align-items-center">
-    <nav class="fixed-top navbar navbar-dark bg-primary header">
-        <div>
+    <nav class="fixed-top navbar navbar-dark bg-primary header d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <a class="navbar-brand">
                 CWRUmate
             </a>
@@ -12,7 +12,7 @@
             <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeHome()' [routerLink]="['/home']">
                 Swipe!
             </button>
-            <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeMessages()' [routerLink]="['/messages']">
+            <button class="btn btn-primary btn-nav" *ngIf="session$ | async" (click)='routeMessages()' [routerLink]="['/messages']">
                 Messages
             </button>
         </div>

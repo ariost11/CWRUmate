@@ -23,26 +23,30 @@ export class MessagesComponent {
 		{
 			name: 'Ari',
 			picture: null,
-			lastMessage: 'Last Message',
-			from: ''
+			lastMessage: 'Hiiiiiiiiii!',
+			from: '',
+			read: true,
 		},
 		{
 			name: 'Georgia',
 			picture: null,
-			lastMessage: 'Last Message',
-			from: ''
+			lastMessage: 'Sup loser',
+			from: '',
+			read: false,
 		},
 		{
 			name: 'JD',
 			picture: null,
-			lastMessage: 'Last Message',
-			from: ''
+			lastMessage: '*LONG DESTINY RANT*',
+			from: '',
+			read: true,
 		},
 		{
 			name: 'Amy',
 			picture: null,
-			lastMessage: 'Last Message',
-			from: ''
+			lastMessage: 'I have an interview today :(',
+			from: '',
+			read: false,
 		}
 	]
 	caseID = '';
