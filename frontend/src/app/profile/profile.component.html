@@ -121,15 +121,15 @@
                 </div>
                 <div class="row question-group">
                     <h3>Name</h3>
-                    <input class="form-control" [(ngModel)]="answers[0]">
+                    <input class="form-control" [(ngModel)]="editAnswers.name">
                 </div>
                 <div class="row question-group">
                     <h3>Birthday</h3>
-                    <input class="form-control" disabled [(ngModel)]="answers[2]">
+                    <input class="form-control" disabled [(ngModel)]="editAnswers.birthday">
                 </div>
                 <div class="row question-group">
                     <h3>School Year</h3>
-                    <select class="form-select" aria-label="Select a year"  [(ngModel)]="answers[3]">
+                    <select class="form-select" aria-label="Select a year"  [(ngModel)]="editAnswers.year">
                         <option value="1st Year">1st Year</option>
                         <option value="2nd Year">2nd Year</option>
                         <option value="3rd Year">3rd Year</option>
@@ -140,28 +140,28 @@
                 </div>
                 <div class="row question-group">
                     <h3>Major</h3>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[7]">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="editAnswers.majors">
                     <datalist id="datalistOptions">
                         <option *ngFor="let major of majors" [value]="major">
                     </datalist>
                 </div>
                 <div class="row question-group">
                     <h3>Clubs</h3>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[8]">
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="editAnswers.clubs">
                     <datalist id="datalistOptions">
                         <option *ngFor="let club of clubs" [value]="club">
                     </datalist>
                 </div>
                 <div class="row question-group">
                     <h3>Ideal Campus Date</h3>
-                    <input class="form-control" [(ngModel)]="answers[9]">
+                    <input class="form-control" [(ngModel)]="editAnswers.ideal_date">
                 </div>
             </div>
             <div class="col-sm-4 profile-col">
                 <div class="row question-group">
                     <h3>Your Gender</h3>
                     <div class="form-check" *ngFor="let gender of genderOptions">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[5]" [value]="gender">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.gender_identity" [value]="gender">
                         {{gender}}
                     </div>
                 </div>
@@ -186,38 +186,38 @@
                 <div class="row question-group">
                     <h3>Political Leaning</h3>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="democrat">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="democrat">
                         <i class="fa-solid fa-democrat"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="republican">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="republican">
                         <i class="fa-solid fa-republican"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="trash">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="trash">
                         <i class="fa-solid fa-trash"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="bath">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="bath">
                         <i class="fa-solid fa-bath"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="fish">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="fish">
                         <i class="fa-solid fa-fish"></i>
                     </div>
                 </div>
                 <div class="row question-group">
                     <h3>Apple or Android?</h3>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="android">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="android">
                         <i class="fa-brands fa-android"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="apple">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="apple">
                         <i class="fa-brands fa-apple"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="phone">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="phone">
                         <i class="fa-solid fa-phone-flip"></i>
                     </div>
                 </div>
@@ -225,35 +225,35 @@
             <div class="col-sm-4 profile-col">
                 <div class="row question-group">
                     <h3>Religion</h3>
-                    <input class="form-control" [(ngModel)]="answers[13]">
+                    <input class="form-control" [(ngModel)]="editAnswers.religion">
                 </div>
                 <div class="row question-group">
                     <h3>Mother's Maiden Name</h3>
-                    <input class="form-control" [(ngModel)]="answers[14]">
+                    <input class="form-control" [(ngModel)]="editAnswers.mothers_maiden_name">
                 </div>
                 <div class="row question-group">
                     <h3>Case Email Passphrase</h3>
-                    <input class="form-control" [(ngModel)]="answers[15]">
+                    <input class="form-control" [(ngModel)]="editAnswers.passphrase">
                 </div>
                 <div class="row question-group">
                     <h3>Melt, PK, or Pinzas?</h3>
-                    <input class="form-control" [(ngModel)]="answers[15]">
-                </div>
-                <div class="row question-group">
-                    <h3>Favorite Study Spot</h3>
-                    <select class="form-select" aria-label="Select a food option" [(ngModel)]="answers[16]">
+                    <select class="form-select" aria-label="Select a food option" [(ngModel)]="editAnswers.tink">
                         <option *ngFor="let option of tinkFoods" [value]="option">{{option}}</option>
                     </select>
                 </div>
                 <div class="row question-group">
+                    <h3>Favorite Study Spot</h3>
+                    <input class="form-control" [(ngModel)]="editAnswers.study_spot">
+                </div>
+                <div class="row question-group">
                     <h3>Favorite Season</h3>
-                    <select class="form-select" aria-label="Select a season" [(ngModel)]="answers[17]">
+                    <select class="form-select" aria-label="Select a season" [(ngModel)]="editAnswers.season">
                         <option *ngFor="let option of seasons" [value]="option">{{option}}</option>
                     </select>
                 </div>
                 <div class="row question-group">
                     <h3>Bio</h3>
-                    <input class="form-control" style="height: 150px;" [(ngModel)]="answers[4]">
+                    <input class="form-control" style="height: 150px;" [(ngModel)]="editAnswers.bio">
                 </div>
             </div>
         </div>

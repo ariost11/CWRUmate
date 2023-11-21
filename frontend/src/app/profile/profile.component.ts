@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from './profile.service';
 
@@ -7,7 +7,7 @@ import { ProfileService } from './profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
     constructor(private profileService: ProfileService,
 				private router: Router) {
         this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
@@ -1002,6 +1002,29 @@ export class ProfileComponent {
 		'What is your favorite season?',
     ];
     answers: any[] = [];
+	editAnswers = {
+		caseID: '',
+		name: '',
+		photo: File,
+		birthday: '',
+		year: '',
+		bio: '',
+		gender_identity: '',
+		gender_preferences: [''],
+		majors: [''],
+		clubs: [''],
+		ideal_date: '',
+		looking_for: [''],
+		political_leaning: '',
+		apple_android: '',
+		religion: '',
+		mothers_maiden_name: '',
+		passphrase: '',
+		tink: '',
+		study_spot: '',
+		season: '',
+	}
+
     caseID = '';
 	picture: string = '';
 	profile_made = true;
@@ -1058,6 +1081,58 @@ export class ProfileComponent {
 		}, err => this.invalidSession = true);
 	}
 
+	getProfile() {
+		this.profileService.getProfile(this.caseID).subscribe(resp => {
+			console.log('got profile!');
+
+			this.editAnswers = {
+				caseID: this.caseID,
+				name: resp.name,
+				photo: resp.photo,
+				birthday: '08-29-2002',
+				year: resp.year,
+				bio: resp.bio,
+				gender_identity: resp.gender_identity,
+				gender_preferences: resp.gender_preferences,
+				majors: resp.majors,
+				clubs: resp.clubs,
+				ideal_date: resp.ideal_date,
+				looking_for: resp.looking_for,
+				political_leaning: resp.political_leaning,
+				apple_android: resp.apple_android,
+				religion: resp.religion,
+				mothers_maiden_name: resp.mothers_maiden_name,
+				passphrase: resp.passphrase,
+				tink: resp.tink,
+				study_spot: resp.study_spot,
+				season: resp.season,
+			}
+		}, err => this.invalidSession = true);
+
+		this.editAnswers = {
+			caseID: '',
+			name: 'Ari',
+			photo: File,
+			birthday: '08-29-2002',
+			year: this.getYear(4),
+			bio: 'fjdsklf;jsdaklf',
+			gender_identity: 'man',
+			gender_preferences: ['man', 'woman'],
+			majors: ['Computer Science'],
+			clubs: ['Hillel'],
+			ideal_date: 'dfsklafd',
+			looking_for: ['Not Sure'],
+			political_leaning: 'trash',
+			apple_android: 'apple',
+			religion: 'fjdskl',
+			mothers_maiden_name: 'sdfa',
+			passphrase: 'gsdga',
+			tink: 'PK',
+			study_spot: 'fasdf',
+			season: 'Winter',
+		}
+	}
+
 	easyAPI() {
 		this.profileService.easySetProfile(this.answers).subscribe(resp => {
 			console.log(resp);
@@ -1067,5 +1142,31 @@ export class ProfileComponent {
 			} else 
 				this.invalidSession = true;
 		}, err => this.invalidSession = true);
+	}
+
+	getYear(year: number | string): string {
+		switch(year) {
+			case 1:
+				return '1st Year';
+			case 2:
+				return '2nd Year';
+			case 3:
+				return '3rd Year';
+			case 4:
+				return '4th Year';
+			case 5:
+				return '5th Year';
+			case 'Graduate Student':
+				return 'Graduate Student';
+			default:
+				return '';
+
+		}
+	}
+
+	ngOnInit() {
+		console.log(this.profile_made);
+		if(this.profile_made)
+			this.getProfile();
 	}
 }

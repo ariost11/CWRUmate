@@ -44,6 +44,10 @@ export class ProfileService {
     return this.http.request('get', url, options);
   }
 
+  getProfile(caseID: string): Observable<any>{
+	return new Observable<any>;
+  }
+
   easySetProfile(answers: any[]): Observable<any>{
 	const options = {
 		headers: new HttpHeaders({
