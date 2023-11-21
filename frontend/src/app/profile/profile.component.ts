@@ -1072,7 +1072,6 @@ export class ProfileComponent implements OnInit {
 		//setup API call
 		console.log(this.answers);
 		this.profileService.setProfile(this.caseID, this.answers).subscribe(resp => {
-			console.log(resp);
 			if(resp.resp === 'SUCCESS') {
 				this.invalidSession = false;
 				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
