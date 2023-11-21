@@ -6,6 +6,9 @@
             </a>
         </div>
         <div>
+            <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeProfile()' [routerLink]="['/profile']">
+                Edit Profile
+            </button>
             <button class="btn btn-primary" *ngIf="session$ | async" (click)='routeHome()' [routerLink]="['/home']">
                 Swipe!
             </button>

@@ -1056,4 +1056,15 @@ export class ProfileComponent {
 				this.invalidSession = true;
 		}, err => this.invalidSession = true);
 	}
+
+	easyAPI() {
+		this.profileService.easySetProfile(this.answers).subscribe(resp => {
+			console.log(resp);
+			if(resp.resp === 'SUCCESS') {
+				this.invalidSession = false;
+				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
+			} else 
+				this.invalidSession = true;
+		}, err => this.invalidSession = true);
+	}
 }

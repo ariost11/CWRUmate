@@ -23,4 +23,8 @@ export class AppComponent {
     routeMessages() {
         this.router.navigate(['/messages'],  { state: {caseID: this.userLoginStatuService.caseID} });
     }
+
+    routeProfile() {
+        this.router.navigate(['/profile'],  { state: {caseID: this.userLoginStatuService.caseID} });
+    }
 }
