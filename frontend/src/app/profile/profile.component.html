@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center justify-content-center">
+<div *ngIf="!profile_made" class="d-flex align-items-center justify-content-center">
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Question {{questionIndex + 1}}</h3>
@@ -106,4 +106,156 @@
         </div>
     </div>
     <!-- {{answers[questionIndex]}} -->
+</div>
+
+<div *ngIf="profile_made" class="d-flex align-items-center justify-content-center">
+    <div class="card holder profile d-flex align-items-center">
+        <h1 class="card-title">Edit Profile</h1>
+        <div class="card-body d-flex">
+            <div class="col-sm-4 profile-col">
+                <div class="row question-group justify-content-center">
+                    <div class="profile-picture-box">
+                        <img src="../../assets/cute-dog.jpg" class="picture"/>
+                    </div>
+                    <button class="btn btn-primary">Change Profile Picture</button>
+                </div>
+                <div class="row question-group">
+                    <h3>Name</h3>
+                    <input class="form-control" [(ngModel)]="answers[0]">
+                </div>
+                <div class="row question-group">
+                    <h3>Birthday</h3>
+                    <input class="form-control" disabled [(ngModel)]="answers[2]">
+                </div>
+                <div class="row question-group">
+                    <h3>School Year</h3>
+                    <select class="form-select" aria-label="Select a year"  [(ngModel)]="answers[3]">
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                        <option value="5th Year">5th Year</option>
+                        <option value="Graduate Student">Graduate Student</option>
+                    </select>
+                </div>
+                <div class="row question-group">
+                    <h3>Major</h3>
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[7]">
+                    <datalist id="datalistOptions">
+                        <option *ngFor="let major of majors" [value]="major">
+                    </datalist>
+                </div>
+                <div class="row question-group">
+                    <h3>Clubs</h3>
+                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[8]">
+                    <datalist id="datalistOptions">
+                        <option *ngFor="let club of clubs" [value]="club">
+                    </datalist>
+                </div>
+                <div class="row question-group">
+                    <h3>Ideal Campus Date</h3>
+                    <input class="form-control" [(ngModel)]="answers[9]">
+                </div>
+            </div>
+            <div class="col-sm-4 profile-col">
+                <div class="row question-group">
+                    <h3>Your Gender</h3>
+                    <div class="form-check" *ngFor="let gender of genderOptions">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[5]" [value]="gender">
+                        {{gender}}
+                    </div>
+                </div>
+                <div class="row question-group">
+                    <h3>Gender Preference</h3>
+                    <div class="form-check" *ngFor="let gender of genderOptions">
+                        <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateCheckbox()">
+                        <label class="form-check-label">
+                            {{gender}}
+                        </label>
+                    </div>
+                </div>
+                <div class="row question-group">
+                    <h3>Relationship Preference</h3>
+                    <div class="form-check" *ngFor="let options of lookingForOptions">
+                        <input class="form-check-input" type="checkbox" [value]="options" (change)="updateCheckbox()">
+                        <label class="form-check-label">
+                            {{options}}
+                        </label>
+                    </div>
+                </div>
+                <div class="row question-group">
+                    <h3>Political Leaning</h3>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="democrat">
+                        <i class="fa-solid fa-democrat"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="republican">
+                        <i class="fa-solid fa-republican"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="trash">
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="bath">
+                        <i class="fa-solid fa-bath"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[11]" value="fish">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                </div>
+                <div class="row question-group">
+                    <h3>Apple or Android?</h3>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="android">
+                        <i class="fa-brands fa-android"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="apple">
+                        <i class="fa-brands fa-apple"></i>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="answers[12]" value="phone">
+                        <i class="fa-solid fa-phone-flip"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 profile-col">
+                <div class="row question-group">
+                    <h3>Religion</h3>
+                    <input class="form-control" [(ngModel)]="answers[13]">
+                </div>
+                <div class="row question-group">
+                    <h3>Mother's Maiden Name</h3>
+                    <input class="form-control" [(ngModel)]="answers[14]">
+                </div>
+                <div class="row question-group">
+                    <h3>Case Email Passphrase</h3>
+                    <input class="form-control" [(ngModel)]="answers[15]">
+                </div>
+                <div class="row question-group">
+                    <h3>Melt, PK, or Pinzas?</h3>
+                    <input class="form-control" [(ngModel)]="answers[15]">
+                </div>
+                <div class="row question-group">
+                    <h3>Favorite Study Spot</h3>
+                    <select class="form-select" aria-label="Select a food option" [(ngModel)]="answers[16]">
+                        <option *ngFor="let option of tinkFoods" [value]="option">{{option}}</option>
+                    </select>
+                </div>
+                <div class="row question-group">
+                    <h3>Favorite Season</h3>
+                    <select class="form-select" aria-label="Select a season" [(ngModel)]="answers[17]">
+                        <option *ngFor="let option of seasons" [value]="option">{{option}}</option>
+                    </select>
+                </div>
+                <div class="row question-group">
+                    <h3>Bio</h3>
+                    <input class="form-control" style="height: 150px;" [(ngModel)]="answers[4]">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

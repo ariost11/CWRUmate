@@ -1004,6 +1004,7 @@ export class ProfileComponent {
     answers: any[] = [];
     caseID = '';
 	picture: string = '';
+	profile_made = true;
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
