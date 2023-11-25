@@ -161,14 +161,14 @@
                 <div class="row question-group">
                     <h3>Your Gender</h3>
                     <div class="form-check" *ngFor="let gender of genderOptions">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.gender_identity" [value]="gender">
+                        <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" [(ngModel)]="editAnswers.gender_identity" [value]="gender">
                         {{gender}}
                     </div>
                 </div>
                 <div class="row question-group">
                     <h3>Gender Preference</h3>
                     <div class="form-check" *ngFor="let gender of genderOptions">
-                        <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateCheckbox()">
+                        <input class="form-check-input" type="checkbox" [value]="gender" (change)="updateEditedCheckbox(['Man', 'Woman', 'Non-Binary', 'Gender Fluid'])">
                         <label class="form-check-label">
                             {{gender}}
                         </label>
@@ -177,7 +177,7 @@
                 <div class="row question-group">
                     <h3>Relationship Preference</h3>
                     <div class="form-check" *ngFor="let options of lookingForOptions">
-                        <input class="form-check-input" type="checkbox" [value]="options" (change)="updateCheckbox()">
+                        <input class="form-check-input" type="checkbox" [value]="options" (change)="updateEditedCheckbox(['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'])">
                         <label class="form-check-label">
                             {{options}}
                         </label>
@@ -186,38 +186,38 @@
                 <div class="row question-group">
                     <h3>Political Leaning</h3>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="democrat">
+                        <input class="form-check-input" type="radio" name="politics" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="democrat">
                         <i class="fa-solid fa-democrat"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="republican">
+                        <input class="form-check-input" type="radio" name="politics" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="republican">
                         <i class="fa-solid fa-republican"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="trash">
+                        <input class="form-check-input" type="radio" name="politics" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="trash">
                         <i class="fa-solid fa-trash"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="bath">
+                        <input class="form-check-input" type="radio" name="politics" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="bath">
                         <i class="fa-solid fa-bath"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="fish">
+                        <input class="form-check-input" type="radio" name="politics" id="flexRadioDefault1" [(ngModel)]="editAnswers.political_leaning" value="fish">
                         <i class="fa-solid fa-fish"></i>
                     </div>
                 </div>
                 <div class="row question-group">
                     <h3>Apple or Android?</h3>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="android">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault1" [(ngModel)]="editAnswers.apple_android" value="android">
                         <i class="fa-brands fa-android"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="apple">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault1" [(ngModel)]="editAnswers.apple_android" value="apple">
                         <i class="fa-brands fa-apple"></i>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault2" [(ngModel)]="editAnswers.apple_android" value="phone">
+                        <input class="form-check-input" type="radio" name="applevandroid" id="flexRadioDefault1" [(ngModel)]="editAnswers.apple_android" value="phone">
                         <i class="fa-solid fa-phone-flip"></i>
                     </div>
                 </div>
@@ -255,6 +255,7 @@
                     <h3>Bio</h3>
                     <input class="form-control" style="height: 150px;" [(ngModel)]="editAnswers.bio">
                 </div>
+                <button (click)="submitEditedProfile()">Submit</button>
             </div>
         </div>
     </div>

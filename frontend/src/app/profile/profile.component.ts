@@ -8,6 +8,7 @@ import { ProfileService } from './profile.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
     constructor(private profileService: ProfileService,
 				private router: Router) {
         this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
@@ -1066,6 +1067,7 @@ export class ProfileComponent implements OnInit {
 			array.push((checkboxes[i] as HTMLInputElement).value);
 
 		this.answers[this.questionIndex] = array;
+		//TODO: implement adjustments to editAnswers object here
 	}
 
 	setProfile() {
@@ -1088,7 +1090,7 @@ export class ProfileComponent implements OnInit {
 				caseID: this.caseID,
 				name: resp.name,
 				photo: resp.photo,
-				birthday: '08-29-2002',
+				birthday: resp.birthday,
 				year: resp.year,
 				bio: resp.bio,
 				gender_identity: resp.gender_identity,
@@ -1115,12 +1117,12 @@ export class ProfileComponent implements OnInit {
 			birthday: '08-29-2002',
 			year: this.getYear(4),
 			bio: 'fjdsklf;jsdaklf',
-			gender_identity: 'man',
-			gender_preferences: ['man', 'woman'],
-			majors: ['Computer Science'],
+			gender_identity: 'Man',
+			gender_preferences: this.setCheckedBoxes(['Man', 'Woman']),
+			majors: ['Computer Science', 'English'],
 			clubs: ['Hillel'],
 			ideal_date: 'dfsklafd',
-			looking_for: ['Not Sure'],
+			looking_for: this.setCheckedBoxes(['Not Sure']),
 			political_leaning: 'trash',
 			apple_android: 'apple',
 			religion: 'fjdskl',
@@ -1163,9 +1165,45 @@ export class ProfileComponent implements OnInit {
 		}
 	}
 
+	setCheckedBoxes(list: string[]) {
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
+		checkboxes.forEach((checkbox) => {
+			if (list.includes(checkbox.value)) {
+				checkbox.checked = true;
+			}
+		});
+		return list;
+	}
+
+	updateEditedCheckbox(options: string[]) {
+		var array: string[] = [];
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked') as NodeListOf<HTMLInputElement>;
+		var values: string[] = [];
+		checkboxes.forEach((checkbox) => {
+			values.push(checkbox.value);
+		});
+		
+		options.forEach((option) => {
+			if(values.includes(option))
+				array.push(option);
+		})
+
+		if(array.length !== 0) {
+			if(array.includes('Man') || array.includes('Woman') || array.includes('Non-Binary') || array.includes('Gender Fluid'))
+				this.editAnswers.gender_preferences = array;
+			else 
+				this.editAnswers.looking_for = array;
+		}		
+	}
+
+	submitEditedProfile() {
+		console.log(this.editAnswers);
+	}
+
 	ngOnInit() {
-		console.log(this.profile_made);
-		if(this.profile_made)
+		document.addEventListener("DOMContentLoaded", () => {
+			if(this.profile_made)
 			this.getProfile();
+		});
 	}
 }
