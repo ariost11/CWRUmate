@@ -1028,7 +1028,7 @@ export class ProfileComponent implements OnInit {
 
     caseID = '';
 	picture: string = '';
-	profile_made = true;
+	profile_made = false;
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
@@ -1132,17 +1132,6 @@ export class ProfileComponent implements OnInit {
 			study_spot: 'fasdf',
 			season: 'Winter',
 		}
-	}
-
-	easyAPI() {
-		this.profileService.easySetProfile(this.answers).subscribe(resp => {
-			console.log(resp);
-			if(resp.resp === 'SUCCESS') {
-				this.invalidSession = false;
-				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
-			} else 
-				this.invalidSession = true;
-		}, err => this.invalidSession = true);
 	}
 
 	getYear(year: number | string): string {
