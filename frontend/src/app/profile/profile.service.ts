@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 var url = `https://cwrumate.azurewebsites.net/api/set-profile`
+var editUrl = `https://cwrumate.azurewebsites.net/api/set-profile`;
+var getProfile = `https://cwrumate.azurewebsites.net/api/get-your-profile`;
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +39,45 @@ export class ProfileService {
 	const formData = new FormData();
     formData.append('file', new Blob([fileData]));
 
+	return this.http.post(editUrl, formData, { params });
+  }
+
+  updateProfile(caseID: string, answers: any): Observable<any> {
+	const params = {
+		caseID: caseID,
+		name: answers.name,
+		birthday: answers.birthday,
+		year: answers.year,
+		bio: answers.bio,
+		gender_identity: answers.gender_identity,
+		gender_preferences: answers.gender_preferences,
+		majors: answers.majors,
+		clubs: answers.clubs,
+		ideal_date: answers.ideaL_date,
+		looking_for: answers.looking_for,
+		political_leaning: answers.political_leaning,
+		apple_android: answers.apple_android,
+		religion: answers.religion,
+		mothers_maiden_name: answers.mothers_maiden_name,
+		passphrase: answers.passphrase,
+		tink: answers.tink,
+		study_spot: answers.study_spot,
+		season: answers.season,
+	}
+	const fileData = answers.photo;
+	const formData = new FormData();
+	formData.append('file', new Blob([fileData]));
+
 	return this.http.post(url, formData, { params });
   }
 
   getProfile(caseID: string): Observable<any>{
-	return new Observable<any>;
+	return this.http.get(getProfile, 
+		{
+			params: {
+				caseID: caseID
+			}
+		}
+	);
   }
 }

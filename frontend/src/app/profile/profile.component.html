@@ -1,12 +1,14 @@
 <div *ngIf="!profile_made" class="d-flex align-items-center justify-content-center">
-    <div class="card">
+    <div class="card" style="width: 400px">
         <div class="card-body">
             <h3 class="card-title">Question {{questionIndex + 1}}</h3>
             <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7 || questionIndex === 8"><i>Seperate entries with commas.</i></p>
-            <div class="form-group" *ngIf="questionIndex === 0 || questionIndex === 4 || questionIndex == 9 || questionIndex === 13 || questionIndex === 14 || questionIndex === 15 || questionIndex === 17">
+            <div class="form-group" *ngIf="questionIndex === 0 || questionIndex == 9 || questionIndex === 13 || questionIndex === 14 || questionIndex === 15 || questionIndex === 17">
                 <input class="form-control" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
                 
             </div>
+
+            
             <div class="form-group" *ngIf="questionIndex === 1">
                 <input type="file" class="form-control" id="customFile" (change)="onFilesSelected($event)"/>
             </div>
@@ -23,6 +25,9 @@
                 <option value="5th Year">5th Year</option>
                 <option value="Graduate Student">Graduate Student</option>
             </select>
+            <div class="form-group" *ngIf="questionIndex === 4">
+                <textarea class="form-control" required [(ngModel)]="answers[questionIndex]" style="height: 150px;" #caseID="ngModel"></textarea>
+            </div>
             <div *ngIf="questionIndex === 5"> 
                 <div class="form-check" *ngFor="let gender of genderOptions">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="answers[questionIndex]" [value]="gender">
@@ -115,8 +120,9 @@
             <div class="col-sm-4 profile-col">
                 <div class="row question-group justify-content-center">
                     <div class="profile-picture-box">
-                        <img src="../../assets/cute-dog.jpg" class="picture"/>
+                        <img [src]="editAnswers.photo" class="picture"/>
                     </div>
+                    <div>The above photo will not update until you submit and reopen this page</div>
                     <button class="btn btn-primary">Change Profile Picture</button>
                 </div>
                 <div class="row question-group">
@@ -253,9 +259,11 @@
                 </div>
                 <div class="row question-group">
                     <h3>Bio</h3>
-                    <input class="form-control" style="height: 150px;" [(ngModel)]="editAnswers.bio">
+                    <textarea class="form-control" style="height: 150px;" [(ngModel)]="editAnswers.bio"></textarea>
                 </div>
-                <button (click)="submitEditedProfile()">Submit</button>
+                <div class="row question-group">
+                    <button (click)="submitEditedProfile()" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
     </div>

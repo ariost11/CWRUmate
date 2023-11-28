@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from './profile.service';
 
@@ -7,7 +7,7 @@ import { ProfileService } from './profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements AfterViewInit {
 
     constructor(private profileService: ProfileService,
 				private router: Router) {
@@ -1028,7 +1028,7 @@ export class ProfileComponent implements OnInit {
 
     caseID = '';
 	picture: string = '';
-	profile_made = false;
+	profile_made = true;
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
@@ -1067,7 +1067,6 @@ export class ProfileComponent implements OnInit {
 			array.push((checkboxes[i] as HTMLInputElement).value);
 
 		this.answers[this.questionIndex] = array;
-		//TODO: implement adjustments to editAnswers object here
 	}
 
 	setProfile() {
@@ -1084,80 +1083,39 @@ export class ProfileComponent implements OnInit {
 
 	getProfile() {
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
-			console.log('got profile!');
-
+			console.log(resp.resp.name);
+			
 			this.editAnswers = {
 				caseID: this.caseID,
-				name: resp.name,
-				photo: resp.photo,
-				birthday: resp.birthday,
-				year: resp.year,
-				bio: resp.bio,
-				gender_identity: resp.gender_identity,
-				gender_preferences: resp.gender_preferences,
-				majors: resp.majors,
-				clubs: resp.clubs,
-				ideal_date: resp.ideal_date,
-				looking_for: resp.looking_for,
-				political_leaning: resp.political_leaning,
-				apple_android: resp.apple_android,
-				religion: resp.religion,
-				mothers_maiden_name: resp.mothers_maiden_name,
-				passphrase: resp.passphrase,
-				tink: resp.tink,
-				study_spot: resp.study_spot,
-				season: resp.season,
+				name: resp.resp.name,
+				photo: resp.resp.photo,
+				birthday: resp.resp.birthday,
+				year: resp.resp.year,
+				bio: resp.resp.bio,
+				gender_identity: resp.resp.gender_identity,
+				gender_preferences: this.setCheckedBoxes(resp.resp.gender_preferences),
+				majors: resp.resp.majors,
+				clubs: resp.resp.clubs,
+				ideal_date: resp.resp.ideal_date,
+				looking_for: this.setCheckedBoxes(resp.resp.looking_for),
+				political_leaning: resp.resp.political_leaning,
+				apple_android: resp.resp.apple_android,
+				religion: resp.resp.religion,
+				mothers_maiden_name: resp.resp.mothers_maiden_name,
+				passphrase: resp.resp.passphrase,
+				tink: resp.resp.tink,
+				study_spot: resp.resp.study_spot,
+				season: resp.resp.season,
 			}
+			console.log(this.editAnswers);
 		}, err => this.invalidSession = true);
-
-		this.editAnswers = {
-			caseID: '',
-			name: 'Ari',
-			photo: File,
-			birthday: '08-29-2002',
-			year: this.getYear(4),
-			bio: 'fjdsklf;jsdaklf',
-			gender_identity: 'Man',
-			gender_preferences: this.setCheckedBoxes(['Man', 'Woman']),
-			majors: ['Computer Science', 'English'],
-			clubs: ['Hillel'],
-			ideal_date: 'dfsklafd',
-			looking_for: this.setCheckedBoxes(['Not Sure']),
-			political_leaning: 'trash',
-			apple_android: 'apple',
-			religion: 'fjdskl',
-			mothers_maiden_name: 'sdfa',
-			passphrase: 'gsdga',
-			tink: 'PK',
-			study_spot: 'fasdf',
-			season: 'Winter',
-		}
-	}
-
-	getYear(year: number | string): string {
-		switch(year) {
-			case 1:
-				return '1st Year';
-			case 2:
-				return '2nd Year';
-			case 3:
-				return '3rd Year';
-			case 4:
-				return '4th Year';
-			case 5:
-				return '5th Year';
-			case 'Graduate Student':
-				return 'Graduate Student';
-			default:
-				return '';
-
-		}
 	}
 
 	setCheckedBoxes(list: string[]) {
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
 		checkboxes.forEach((checkbox) => {
-			if (list.includes(checkbox.value)) {
+
+			if (list && list.includes(checkbox.value)) {
 				checkbox.checked = true;
 			}
 		});
@@ -1189,10 +1147,8 @@ export class ProfileComponent implements OnInit {
 		console.log(this.editAnswers);
 	}
 
-	ngOnInit() {
-		document.addEventListener("DOMContentLoaded", () => {
-			if(this.profile_made)
+	ngAfterViewInit() {
+		if(this.profile_made)
 			this.getProfile();
-		});
 	}
 }
