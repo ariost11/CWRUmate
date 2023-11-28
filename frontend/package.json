@@ -18,9 +18,12 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@ngx-translate/core": "^14.0.0",
     "bootstrap": "^5.3.1",
     "jQuery": "^1.7.4",
     "rxjs": "~7.8.0",
+    "stream-chat": "^8.14.3",
+    "stream-chat-angular": "^4.48.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
