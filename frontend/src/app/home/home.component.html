@@ -1,4 +1,4 @@
-<div class="holder d-flex align-items-center justify-content-center">
+<div *ngIf="noMatches || ((!profiles[0] && !noMatches) || loading)" class="home-page d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="(!profiles[0] && !noMatches) || loading">
         <span class="sr-only"></span>
     </div>
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div *ngIf="profiles[0] && !noMatches && !loading" class="d-flex align-items-center justify-content-center holder">
+<div *ngIf="profiles[0] && !noMatches && !loading" class="d-flex align-items-center justify-content-center home-page">
     <button id="no" (click)="decline()" class="col-lg-3 no btn btn-outline-danger"> 
         <i class="fa-solid fa-face-meh fa-2xl"></i>
     </button>
@@ -20,31 +20,29 @@
         <div class="card profile-card">
             <div class="row g-0">
                 <div class="col-lg-5 picture-box">
-                    <img src="../../assets/cute-dog.jpg" class="rounded-start picture"/>
+                    <img [src]="profiles[profiles_index].photo" class="rounded-start picture"/>
                 </div>
                 <div class="col-lg-7">
                     <div class="card-body row profile-text">
-                        <h3 class="card-title">{{profiles[profiles_index].name}} {{age(profiles[profiles_index].birthday)}}  <i [class]="phone_pref(profiles[profiles_index].apple_android)"></i> <i [class]="political_pref(profiles[profiles_index].political_leaning)"></i> {{profiles[profiles_index].season}}</h3>
+                        <h3 class="card-title">{{profiles[profiles_index].name}} {{age(profiles[profiles_index].birthday)}}  <i [class]="phone_pref(profiles[profiles_index].apple_android)"></i>   <i [class]="political_pref(profiles[profiles_index].political_leaning)"></i> {{profiles[profiles_index].season}}</h3>
                         <p>{{profiles[profiles_index].year}} {{profiles[profiles_index].gender_identity}}</p>
                         <div class="col-lg-6">
-                            <h5>Major</h5>
+                            <h5><br>Major</h5>
                             <div>{{majorString(profiles[profiles_index].majors)}} </div>
-                            <h5>Bio</h5>
+                            <h5><br>Bio</h5>
                             <div>{{profiles[profiles_index].bio}}</div>
-                            <h5>Clubs</h5>
+                            <h5><br>Clubs</h5>
                             <div>{{majorString(profiles[profiles_index].clubs)}}</div>
-                            <h5>Religion</h5>
+                            <h5><br>Religion</h5>
                             <div>{{profiles[profiles_index].religion}}</div>
-                            <h5></h5>
                         </div>
                         <div class="col-lg-6">
-                            <h5>Ideal Date</h5>
+                            <h5><br>Ideal Date</h5>
                             <div>{{profiles[profiles_index].ideal_date}}</div>
-                            <h5>Looking For</h5>
+                            <h5><br>Looking For</h5>
                             <div>{{majorString(profiles[profiles_index].looking_for)}}</div>
-                            <h5>Favorite Tinkham Meal & Study Spot</h5>
+                            <h5><br>Favorite Tinkham Meal & Study Spot</h5>
                             <div>{{profiles[profiles_index].tink}} & {{profiles[profiles_index].study_spot}}</div>
-                            <h5></h5>
                         </div>
                     </div>
                 </div>

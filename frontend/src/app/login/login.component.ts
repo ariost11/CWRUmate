@@ -35,8 +35,10 @@ export class LoginComponent implements OnInit {
   signIn() {
     this.user.caseIDError = !this.user.caseID;
     this.user.passwordError = !this.user.password;
+    
 
     if(!this.user.caseIDError && !this.user.passwordError) {
+      this.loading = true;
       this.loginService.login(this.user.caseID, this.user.password).subscribe(loginData => {
         switch(loginData.resp) {
           case 'SUCCESS':

@@ -108,6 +108,7 @@ $body-bg: #F9F9F9;
     padding-top: calc(30% * (16/9));
     width: 30%;
 }
+
 .picture {
     position: absolute;
     top: 0;
@@ -125,6 +126,13 @@ $body-bg: #F9F9F9;
 .matches{
     height: 86vh;
 }
+
+.home-page{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: calc(100vh - 100px);
+}
+
 
 .holder{
     margin-top: 50px;
@@ -154,7 +162,8 @@ $body-bg: #F9F9F9;
 
 .btn-nav{
     margin: 0;
-    padding: 0;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .messages-btn{
