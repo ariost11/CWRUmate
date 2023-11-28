@@ -1,14 +1,16 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn messages-btn" data-bs-toggle="modal" data-bs-target="#chatModal">
     <div class="row">
-        <div class="col-sm-4"> 
-            <img src="" class="profile-mini"/>
+        <div class="col-sm-2 justify-content-center align-items-center"> 
+            <div class="d-flex justify-content-center profile-mini-box">
+                <img src="../../../assets/cute-dog.jpg" class="picture-mini"/>
+            </div>
         </div> 
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <div class="row message-name justify-content-left">{{name}}</div>
             <div class="row message-last justify-content-left">{{lastMessage}}</div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <img *ngIf="!read" class="read-bubble" src="../../../assets/icons8-filled-circle-24.png"/>
         </div>
     </div>

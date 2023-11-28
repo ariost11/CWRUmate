@@ -68,11 +68,11 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	majorString(str:string[]){
+	majorString(arr:string[]){
 		var final = "";
-		str.forEach((major, i) => {
+		arr.forEach((major, i) => {
 			final += major;
-			if (i < str.length - 1)
+			if (i < arr.length - 1)
 				final += ", "
 		});
 		return final;
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
 					return;
 				}
 			
-				console.log(profiles)
+				console.log(profiles.resp)
 				this.profiles = profiles.resp;
 				if(this.profiles.length === 0)
 					this.noMatches = true;
