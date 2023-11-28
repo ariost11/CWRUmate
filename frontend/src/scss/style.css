@@ -11899,6 +11899,23 @@ textarea.form-control-lg {
   width: 30%;
 }
 
+.profile-mini-box {
+  position: relative;
+  height: 0;
+  padding-top: 100%;
+}
+
+.picture-mini {
+  position: absolute;
+  top: 3px;
+  width: 100%;
+  height: 100%;
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .picture {
   position: absolute;
   top: 0;
@@ -11946,7 +11963,9 @@ textarea.form-control-lg {
 
 .messages-container {
   max-height: calc(80vh - 100px);
+  width: 50vw;
   max-width: 75vw;
+  overflow-y: auto;
 }
 
 .btn-nav {

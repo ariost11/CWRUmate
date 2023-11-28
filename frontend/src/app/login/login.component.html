@@ -29,10 +29,11 @@
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
-          <button class="btn btn-primary col-sm-6" (click)="signIn()">Sign In</button>
-          <span class="spinner-border text-primary" style="width: 30px; height: 30px;"role="status" *ngIf="loading">
-            <span class="sr-only"></span>
-          </span>
+          <button class="btn btn-primary col-sm-6" (click)="signIn()" *ngIf="!loading">Log In</button>
+          <button class="btn btn-primary col-sm-6" type="button" disabled *ngIf="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
         </div>
         <div>
           Don't have an account? <a [routerLink]="['/sign-up']">Sign Up.</a>

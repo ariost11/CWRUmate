@@ -22,6 +22,7 @@ export class SignUpComponent implements OnInit {
 
   networkError = false;
   userTaken = false;
+  loading = false;
 
   ngOnInit() {
     this.userLoginStatusService.updateLoggedInStatus(false);
@@ -34,6 +35,7 @@ export class SignUpComponent implements OnInit {
     this.user.pError = !this.user.password; //TODO: Add more password requirements
 
     if(!this.user.cError && !this.user.pError) {
+      this.loading = true;
       this.signUpService.addUser(this.user.caseID, this.user.password).subscribe(data => {
         switch(data.resp) {
           case 'SUCCESS':
@@ -50,7 +52,10 @@ export class SignUpComponent implements OnInit {
         }
       }, err => {
         this.networkError = true;
-      });
+      }, () => {
+        this.loading = false;
+      }
+      );
     }
 
     // FOLLOWING CODE IS FROM https://getbootstrap.com/docs/5.0/forms/validation/

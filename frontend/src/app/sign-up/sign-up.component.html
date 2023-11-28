@@ -25,7 +25,13 @@
               Please enter your password.
           </div>
       </div>
-      <button (click)="submit()" class="btn btn-primary">Submit</button>
+      <div class="row justify-content-center align-items-center">
+        <button class="btn btn-primary col-sm-6" (click)="submit()" *ngIf="!loading">Sign Up!</button>
+        <button class="btn btn-primary col-sm-6" type="button" disabled *ngIf="loading">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+        </button>
+      </div>
       <div>
         Already have an account? <a [routerLink]="['/login']">Login.</a>
       </div>
