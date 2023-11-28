@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'sign-up', component: SignUpComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
-  {path: 'profile', component: ProfileComponent/*, canActivate:[AuthGuard]*/},
+  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'messages', component: MessagesComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: '**', redirectTo: '/login', pathMatch: 'full'},

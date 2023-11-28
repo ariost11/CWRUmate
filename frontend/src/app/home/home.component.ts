@@ -95,8 +95,10 @@ export class HomeComponent implements OnInit {
 	ngOnInit() {
 		if(this.caseID) {
 			this.homeService.getProfiles(this.caseID).subscribe(profiles => {
-				if(profiles.resp === 'PROFILE NOT SET')
+				if(profiles.resp === 'PROFILE NOT SET') {
 					this.toProfile();
+					return;
+				}
 			
 				console.log(profiles)
 				this.profiles = profiles.resp;
