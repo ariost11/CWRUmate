@@ -100,7 +100,6 @@ export class HomeComponent implements OnInit {
 					return;
 				}
 			
-				console.log(profiles.resp)
 				this.profiles = profiles.resp;
 				if(this.profiles.length === 0)
 					this.noMatches = true;
@@ -110,6 +109,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	toProfile() {
-		this.router.navigate(['/profile'], { state: {caseID: this.caseID} });
+		this.router.navigate(['/profile'], { state: {caseID: this.caseID, newUser: true} });
 	}
 }

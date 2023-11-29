@@ -12,6 +12,7 @@ export class ProfileComponent implements AfterViewInit {
     constructor(private profileService: ProfileService,
 				private router: Router) {
         this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
+		this.profile_made = this.router.getCurrentNavigation()?.extras?.state?.['newUser'] === undefined ? true : false;
     }
 
 	invalidSession = false;
@@ -1028,35 +1029,17 @@ export class ProfileComponent implements AfterViewInit {
 
     caseID = '';
 	picture: string = '';
-	profile_made = true;
+	profile_made = false;
 	genderOptions = ['Man', 'Woman', 'Non-Binary', 'Gender Fluid']
 	lookingForOptions = ['Short Term', 'Long Term', 'Friends', 'Study Buddies', 'Not Sure'];
 	tinkFoods = ['MELT U', 'PK', 'Pinzas'];
 	seasons = ['Autumn', 'Winter', 'Spring', 'Summer'];
 
-	onFilesSelected(event: any) {
+	onFilesSelected(event: any, edit: boolean) {
 		const file = event.target.files[0];
-		this.answers[this.questionIndex] = file;
-		// if (files.length === 0)
-		// 	return;
-
-		// code for single file
-		// const reader = new FileReader();
-		// reader.readAsDataURL(file);
-		// reader.onload = (_event) => {
-		// 	this.picture = String(reader.result).split(',')[1];
-		// 	this.answers[this.questionIndex] = this.picture;
-		// }
-
-		// for(let file of files) {
-		// 	reader.readAsDataURL(file); 
-		// 	reader.onload = (_event) => { 
-		// 		this.pictures.push(String(reader.result).split(',')[1]);
-		// 	}
-		// }
-
-		// if(this.pictures[0] === '')
-		// 	this.pictures.shift();
+		if(edit)
+			this.editAnswers.photo = file;
+		else this.answers[this.questionIndex] = file;
 	}
 
 	updateCheckbox() {
@@ -1070,8 +1053,6 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	setProfile() {
-		//setup API call
-		console.log(this.answers);
 		this.profileService.setProfile(this.caseID, this.answers).subscribe(resp => {
 			if(resp.resp === 'SUCCESS') {
 				this.invalidSession = false;
@@ -1083,8 +1064,6 @@ export class ProfileComponent implements AfterViewInit {
 
 	getProfile() {
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
-			console.log(resp.resp.name);
-			
 			this.editAnswers = {
 				caseID: this.caseID,
 				name: resp.resp.name,
@@ -1106,15 +1085,13 @@ export class ProfileComponent implements AfterViewInit {
 				tink: resp.resp.tink,
 				study_spot: resp.resp.study_spot,
 				season: resp.resp.season,
-			}
-			console.log(this.editAnswers);
+			};
 		}, err => this.invalidSession = true);
 	}
 
 	setCheckedBoxes(list: string[]) {
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]') as NodeListOf<HTMLInputElement>;
 		checkboxes.forEach((checkbox) => {
-
 			if (list && list.includes(checkbox.value)) {
 				checkbox.checked = true;
 			}

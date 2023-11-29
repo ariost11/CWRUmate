@@ -4,18 +4,14 @@
             <h3 class="card-title">Question {{questionIndex + 1}}</h3>
             <p>{{questions[questionIndex]}}</p> <p *ngIf="questionIndex === 7 || questionIndex === 8"><i>Seperate entries with commas.</i></p>
             <div class="form-group" *ngIf="questionIndex === 0 || questionIndex == 9 || questionIndex === 13 || questionIndex === 14 || questionIndex === 15 || questionIndex === 17">
-                <input class="form-control" required [(ngModel)]="answers[questionIndex]" #caseID="ngModel">
-                
+                <input class="form-control" required [(ngModel)]="answers[questionIndex]" accept="image/png, image/jpeg" #caseID="ngModel">
             </div>
-
-            
             <div class="form-group" *ngIf="questionIndex === 1">
-                <input type="file" class="form-control" id="customFile" (change)="onFilesSelected($event)"/>
+                <input type="file" class="form-control" id="customFile" (change)="onFilesSelected($event, false)"/>
             </div>
             <div class="form-group date" data-provide="datepicker" *ngIf="questionIndex === 2">
                 <label>Birthday</label>
                 <input class="form-control" name="birthday" type="date" [(ngModel)]="answers[questionIndex]"/>
-                
             </div>
             <select class="form-select" aria-label="Select a year" *ngIf="questionIndex === 3" [(ngModel)]="answers[questionIndex]">
                 <option value="1st Year">1st Year</option>
@@ -122,8 +118,8 @@
                     <div class="profile-picture-box">
                         <img [src]="editAnswers.photo" class="picture"/>
                     </div>
-                    <div>The above photo will not update until you submit and reopen this page</div>
-                    <button class="btn btn-primary">Change Profile Picture</button>
+                    <i>The above photo will not update until you submit and reopen this page</i>
+                    <input label="Change Profile Picture" type="file" accept="image/png, image/jpeg" class="form-control" id="customFile" (change)="onFilesSelected($event, true)"/>
                 </div>
                 <div class="row question-group">
                     <h3>Name</h3>
