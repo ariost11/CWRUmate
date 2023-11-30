@@ -18,10 +18,10 @@
 
 <!-- Modal -->
 <div class="modal fade" id="chatModal_{{name}}" data-bs-keyboard="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <nb-layout class="modal-content">
-            <nb-layout-column>
-                <nb-chat title="Chat with {{name}}!" size="large">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <nb-layout class="modal-content" scrollBottom="true">
+            <nb-layout-column style="padding: 0;">
+                <nb-chat title="Chat with {{name}}!" size="giant">
                     <nb-chat-message *ngIf="messages.length == 0"
                                     message='To break the ice, say something like:
 "How do you like your classes?"
