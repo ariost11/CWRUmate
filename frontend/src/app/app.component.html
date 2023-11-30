@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-center align-items-center">
     <nav class="fixed-top navbar navbar-dark bg-primary header d-flex align-items-center" style="padding: 0px;">
         <div class="d-flex align-items-center">
-            <a class="navbar-brand">
+            <div class="navbar-brand">
                 CWRUmate
-            </a>
+            </div>
         </div>
         <div>
             <button class="btn btn-primary btn-nav" *ngIf="session$ | async" (click)='routeProfile()' [routerLink]="['/profile']">

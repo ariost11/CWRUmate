@@ -1065,6 +1065,9 @@ export class ProfileComponent implements AfterViewInit {
 	getProfile() {
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
 			this.picture = resp.resp.photo;
+			console.log(resp);
+			console.log(resp.resp.photo);
+			console.log(this.picture);
 			this.editAnswers = {
 				caseID: this.caseID,
 				name: resp.resp.name,
@@ -1122,11 +1125,19 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	submitEditedProfile() {
-		console.log(this.editAnswers);
+		this.profileService.updateProfile(this.caseID, this.editAnswers).subscribe(resp => {
+			if(resp.resp === 'SUCCESS')
+				this.routeHome();
+			else this.invalidSession = true;
+		}, err => this.invalidSession = true);
 	}
 
 	ngAfterViewInit() {
 		if(this.profile_made)
 			this.getProfile();
+	}
+
+	routeHome() {
+		this.router.navigate(['/home'], { state: {caseID: this.caseID, newUser: true} });
 	}
 }
