@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn messages-btn" data-bs-toggle="modal" data-bs-target="#chatModal">
+<button type="button" class="btn messages-btn" data-bs-toggle="modal" attr.data-bs-target="#chatModal_{{name}}">
     <div class="row">
         <div class="col-sm-2 justify-content-center align-items-center"> 
             <div class="d-flex justify-content-center profile-mini-box">
@@ -17,7 +17,7 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="chatModal" data-bs-keyboard="true" tabindex="-1">
+<div class="modal fade" id="chatModal_{{name}}" data-bs-keyboard="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <nb-layout class="modal-content">
             <nb-layout-column>

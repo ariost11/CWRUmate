@@ -23,10 +23,10 @@ export class ModalComponent implements OnInit {
 	messages: any[];
 	myName = 'ERROR';
 
-
 	now(){
 		return new Date();
 	}
+
 
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
@@ -62,14 +62,27 @@ export class ModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		var x = 0;
-		//set name
+		//get name
 		this.modalService.getName(this.caseID).subscribe(resp => {
 			this.myName = resp.resp ? resp.resp : 'ERROR';
 		});
 
-		setInterval(() =>{
-			console.log(x++);
-		}, 1000);
+		//loop messages check
+		var tempName = this.name;
+		var modalOpen = false;
+		document.addEventListener("DOMContentLoaded", function() {
+			var modal = document.getElementById(`chatModal_${tempName}`);
+			modal?.addEventListener('hidden.bs.modal', function (event) {
+				modalOpen = false;
+			});
+			modal?.addEventListener('shown.bs.modal', function (event) {
+				modalOpen = true;
+			});
+			setInterval(() =>{
+				if(modalOpen)
+					console.log('open');
+					//this.addRecentMessages();
+			}, 1000);
+		});
 	}
 }
