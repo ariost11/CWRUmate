@@ -14,20 +14,22 @@ const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STR
 
 module.exports = async function (context, req) {
     const caseID = req.query.caseID
+    const fileName = caseID + ".jpg"
 
     // upload image with caseID as image name
-    var bodyBuffer = Buffer.from(req.body)
-    var boundary = multipart.getBoundary(req.headers['content-type'])
-    var parts = multipart.Parse(bodyBuffer, boundary)
-    const blobServiceClient = await BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
-    const container = "cwru-mate-images"
-    const containerClient = await blobServiceClient.getContainerClient(container)
-    const fileName = caseID + ".jpg"
-    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-    // Set the content type (MIME type) of the blob
-    const contentType = 'image/jpeg'; // Set the appropriate content type for your image
-    const options = { blobHTTPHeaders: { blobContentType: contentType } };
-    const uploadBlobResponse = await blockBlobClient.upload(parts[0].data, parts[0].data.length, options);
+    if (req.body && Object.keys(req.body).length !== 0) {
+        var bodyBuffer = Buffer.from(req.body)
+        var boundary = multipart.getBoundary(req.headers['content-type'])
+        var parts = multipart.Parse(bodyBuffer, boundary)
+        const blobServiceClient = await BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
+        const container = "cwru-mate-images"
+        const containerClient = await blobServiceClient.getContainerClient(container)
+        const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+        // Set the content type (MIME type) of the blob
+        const contentType = 'image/jpeg'; // Set the appropriate content type for your image
+        const options = { blobHTTPHeaders: { blobContentType: contentType } };
+        const uploadBlobResponse = await blockBlobClient.upload(parts[0].data, parts[0].data.length, options);
+    }
 
     let newProfile = {
         caseID: caseID,
@@ -50,21 +52,13 @@ module.exports = async function (context, req) {
         tink: req.query.tink,
         study_spot: req.query.study_spot,
         season: req.query.season,
-      }
+    }
 
     let status = await createProfile(newProfile);
     
     let response = {
         resp : status
     }
-
-    /* for debugging:
-    let response = {
-        name : parts[0].filename,
-        type : parts[0].type,
-        data : parts[0].data.length
-    }
-    */
 
     context.res = {
         status: 200, /* Defaults to 200 */
@@ -100,14 +94,4 @@ async function createProfile(newUser) {
     else {
         return "FAIL"
     }
-
 }
-
-async function uploadBlobFromBuffer(containerClient, blobName, buffer) {
-
-    // Create blob client from container client
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-  
-    // Upload buffer
-    await blockBlobClient.uploadData(buffer);
-  }

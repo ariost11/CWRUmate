@@ -12,6 +12,7 @@
     "axios": "^1.6.2",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",
+    "form-data": "^4.0.0",
     "parse-multipart": "^1.0.4"
   }
 }
