@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagesService } from './messages.service';
 /*
@@ -13,7 +13,7 @@ import { MessagesService } from './messages.service';
   	templateUrl: './messages.component.html',
   	styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent {
+export class MessagesComponent implements OnInit {
 	constructor(private router: Router,
 				private messagesService: MessagesService) {
 		this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
@@ -26,6 +26,7 @@ export class MessagesComponent {
 			lastMessage: 'Hiiiiiiiiii!',
 			from: '',
 			read: true,
+			caseID: 'axo193',
 		},
 		{
 			name: 'Georgia',
@@ -33,6 +34,7 @@ export class MessagesComponent {
 			lastMessage: 'Sup loser',
 			from: '',
 			read: false,
+			caseID: 'gcm49',
 		},
 		{
 			name: 'JD',
@@ -40,6 +42,7 @@ export class MessagesComponent {
 			lastMessage: '*LONG DESTINY RANT*',
 			from: '',
 			read: true,
+			caseID: 'jdt96',
 		},
 		{
 			name: 'Amy',
@@ -47,9 +50,16 @@ export class MessagesComponent {
 			lastMessage: 'I have an interview today :(',
 			from: '',
 			read: false,
+			caseID: 'aec127',
 		}
 	]
 	caseID = '';
-	
 
+	ngOnInit() {
+		this.messagesService.getMatches(this.caseID).subscribe(resp => {
+			console.log(resp);
+			if(resp.resp)
+				this.matches = resp.resp;
+		});
+	}
 }

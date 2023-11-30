@@ -15,13 +15,13 @@
         </div>
     </div>
 </button>
-  
+
 <!-- Modal -->
 <div class="modal fade" id="chatModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <nb-layout class="modal-content">
             <nb-layout-column>
-                <nb-chat title="Nebular Conversational UI" size="large">
+                <nb-chat title="Chat with {{name}}!" size="large">
                     <nb-chat-message *ngFor="let msg of messages"
                                     [message]="msg.text"
                                     [reply]="msg.reply"

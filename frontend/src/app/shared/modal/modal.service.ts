@@ -82,13 +82,14 @@ export class ModalService {
 		});
 	}
 
-	sendMessage(text: string, date: string, senderID: string, recieverID: string): Observable<any> {
+	sendMessage(text: string, date: string, senderID: string, recieverID: string, count: number): Observable<any> {
 		return this.http.get(sendMessage, {
 			params: {
 				text: text,
 				date: date,
 				senderID: senderID,
-				recieverID: recieverID
+				recieverID: recieverID,
+				count: count,
 			}
 		});
 	}
@@ -102,7 +103,7 @@ export class ModalService {
 		});
 	}
 
-	getRecentMessages(senderID: string, recieverID: string, count: string): Observable<any>{
+	getRecentMessages(senderID: string, recieverID: string, count: number): Observable<any>{
 		return this.http.get(getRecentMessages, {
 			params: {
 				senderID: senderID,
