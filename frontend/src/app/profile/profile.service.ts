@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 var url = `https://cwrumate.azurewebsites.net/api/set-profile`
-var editUrl = `https://cwrumate.azurewebsites.net/api/set-profile`;
+var editUrl = `https://cwrumate.azurewebsites.net/api/update-profile`;
 var getProfile = `https://cwrumate.azurewebsites.net/api/get-your-profile`;
 
 @Injectable({
@@ -68,7 +68,7 @@ export class ProfileService {
 	const formData = new FormData();
 	formData.append('file', new Blob([fileData]));
 
-	return this.http.post(url, formData, { params });
+	return this.http.post(editUrl, formData, { params });
   }
 
   getProfile(caseID: string): Observable<any>{
