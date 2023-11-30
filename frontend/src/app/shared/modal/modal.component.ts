@@ -32,7 +32,6 @@ export class ModalComponent {
 	messages: any[];
 
 	sendMessage($event: { message: string; }) {
-		console.log(this.modalService.getCount() + 1);
 		var newMessage = {
 			text: $event.message,
 			user: 'true',
