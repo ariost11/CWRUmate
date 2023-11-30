@@ -17,7 +17,7 @@ const profilesSeenContainer = database.container(containerId);
 const messagesContainer = database.container(containerId2);
 const profilesContainer = database.container(containerId3);
 
-module.exports = async function (req) {
+module.exports = async function (context, req) {
     let caseID = req.query.caseID;
 
     let status = await getMessagePage(caseID);

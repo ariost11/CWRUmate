@@ -11,10 +11,10 @@ const config = {
 module.exports = async function (context, req) {
     let caseID = req.query.caseID
 
-    let user = await getYourProfile(caseID);
+    let name = await getName(caseID);
 
     let response = {
-        resp : user
+        resp : name
     }
 
     context.res = {
@@ -26,7 +26,7 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getYourProfile(caseID) {
+async function getName(caseID) {
     const { endpoint, key, databaseId, containerId } = config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
@@ -43,5 +43,5 @@ async function getYourProfile(caseID) {
         return "PROFILE NOT SET";
     }
 
-    return userProfile[0];
+    return userProfile[0].name;
 }
