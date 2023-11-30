@@ -48,7 +48,7 @@ export class ModalComponent implements OnInit {
 	}
 
 	getAllMessages() {
-		this.modalService.getAllMessages(this.caseID, this.otherID).subscribe(resp => {
+		this.modalService.getRecentMessages(this.caseID, this.otherID, 0).subscribe(resp => {
 			if(resp.resp === 'SUCCESS') {
 				this.messages = resp.resp.messages;
 			}

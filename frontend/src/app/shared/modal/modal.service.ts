@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 var getName = `https://cwrumate.azurewebsites.net/api/get-name`;
 var sendMessage = `https://cwrumate.azurewebsites.net/api/send-message`;
-var getAllMessages = `https://cwrumate.azurewebsites.net/api/get-all-messages`;
 var getRecentMessages = `https://cwrumate.azurewebsites.net/api/get-recent-messages`;
 
 @Injectable({
@@ -90,15 +89,6 @@ export class ModalService {
 				senderID: senderID,
 				recieverID: recieverID,
 				count: count,
-			}
-		});
-	}
-
-	getAllMessages(senderID: string, recieverID: string): Observable<any> {
-		return this.http.get(getAllMessages, {
-			params: {
-				senderID: senderID,
-				recieverID: recieverID
 			}
 		});
 	}
