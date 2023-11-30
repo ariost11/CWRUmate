@@ -1027,6 +1027,7 @@ export class ProfileComponent implements AfterViewInit {
 		season: '',
 	}
 
+	loading = false;
     caseID = '';
 	picture: string = '';
 	profile_made = false;
@@ -1053,13 +1054,17 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	setProfile() {
+		this.loading = true;
 		this.profileService.setProfile(this.caseID, this.answers).subscribe(resp => {
+			console.log(resp)
 			if(resp.resp === 'SUCCESS') {
 				this.invalidSession = false;
 				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
 			} else 
 				this.invalidSession = true;
-		}, err => this.invalidSession = true);
+		}, 
+		err => this.invalidSession = true, 
+		() => this.loading = false);
 	}
 
 	getProfile() {
@@ -1091,6 +1096,13 @@ export class ProfileComponent implements AfterViewInit {
 				season: resp.resp.season,
 			};
 		}, err => this.invalidSession = true);
+	}
+	nextQuestion(){
+		this.loading = true;
+		setTimeout(() => {
+			this.questionIndex = this.questionIndex + 1
+			this.loading = false;
+		}, 1000)
 	}
 
 	setCheckedBoxes(list: string[]) {
@@ -1125,11 +1137,14 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	submitEditedProfile() {
-		this.profileService.updateProfile(this.caseID, this.editAnswers).subscribe(resp => {
-			if(resp.resp === 'SUCCESS')
-				this.routeHome();
-			else this.invalidSession = true;
-		}, err => this.invalidSession = true);
+		this.loading = true;
+		setTimeout(() => {
+			this.profileService.updateProfile(this.caseID, this.editAnswers).subscribe(resp => {
+				if(resp.resp === 'SUCCESS')
+					this.routeHome();
+				else this.invalidSession = true;
+			}, err => this.invalidSession = true, () => this.loading = false);
+		});
 	}
 
 	ngAfterViewInit() {

@@ -9,10 +9,12 @@ import { RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 import { NbChatModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 
 @NgModule({
   declarations: [
     ModalComponent,
+    ProfileCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbThemeModule,
     NbLayoutModule,
     NbEvaIconsModule,
+    ProfileCardComponent
   ]
 })
 export class SharedModule { }

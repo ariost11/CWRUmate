@@ -17,11 +17,21 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="chatModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1">
+<div class="modal fade" id="chatModal" data-bs-keyboard="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <nb-layout class="modal-content">
             <nb-layout-column>
                 <nb-chat title="Chat with {{name}}!" size="large">
+                    <nb-chat-message *ngIf="messages.length == 0"
+                                    message='To break the ice, say something like:
+"How do you like your classes?"
+"Are you struggling in classes like I am?"
+"Which class is most difficult?"'
+                                    reply="true"
+                                    sender="CWRUmate"
+                                    [date]="now()"
+                                    avatar="../../../assets/favicon/favicon-32x32.png">
+                    </nb-chat-message>
                     <nb-chat-message *ngFor="let msg of messages"
                                     [message]="msg.text"
                                     [reply]="msg.reply"

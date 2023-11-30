@@ -104,8 +104,13 @@
                 <option *ngFor="let option of seasons" [value]="option">{{option}}</option>
             </select>
             <div>
-                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1" (click)="questionIndex = questionIndex + 1" [disabled]="!answers[questionIndex]">Next</button>
-                <button class="btn btn-outline-primary" *ngIf="questionIndex === questions.length - 1" (click)="setProfile()" [disabled]="!answers[questionIndex]">Create Profile!</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex !== questions.length - 1 && !(questionIndex === 1)" (click)="this.questionIndex = this.questionIndex + 1" [disabled]="!answers[questionIndex]">Next</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex === 1 && !loading" (click)="nextQuestion()" [disabled]="!answers[questionIndex]">Next</button>
+                <button class="btn btn-outline-primary" *ngIf="questionIndex === questions.length - 1 && !loading" (click)="setProfile()" [disabled]="!answers[questionIndex]">Create Profile!</button>
+                <button class="btn btn-outline-primary" type="button" disabled *ngIf="loading && (questionIndex == 1 || questionIndex === questions.length - 1)" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
             </div>
         </div>
     </div>
@@ -268,7 +273,11 @@
                     <textarea class="form-control" style="height: 150px;" [(ngModel)]="editAnswers.bio"></textarea>
                 </div>
                 <div class="row question-group">
-                    <button (click)="submitEditedProfile()" class="btn btn-primary">Submit</button>
+                    <button (click)="submitEditedProfile()" *ngIf="!loading" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" type="button" disabled *ngIf="loading" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
                 </div>
             </div>
         </div>

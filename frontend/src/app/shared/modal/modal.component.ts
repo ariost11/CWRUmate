@@ -23,6 +23,11 @@ export class ModalComponent implements OnInit {
 	messages: any[];
 	myName = 'ERROR';
 
+
+	now(){
+		return new Date();
+	}
+
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
 			text: $event.message,
