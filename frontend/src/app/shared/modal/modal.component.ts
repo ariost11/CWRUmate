@@ -22,15 +22,6 @@ export class ModalComponent implements OnInit {
 
 	messages: any[];
 	myName = 'ERROR';
-	display = 'none';
-
-	openModal() {
-		this.display = 'block';
-	}
-
-	closeModal() {
-		this.display = 'none';
-	}
 
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
@@ -66,10 +57,14 @@ export class ModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		var x = 0;
 		//set name
 		this.modalService.getName(this.caseID).subscribe(resp => {
 			this.myName = resp.resp ? resp.resp : 'ERROR';
 		});
-		
+
+		setInterval(() =>{
+			console.log(x++);
+		}, 1000);
 	}
 }
