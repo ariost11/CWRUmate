@@ -14,23 +14,25 @@
             <img *ngIf="!read" class="read-bubble" src="../../../assets/icons8-filled-circle-24.png"/>
         </div>
     </div>
-   
 </button>
   
-  <!-- Modal -->
-<div class="modal fade" id="chatModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+<!-- Modal -->
+<div class="modal fade" id="chatModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Messages with {{name}}.</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{lastMessage}}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+        <nb-layout class="modal-content">
+            <nb-layout-column>
+                <nb-chat title="Nebular Conversational UI" size="large">
+                    <nb-chat-message *ngFor="let msg of messages"
+                                    [message]="msg.text"
+                                    [reply]="msg.reply"
+                                    [sender]="msg.name"
+                                    [date]="msg.date"
+                                    avatar="">
+                    </nb-chat-message>
+                    <nb-chat-form (send)="sendMessage($event)">
+                    </nb-chat-form>
+                </nb-chat>
+            </nb-layout-column>
+        </nb-layout>
     </div>
 </div>

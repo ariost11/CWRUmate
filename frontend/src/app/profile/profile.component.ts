@@ -1064,10 +1064,11 @@ export class ProfileComponent implements AfterViewInit {
 
 	getProfile() {
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
+			this.picture = resp.resp.photo;
 			this.editAnswers = {
 				caseID: this.caseID,
 				name: resp.resp.name,
-				photo: resp.resp.photo,
+				photo: File,
 				birthday: resp.resp.birthday,
 				year: resp.resp.year,
 				bio: resp.resp.bio,

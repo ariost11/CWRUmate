@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
+import { NbChatModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,10 @@ import { ModalComponent } from './modal/modal.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    NbChatModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
   ],
   exports: [
     BrowserModule,
@@ -28,6 +34,10 @@ import { ModalComponent } from './modal/modal.component';
     FormsModule,
     HttpClientModule,
     ModalComponent,
+    NbChatModule,
+    NbThemeModule,
+    NbLayoutModule,
+    NbEvaIconsModule,
   ]
 })
 export class SharedModule { }

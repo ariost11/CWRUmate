@@ -27,7 +27,8 @@
             ],
             "styles": [
               "src/scss/style.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/@nebular/theme/styles/prebuilt/default.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"

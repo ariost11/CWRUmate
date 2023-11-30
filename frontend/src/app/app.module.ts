@@ -8,6 +8,11 @@ import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { MessagesModule } from './messages/messages.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbChatModule, NbChatOptions, NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,9 +23,14 @@ import { MessagesModule } from './messages/messages.module';
     LoginModule,
     HomeModule,
     ProfileModule,
-    MessagesModule
+    MessagesModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbChatModule,
   ],
-  providers: [],
+  providers: [NbChatOptions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
