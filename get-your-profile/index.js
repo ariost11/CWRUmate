@@ -43,5 +43,5 @@ async function getYourProfile(caseID) {
         return "PROFILE NOT SET";
     }
 
-    return userProfile[0];
+    return userProfile[0]
 }
