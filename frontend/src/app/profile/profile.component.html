@@ -8,6 +8,7 @@
             </div>
             <div class="form-group" *ngIf="questionIndex === 1">
                 <input type="file" class="form-control" id="customFile" (change)="onFilesSelected($event, false)"/>
+                <p>*Your picture will be cropped to display in both 16x9 (portrait) and square formats*</p>
             </div>
             <div class="form-group date" data-provide="datepicker" *ngIf="questionIndex === 2">
                 <label>Birthday</label>
@@ -39,12 +40,14 @@
                 </div>
             </div>
             <div class="form-group" *ngIf="questionIndex === 7">
+                <i>Use a comma to separate majors</i>
                 <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[questionIndex]">
                 <datalist id="datalistOptions">
                     <option *ngFor="let major of majors" [value]="major">
                 </datalist>
             </div>
             <div class="form-group" *ngIf="questionIndex === 8">
+                <i>Use a comma to separate clubs</i>
                 <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="answers[questionIndex]">
                 <datalist id="datalistOptions">
                     <option *ngFor="let club of clubs" [value]="club">
@@ -114,9 +117,14 @@
         <h1 class="card-title">Edit Profile</h1>
         <div class="card-body d-flex">
             <div class="col-sm-4 profile-col">
-                <div class="row question-group justify-content-center">
-                    <div class="profile-picture-box">
-                        <img [src]="picture" class="picture"/>
+                <div class="row question-group">
+                    <div class="d-flex flex-row align-items-center justify-content-center">
+                        <div class="d-flex profile-picture-box">
+                            <img [src]="picture" class="picture"/>
+                        </div>
+                        <div class="d-flex profile-mini-box">
+                            <img [src]="picture" class="picture-mini"/>
+                        </div>
                     </div>
                     <i>The above photo will not update until you submit and reopen this page</i>
                     <input label="Change Profile Picture" type="file" accept="image/png, image/jpeg" class="form-control" id="customFile" (change)="onFilesSelected($event, true)"/>
@@ -142,6 +150,7 @@
                 </div>
                 <div class="row question-group">
                     <h3>Major</h3>
+                    <i>Use a comma to separate majors</i>
                     <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="editAnswers.majors">
                     <datalist id="datalistOptions">
                         <option *ngFor="let major of majors" [value]="major">
@@ -149,6 +158,7 @@
                 </div>
                 <div class="row question-group">
                     <h3>Clubs</h3>
+                    <i>Use a comma to separate clubs</i>
                     <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." type="email" multiple [(ngModel)]="editAnswers.clubs">
                     <datalist id="datalistOptions">
                         <option *ngFor="let club of clubs" [value]="club">
