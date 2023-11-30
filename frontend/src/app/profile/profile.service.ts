@@ -39,7 +39,7 @@ export class ProfileService {
 	const formData = new FormData();
     formData.append('file', new Blob([fileData]));
 
-	return this.http.post(editUrl, formData, { params });
+	return this.http.post(url, formData, { params });
   }
 
   updateProfile(caseID: string, answers: any): Observable<any> {

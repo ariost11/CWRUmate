@@ -32,6 +32,11 @@ export class ModalComponent implements OnInit {
 		this.display = 'none';
 	}
 
+
+	now(){
+		return new Date();
+	}
+
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
 			text: $event.message,

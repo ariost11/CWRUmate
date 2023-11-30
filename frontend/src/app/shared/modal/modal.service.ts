@@ -66,7 +66,7 @@ export class ModalService {
 	];
 
 	loadMessages() {
-		return this.messages;
+		return [];
 	}
 
 	getCount() {
