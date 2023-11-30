@@ -56,8 +56,8 @@ async function isMutualSwipe(swipe) {
     };
 
     const { resources: users } = await container.items.query(querySpec).fetchAll();
-
-    return users[0].includes(userA)
+    if (users.length > 0) return users[0].includes(userA)
+    return false;
 }
 
 async function setUpMessages(swipe) {
