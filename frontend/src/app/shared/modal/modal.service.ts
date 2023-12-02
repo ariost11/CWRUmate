@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 var getName = `https://cwrumate.azurewebsites.net/api/get-name`;
 var sendMessage = `https://cwrumate.azurewebsites.net/api/send-message`;
-var getRecentMessages = `https://cwrumate.azurewebsites.net/api/get-recent-messages`;
+var getRecentMessages = `https://cwrumate.azurewebsites.net/api/get-recent-messagez`;
 
 @Injectable({
 providedIn: 'root'
