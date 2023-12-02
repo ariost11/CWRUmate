@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 var getName = `https://cwrumate.azurewebsites.net/api/get-name`;
 var sendMessage = `https://cwrumate.azurewebsites.net/api/send-message`;
 var getRecentMessages = `https://cwrumate.azurewebsites.net/api/get-recent-messagez`;
+var getProfile = `https://cwrumate.azurewebsites.net/api/get-your-profile`;
 
 @Injectable({
 providedIn: 'root'
@@ -102,4 +103,14 @@ export class ModalService {
 			}
 		});
 	}
+
+	getProfile(caseID: string): Observable<any>{
+		return this.http.get(getProfile, 
+			{
+				params: {
+					caseID: caseID
+				}
+			}
+		);
+	  }
 }
