@@ -11942,6 +11942,14 @@ textarea.form-control-lg {
   height: calc(100vh - 100px);
 }
 
+.profile-card-holder {
+  margin: 14vh 25vw;
+  width: 50vw;
+  height: 72vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
 .holder {
   margin-top: 50px;
   margin-bottom: 50px;

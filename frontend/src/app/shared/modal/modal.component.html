@@ -2,11 +2,11 @@
 <button type="button" class="btn messages-btn" data-bs-toggle="modal" attr.data-bs-target="#chatModal_{{name}}">
     <div class="row">
         <div class="col-sm-2 justify-content-center align-items-center"> 
-            <div class="d-flex justify-content-center profile-mini-box">
+            <div class="d-flex justify-content-center profile-mini-box" (click)="activateProfileCard()">
                 <img src="../../../assets/cute-dog.jpg" class="picture-mini"/>
             </div>
-        </div> 
-        <div class="col-sm-9">
+        </div>
+        <div class="col-sm-9" (click)="profile_display = false;">
             <div class="row message-name justify-content-left">{{name}}</div>
             <div class="row message-last justify-content-left">{{lastMessage}}</div>
         </div>
@@ -18,10 +18,22 @@
 
 <!-- Modal -->
 <div class="modal fade" id="chatModal_{{name}}" data-bs-keyboard="true" tabindex="-1">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div *ngIf="profile_display" class="d-flex align-items-center justify-content-center profile-card-holder">
+        <div class="spinner-border text-primary align-self-center justify-self-center" style="width: 5rem; height: 5rem;" role="status" *ngIf="modalLoading">
+            <span class="sr-only"></span>
+        </div>
+        <app-profile-card *ngIf="!modalLoading" [profile]="profile"></app-profile-card>
+    </div>
+
+
+    <div *ngIf="!profile_display" class="modal-dialog modal-dialog-scrollable">
         <nb-layout class="modal-content" scrollBottom="true">
-            <nb-layout-column style="padding: 0;">
-                <nb-chat title="Chat with {{name}}!" size="giant">
+            <nb-layout-column class="" style="padding: 0;">
+                <div class="spinner-border text-primary align-self-center justify-self-center" style="width: 5rem; height: 5rem;" role="status" *ngIf="modalLoading">
+                    <span class="sr-only"></span>
+                </div>
+
+                <nb-chat *ngIf="!modalLoading" title="Chat with {{name}}!" size="giant">
                     <nb-chat-message *ngIf="messages.length == 0"
                                     message='To break the ice, say something like:
 "How do you like your classes?"
