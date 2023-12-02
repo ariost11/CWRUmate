@@ -29,7 +29,7 @@ module.exports = async function (context, req) {
     };
 }
 
-async function setUpMessages(message) {
+async function sendMessage(message) {
     const { endpoint, key, databaseId, containerId } = messages_config;
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
