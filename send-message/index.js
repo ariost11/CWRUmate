@@ -1,3 +1,5 @@
+const { CosmosClient } = require('@azure/cosmos');
+
 const messages_config = {
     endpoint: process.env.COSMOS_ENDPOINT,
     key: process.env.COSMOS_KEY,
@@ -14,7 +16,7 @@ module.exports = async function (context, req) {
         text: req.query.text
     }
 
-    let message_status = sendMessage(message)
+    let message_status = await sendMessage(message)
 
     let response = {
         resp : message_status
@@ -35,21 +37,27 @@ async function sendMessage(message) {
     const database = client.database(databaseId);
     const container = database.container(containerId);
 
+    const key1 = message.userA + "-" + message.userB
+    const key2 = message.userB + "-" + message.userA
+
+
     const querySpec = {
-        query: `SELECT * FROM c WHERE ARRAY_CONTAINS("${message.userA}", c.participants) AND ARRAY_CONTAINS("${message.userA}", c.participants)`
+        query: `SELECT * FROM c WHERE c.participants = "${key1}" OR c.participants = "${key2}"`
     };
 
-    const { resources: users } = await container.items.query(querySpec).fetchAll();
+    const { resources: chats } = await container.items.query(querySpec).fetchAll();
 
-    return users
-
-    /*
+    let item = chats[0]
 
     new_message = {
         sender: message.userA,
-        text: message.text
+        text: message.text,
+        count: item.messages.length + 1
     }
 
-    const { resource: updatedItem } = await container.items.upsert(new_chat);
-    */
+    item.messages.push(new_message);
+
+    const { resource: updatedItem } = await container.items.upsert(item);
+
+    return updatedItem
 }
