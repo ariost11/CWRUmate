@@ -12,7 +12,7 @@ const config = {
 const { endpoint, key, databaseId, containerId, containerId2 } = config;
 const client = new CosmosClient({ endpoint, key });
 const database = client.database(databaseId);
-const messagesContainer = database.container(containerId);
+const conversationContainer = database.container(containerId);
 const profilesContainer = database.container(containerId2);
 
 module.exports = async function (context, req) {
@@ -39,7 +39,47 @@ async function getMessagePage(context, caseID) {
         query: `SELECT * FROM c WHERE ARRAY_CONTAINS(c.participants, "${caseID}", true)`
     };
 
-    const { resources: messages } = await messagesContainer.items.query(querySpec).fetchAll();
+    const { resources: conversations } = await conversationContainer.items.query(querySpec).fetchAll();
 
-    context.log(messages);
+    context.log(conversations);
+
+    convoMsgHeaders = []
+
+    for (let convo of conversations) {
+        let otherUser = await getUser(convo, caseID);
+        let otherCaseId = otherUser["caseID"];
+        let name = otherUser["name"];
+        let photo = otherUser["photo"];
+        let lastMsg = convo["messages"].slice(-1)[0];
+
+        convoMsgHeaders.push({
+            "caseID": otherCaseId,
+            "name": name,
+            "photo": photo,
+            "lastMsg": lastMsg
+        });
+    }
+
+    return convoMsgHeaders;
+}
+
+async function getUser(convo, caseID) {
+
+    let otherCaseId;
+
+    for (let id of convo["participants"]) {
+        if (id !== caseID) {
+            otherCaseId = id;
+        }
+    }
+
+    const querySpec = {
+        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
+    };
+
+    const { resources: users } = await profilesContainer.items.query(querySpec).fetchAll();
+
+    let otherUser = users[0];
+
+    return otherUser;
 }
