@@ -18,7 +18,7 @@ const profilesContainer = database.container(containerId2);
 module.exports = async function (context, req) {
     let caseID = req.query.caseID;
 
-    let status = await getMessagePage(context, caseID);
+    let status = await getMessageHeaders(context, caseID);
 
     let response = {
         resp : status
@@ -33,24 +33,30 @@ module.exports = async function (context, req) {
     };
 }
 
-async function getMessagePage(context, caseID) {
+async function getMessageHeaders(context, caseID) {
 
     const querySpec = {
-        query: `SELECT * FROM c WHERE ARRAY_CONTAINS(c.participants, "${caseID}", true)`
+        query: `SELECT * FROM c WHERE c.participants LIKE "%${caseID}%"`
     };
 
     const { resources: conversations } = await conversationContainer.items.query(querySpec).fetchAll();
-
-    context.log(conversations);
 
     convoMsgHeaders = []
 
     for (let convo of conversations) {
         let otherUser = await getUser(convo, caseID);
-        let otherCaseId = otherUser["caseID"];
-        let name = otherUser["name"];
-        let photo = otherUser["photo"];
-        let lastMsg = convo["messages"].slice(-1)[0];
+        let otherCaseId = otherUser.caseID;
+        let name = otherUser.name;
+        let photo = otherUser.photo;
+
+        // check if last message exists
+        let msgsLen = convo.messages.length;
+
+        let lastMsg = "";
+
+        if (msgsLen != 0) {
+            lastMsg = convo.messages[msgsLen-1].text;
+        }
 
         convoMsgHeaders.push({
             "caseID": otherCaseId,
@@ -67,14 +73,17 @@ async function getUser(convo, caseID) {
 
     let otherCaseId;
 
-    for (let id of convo["participants"]) {
+    let usersList = convo["participants"].split("-");
+
+    for (let id of usersList) {
         if (id !== caseID) {
             otherCaseId = id;
+            break;
         }
     }
 
     const querySpec = {
-        query: `SELECT * from c WHERE c.caseID = "${caseID}"`
+        query: `SELECT * from c WHERE c.caseID = "${otherCaseId}"`
     };
 
     const { resources: users } = await profilesContainer.items.query(querySpec).fetchAll();
