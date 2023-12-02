@@ -42,7 +42,8 @@ async function getMessages(users) {
 
     // query to check if the caseID is already used
     const querySpec = {
-        query: `SELECT * from c WHERE c.participants = "${key1}" OR c.participants = "${key2}"`
+        query: `SELECT * FROM c WHERE (c.participants = "${key1}" OR c.participants = "${key2}")
+            AND c.messages.count > ${count}`
     };
     const { resources: messages } = await container.items
     .query(querySpec)
