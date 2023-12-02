@@ -67,10 +67,7 @@ async function setUpMessages(swipe) {
     const container = database.container(containerId);
 
     new_chat = {
-        participants: [
-            swipe.userA,
-            swipe.userB
-        ],
+        participants: swipe.userA + "-" + swipe.userB,
         messages: [],
     }
 
