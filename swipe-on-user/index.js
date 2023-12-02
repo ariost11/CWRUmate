@@ -68,8 +68,8 @@ async function setUpMessages(swipe) {
 
     new_chat = {
         participants: [
-            userA,
-            userB
+            swipe.userA,
+            swipe.userB
         ],
         messages: [],
     }
