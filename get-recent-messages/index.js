@@ -17,13 +17,15 @@ module.exports = async function (context, req) {
         count: req.query.count,
     }
 
+    var messagesList = await getMessages(usersInfo);
+
     var response = {
-        resp : await getMessages(usersInfo),
+        resp : messagesList,
     };
 
     context.res = {
         body: response,
-        headers: {   
+        headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials' : true
         }
@@ -36,18 +38,21 @@ async function getMessages(users) {
     const database = client.database(databaseId);
     const container = database.container(containerId);
 
-    const key1 = users.userA;
-    const key2 = users.userB;
+    const key1 = users.userA + '-' + users.userB;
+    const key2 = users.userB + '-' + users.userA;
     const count = users.count;
 
-    // query to check if the caseID is already used
     const querySpec = {
-        query: `SELECT * FROM c WHERE (c.participants = "${key1}" OR c.participants = "${key2}")
-            AND c.messages.count > ${count}`
+        query: `SELECT * FROM c WHERE (c.participants = "${key1}" OR c.participants = "${key2}")`
     };
     const { resources: messages } = await container.items
     .query(querySpec)
     .fetchAll();
 
-    return messages.messages;
+    var result = [];
+    for(let message of messages[0].messages) {
+        if(message.count > count)
+            result.push(message);
+    }
+    return result;
 }
