@@ -20,6 +20,9 @@ export class ModalComponent implements OnInit {
 	@Input() caseID = '';
 	@Input() otherID = '';
 
+	profile:any;
+	profile_display:boolean = false;
+	modalLoading = false;
 	messages: any[];
 	myName = 'ERROR';
 
@@ -27,6 +30,14 @@ export class ModalComponent implements OnInit {
 		return new Date();
 	}
 
+	activateProfileCard(){
+		this.profile_display = true;
+		this.modalLoading = true;
+		this.modalService.getProfile(this.otherID).subscribe(resp => {
+			this.profile = resp.resp
+			console.log(resp)
+		}, () => {}, () => {this.modalLoading = false;});
+	}
 
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
@@ -44,20 +55,26 @@ export class ModalComponent implements OnInit {
 	}
 
 	getAllMessages() {
+		this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, 0).subscribe(resp => {
 			if(resp.resp === 'SUCCESS') {
 				this.messages = resp.resp.messages;
 			}
+		}, () => {}, () => {
+			this.modalLoading = false;
 		});
 	}
 
 	addRecentMessages() {
+		this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, this.modalService.getCount()).subscribe(resp => {
 			if(resp.resp === 'SUCCESS') {
 				resp.resp.messages.forEach((message: any) => {
 					this.messages.push(message);
 				});
 			}
+		}, () => {}, () => {
+			this.modalLoading = false;
 		});
 	}
 
@@ -70,7 +87,8 @@ export class ModalComponent implements OnInit {
 		//loop messages check
 		var tempName = this.name;
 		var modalOpen = false;
-		document.addEventListener("DOMContentLoaded", function() {
+		var profile_display = this.profile_display;
+		document.addEventListener("DOMContentLoaded", () => {
 			var modal = document.getElementById(`chatModal_${tempName}`);
 			modal?.addEventListener('hidden.bs.modal', function (event) {
 				modalOpen = false;
@@ -79,7 +97,7 @@ export class ModalComponent implements OnInit {
 				modalOpen = true;
 			});
 			setInterval(() =>{
-				if(modalOpen)
+				if(modalOpen && !this.profile_display)
 					console.log('open');
 					//this.addRecentMessages();
 			}, 1000);

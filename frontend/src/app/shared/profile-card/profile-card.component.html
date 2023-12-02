@@ -1,9 +1,9 @@
 <div class="card profile-card">
     <div class="row g-0">
-        <div class="col-lg-5 picture-box">
+        <div class="col-sm-5 picture-box">
             <img [src]="profile.photo" class="rounded-start picture"/>
         </div>
-        <div class="col-lg-7">
+        <div class="col-sm-7">
             <div class="card-body row profile-text">
                 <h3 class="card-title">{{profile.name}} {{age(profile.birthday)}}  <i [class]="phone_pref(profile.apple_android)"></i>   <i [class]="political_pref(profile.political_leaning)"></i> {{profile.season}}</h3>
                 <p>{{profile.year}} {{profile.gender_identity}}</p>
