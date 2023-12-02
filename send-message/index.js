@@ -9,14 +9,13 @@ const messages_config = {
 };
 
 module.exports = async function (context, req) {
-    const currentDateAndTime = new Date();
 
     // here, the sender is userA
     let message = {
         userA: req.query.userA,
         userB: req.query.userB,
         text: req.query.text,
-        date : currentDateAndTime
+        date : req.query.date
     }
 
     let message_status = await sendMessage(message)
@@ -55,7 +54,7 @@ async function sendMessage(message) {
     new_message = {
         sender: message.userA,
         text: message.text,
-        date: date,
+        date: message.date,
         count: item.messages.length + 1
     }
 
