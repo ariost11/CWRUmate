@@ -42,20 +42,22 @@ async function sendMessage(message) {
 
 
     const querySpec = {
-        query: `SELECT * FROM c WHERE c.participants = "${key1}" OR c.participants = "${key2}" `
+        query: `SELECT * FROM c WHERE c.participants = "${key1}" OR c.participants = "${key2}"`
     };
 
-    const { resources: users } = await container.items.query(querySpec).fetchAll();
+    const { resources: chats } = await container.items.query(querySpec).fetchAll();
 
-    return users
-
-    /*
+    let item = chats[0]
 
     new_message = {
         sender: message.userA,
-        text: message.text
+        text: message.text,
+        count: item.messages.length + 1
     }
 
-    const { resource: updatedItem } = await container.items.upsert(new_chat);
-    */
+    item.messages.push(new_message);
+
+    const { resource: updatedItem } = await container.items.upsert(item);
+
+    return updatedItem
 }
