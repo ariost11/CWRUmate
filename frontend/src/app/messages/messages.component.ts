@@ -58,8 +58,8 @@ export class MessagesComponent implements OnInit {
 	ngOnInit() {
 		this.messagesService.getMatches(this.caseID).subscribe(resp => {
 			console.log(resp);
-			if(resp.resp)
-				this.matches = resp.resp;
+			// if(resp.resp.length !== 0)
+			// 	this.matches = resp.resp;
 		});
 	}
 }
