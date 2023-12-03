@@ -19,47 +19,13 @@ export class MessagesComponent implements OnInit {
 		this.caseID = this.router.getCurrentNavigation()?.extras?.state?.['caseID'];
 	}
 
-	matches = [
-		{
-			name: 'Ari',
-			picture: null,
-			lastMessage: 'Hiiiiiiiiii!',
-			from: '',
-			read: true,
-			caseID: 'axo193',
-		},
-		{
-			name: 'Georgia',
-			picture: null,
-			lastMessage: 'Sup loser',
-			from: '',
-			read: false,
-			caseID: 'gcm49',
-		},
-		{
-			name: 'JD',
-			picture: null,
-			lastMessage: '*LONG DESTINY RANT*',
-			from: '',
-			read: true,
-			caseID: 'jdt96',
-		},
-		{
-			name: 'Amy',
-			picture: null,
-			lastMessage: 'I have an interview today :(',
-			from: '',
-			read: false,
-			caseID: 'aec127',
-		}
-	]
+	matches: any[] = [];
 	caseID = '';
 
 	ngOnInit() {
 		this.messagesService.getMatches(this.caseID).subscribe(resp => {
-			console.log(resp);
-			// if(resp.resp.length !== 0)
-			// 	this.matches = resp.resp;
+			if(resp.resp.length !== 0)
+				this.matches = resp.resp;
 		});
 	}
 }

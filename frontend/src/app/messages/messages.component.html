@@ -1,4 +1,11 @@
 <div class="card messages-container">
     <h1 class="card-title d-flex align-items-center justify-content-center">Messages</h1>
-    <message-modal *ngFor="let match of matches" [read]="match.read" [name]="match.name" [lastMessage]="match.lastMessage" [from]="match.from" [picture]="match.picture" [caseID]="caseID" [otherID]="match.caseID"/>
+    <message-modal *ngFor="let match of matches" 
+        [read]="false" 
+        [name]="match.name" 
+        [lastMessage]="match.lastMessage"
+        [from]="match.caseID === caseID ? match.caseID : caseID" 
+        [picture]="match.photo" 
+        [caseID]="caseID" 
+        [otherID]="match.caseID"/>
 </div>
