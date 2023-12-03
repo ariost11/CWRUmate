@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn messages-btn" data-bs-toggle="modal" attr.data-bs-target="#chatModal_{{name}}">
+<button type="button" class="btn messages-btn" data-bs-toggle="modal" attr.data-bs-target="#chatModal_{{replaceSpace(name)}}">
     <div class="row">
         <div class="col-sm-2 justify-content-center align-items-center"> 
             <div class="d-flex justify-content-center profile-mini-box" (click)="activateProfileCard()">
@@ -17,7 +17,7 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="chatModal_{{name}}" data-bs-keyboard="true" tabindex="-1">
+<div class="modal fade" id="chatModal_{{replaceSpace(name)}}" data-bs-keyboard="true" tabindex="-1">
     <div *ngIf="profile_display" class="d-flex align-items-center justify-content-center profile-card-holder">
         <div class="spinner-border text-primary align-self-center justify-self-center" style="width: 5rem; height: 5rem;" role="status" *ngIf="modalLoading">
             <span class="sr-only"></span>

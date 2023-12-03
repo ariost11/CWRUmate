@@ -16,7 +16,7 @@ export class ModalComponent implements OnInit {
 	@Input() lastMessage = '';
 	@Input() from = '';
 	@Input() picture: any;
-	@Input() read: boolean = false;
+	@Input() read: boolean = true;
 	@Input() caseID = '';
 	@Input() otherID = '';
 
@@ -84,7 +84,7 @@ export class ModalComponent implements OnInit {
 		});
 		this.picture = this.pictureTime(this.picture);
 		//loop messages check
-		var tempName = this.name;
+		var tempName = this.replaceSpace(this.name);
 		var modalOpen = false;
 		var firstClicked = true;
 		document.addEventListener('click', () => {
@@ -113,4 +113,8 @@ export class ModalComponent implements OnInit {
 	pictureTime(str: string){
         return str + "?" + new Date().getMilliseconds();
     }
+
+	replaceSpace(str: string){
+		return str.replaceAll(" ", "_");
+	}
 }
