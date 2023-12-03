@@ -1028,6 +1028,7 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	loading = false;
+	profileLoading = false;
     caseID = '';
 	picture: string = '';
 	profile_made = false;
@@ -1068,8 +1069,9 @@ export class ProfileComponent implements AfterViewInit {
 	}
 
 	getProfile() {
+		this.profileLoading = true;
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
-			this.picture = resp.resp.photo;
+			this.picture = resp.resp.photo + "?" + new Date().toTimeString();
 			console.log(resp);
 			console.log(resp.resp.photo);
 			console.log(this.picture);
@@ -1095,7 +1097,7 @@ export class ProfileComponent implements AfterViewInit {
 				study_spot: resp.resp.study_spot,
 				season: resp.resp.season,
 			};
-		}, err => this.invalidSession = true);
+		}, err => this.invalidSession = true, () => this.profileLoading = false);
 	}
 	nextQuestion(){
 		this.loading = true;
@@ -1140,10 +1142,14 @@ export class ProfileComponent implements AfterViewInit {
 		this.loading = true;
 		setTimeout(() => {
 			this.profileService.updateProfile(this.caseID, this.editAnswers).subscribe(resp => {
+				console.log(resp)
 				if(resp.resp === 'SUCCESS')
 					this.routeHome();
 				else this.invalidSession = true;
-			}, err => this.invalidSession = true, () => this.loading = false);
+			}, err => this.invalidSession = true, 
+			() => {
+				this.loading = false;
+			});
 		});
 	}
 
