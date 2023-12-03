@@ -55,7 +55,6 @@ export class ModalComponent implements OnInit {
 	}
 
 	getAllMessages() {
-		console.log('getting all messages');
 		this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, 0).subscribe(resp => {
 			resp.resp.forEach((a : any) => {
@@ -67,14 +66,11 @@ export class ModalComponent implements OnInit {
 	}
 
 	addRecentMessages() {
-		//this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, this.getCount()).subscribe(resp => {
 			resp.resp.forEach((a: any) => {
 				if(!this.messages.includes(a))
 					this.messages.push(a);
 			});
-		}, () => {}, () => {
-			//this.modalLoading = false;
 		});
 	}
 

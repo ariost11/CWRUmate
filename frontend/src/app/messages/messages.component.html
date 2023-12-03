@@ -3,7 +3,7 @@
     <message-modal *ngFor="let match of matches" 
         [read]="false" 
         [name]="match.name" 
-        [lastMessage]="match.lastMessage"
+        [lastMessage]="match.lastMsg"
         [from]="match.caseID === caseID ? match.caseID : caseID" 
         [picture]="match.photo" 
         [caseID]="caseID" 
