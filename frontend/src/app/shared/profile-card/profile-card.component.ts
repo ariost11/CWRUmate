@@ -14,13 +14,7 @@ export class ProfileCardComponent {
 
 
     majorString(arr:string[]){
-        var final = "";
-        arr.forEach((major, i) => {
-            final += major;
-            if (i < arr.length - 1)
-                final += ", "
-        });
-        return final;
+        return arr.join(', ');
     }
 
     age(str: string){

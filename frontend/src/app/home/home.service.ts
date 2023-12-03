@@ -22,14 +22,14 @@ export class HomeService {
   }
 
   swipe(caseID: string, nextCaseID: string, result: string): Observable<any>{
-	return this.http.get(swipe_url,
-		{
-			params: {
-				userA: caseID,
-				userB: nextCaseID,
-				result: result
-			}
-		}
-	);
-}
+    return this.http.get(swipe_url,
+      {
+        params: {
+          userA: caseID,
+          userB: nextCaseID,
+          result: result
+        }
+      }
+    );
+  }
 }

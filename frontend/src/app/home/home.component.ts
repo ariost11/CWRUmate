@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
 	accept() {
 		this.loading = true;
 		this.homeService.swipe(this.caseID, this.profiles[this.profiles_index].caseID, 'YES').subscribe(result => {
+			console.log(result);
 			this.swipeFailed = false;
 			if(result.resp === 'ERROR')
 				this.swipeFailed = true;
@@ -50,6 +51,7 @@ export class HomeComponent implements OnInit {
 	decline() {
 		this.loading = true;
 		this.homeService.swipe(this.caseID, this.profiles[this.profiles_index].caseID, 'NO').subscribe(result => {
+			console.log(result);
 			this.swipeFailed = false;
 			if(result.resp === 'ERROR')
 				this.swipeFailed = true;

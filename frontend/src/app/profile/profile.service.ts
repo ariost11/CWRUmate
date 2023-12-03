@@ -64,11 +64,14 @@ export class ProfileService {
 		study_spot: answers.study_spot,
 		season: answers.season,
 	}
-	const fileData = answers.photo;
-	const formData = new FormData();
-	formData.append('file', new Blob([fileData]));
-
-	return this.http.post(editUrl, formData, { params });
+	if(answers.photo !== File) {
+		const fileData = answers.photo;
+		const formData = new FormData();
+		formData.append('file', new Blob([fileData]));
+		return this.http.post(editUrl, formData, { params });
+	} else {
+		return this.http.get(editUrl, { params });
+	}	
   }
 
   getProfile(caseID: string): Observable<any>{
