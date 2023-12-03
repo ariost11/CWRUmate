@@ -26,10 +26,6 @@ export class ModalComponent implements OnInit {
 	messages: any[];
 	myName = 'ERROR';
 
-	now(){
-		return new Date();
-	}
-
 	activateProfileCard(){
 		this.profile_display = true;
 		this.modalLoading = true;
@@ -39,42 +35,46 @@ export class ModalComponent implements OnInit {
 		}, () => {}, () => {this.modalLoading = false;});
 	}
 
+	getCount() {
+		return this.messages[this.messages.length - 1].count;
+	}
+
 	sendMessage($event: { message: string; }) {
 		var newMessage = {
 			text: $event.message,
 			user: 'true',
 			name: this.myName,
 			date: new Date(),
-			count: this.modalService.getCount() + 1,
+			count: this.getCount() + 1,
 		}
 
-		this.modalService.sendMessage(newMessage.text, newMessage.date.toString(), this.caseID, this.otherID, newMessage.count).subscribe(resp => {
+		this.modalService.sendMessage(newMessage.text, newMessage.date.toString(), this.caseID, this.otherID).subscribe(resp => {
 			if(resp.resp === 'SUCCESS')
 				this.messages.push(newMessage);
 		});
 	}
 
 	getAllMessages() {
+		console.log('getting all messages');
 		this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, 0).subscribe(resp => {
-			if(resp.resp === 'SUCCESS') {
-				this.messages = resp.resp.messages;
-			}
+			resp.resp.forEach((a : any) => {
+				this.messages.push(a);
+			});
 		}, () => {}, () => {
 			this.modalLoading = false;
 		});
 	}
 
 	addRecentMessages() {
-		this.modalLoading = true;
-		this.modalService.getRecentMessages(this.caseID, this.otherID, this.modalService.getCount()).subscribe(resp => {
-			if(resp.resp === 'SUCCESS') {
-				resp.resp.messages.forEach((message: any) => {
-					this.messages.push(message);
-				});
-			}
+		//this.modalLoading = true;
+		this.modalService.getRecentMessages(this.caseID, this.otherID, this.getCount()).subscribe(resp => {
+			resp.resp.forEach((a: any) => {
+				if(!this.messages.includes(a))
+					this.messages.push(a);
+			});
 		}, () => {}, () => {
-			this.modalLoading = false;
+			//this.modalLoading = false;
 		});
 	}
 
@@ -87,20 +87,27 @@ export class ModalComponent implements OnInit {
 		//loop messages check
 		var tempName = this.name;
 		var modalOpen = false;
-		var profile_display = this.profile_display;
-		document.addEventListener("DOMContentLoaded", () => {
-			var modal = document.getElementById(`chatModal_${tempName}`);
-			modal?.addEventListener('hidden.bs.modal', function (event) {
-				modalOpen = false;
-			});
-			modal?.addEventListener('shown.bs.modal', function (event) {
-				modalOpen = true;
-			});
-			setInterval(() =>{
-				if(modalOpen && !this.profile_display)
-					console.log('open');
-					//this.addRecentMessages();
-			}, 1000);
+		var firstClicked = true;
+		document.addEventListener('click', () => {
+			if(firstClicked) {
+				var modal = document.getElementById(`chatModal_${tempName}`);
+				console.log(modal);
+				modal?.addEventListener('hidden.bs.modal', () => {
+					modalOpen = false;
+				});
+				modal?.addEventListener('shown.bs.modal', () => {
+					if(this.messages.length === 0)
+						this.getAllMessages();
+					modalOpen = true;
+				});
+
+				setInterval(() => {
+					if(modalOpen && !this.profile_display) {
+						this.addRecentMessages();
+					}
+				}, 1000);
+			}
+			firstClicked = false;
 		});
 	}
 }

@@ -41,13 +41,12 @@
 "Which class is most difficult?"'
                                     reply="true"
                                     sender="CWRUmate"
-                                    [date]="now()"
                                     avatar="../../../assets/favicon/favicon-32x32.png">
                     </nb-chat-message>
                     <nb-chat-message *ngFor="let msg of messages"
                                     [message]="msg.text"
-                                    [reply]="msg.reply"
-                                    [sender]="msg.name"
+                                    [reply]="msg.sender !== otherID"
+                                    [sender]="msg.sender !== otherID ? myName : name"
                                     [date]="msg.date"
                                     avatar="">
                     </nb-chat-message>
