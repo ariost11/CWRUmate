@@ -36,7 +36,7 @@ export class ModalComponent implements OnInit {
 	}
 
 	getCount() {
-		return this.messages[this.messages.length - 1].count;
+		return this.messages.length - 1;
 	}
 
 	sendMessage($event: { message: string; }) {
