@@ -1057,7 +1057,6 @@ export class ProfileComponent implements AfterViewInit {
 	setProfile() {
 		this.loading = true;
 		this.profileService.setProfile(this.caseID, this.answers).subscribe(resp => {
-			console.log(resp)
 			if(resp.resp === 'SUCCESS') {
 				this.invalidSession = false;
 				this.router.navigate(['/home'],  { state: {caseID: this.caseID} });
@@ -1072,9 +1071,6 @@ export class ProfileComponent implements AfterViewInit {
 		this.profileLoading = true;
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
 			this.picture = this.pictureTime(resp.resp.photo)
-			console.log(resp);
-			console.log(resp.resp.photo);
-			console.log(this.picture);
 			this.editAnswers = {
 				caseID: this.caseID,
 				name: resp.resp.name,
@@ -1142,7 +1138,6 @@ export class ProfileComponent implements AfterViewInit {
 		this.loading = true;
 		setTimeout(() => {
 			this.profileService.updateProfile(this.caseID, this.editAnswers).subscribe(resp => {
-				console.log(resp)
 				if(resp.resp === 'SUCCESS')
 					this.routeHome();
 				else this.invalidSession = true;

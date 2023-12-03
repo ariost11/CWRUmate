@@ -31,12 +31,11 @@ export class ModalComponent implements OnInit {
 		this.modalLoading = true;
 		this.modalService.getProfile(this.otherID).subscribe(resp => {
 			this.profile = resp.resp
-			console.log(resp)
 		}, () => {}, () => {this.modalLoading = false;});
 	}
 
 	getCount() {
-		return this.messages.length - 1;
+		return this.messages.length;
 	}
 
 	sendMessage($event: { message: string; }) {
@@ -45,7 +44,7 @@ export class ModalComponent implements OnInit {
 			user: 'true',
 			name: this.myName,
 			date: new Date(),
-			count: this.getCount() + 1,
+			count: this.getCount(),
 		}
 
 		this.modalService.sendMessage(newMessage.text, newMessage.date.toString(), this.caseID, this.otherID).subscribe(resp => {
@@ -90,7 +89,6 @@ export class ModalComponent implements OnInit {
 		document.addEventListener('click', () => {
 			if(firstClicked) {
 				var modal = document.getElementById(`chatModal_${tempName}`);
-				console.log(modal);
 				modal?.addEventListener('hidden.bs.modal', () => {
 					modalOpen = false;
 				});
@@ -101,7 +99,7 @@ export class ModalComponent implements OnInit {
 				});
 
 				setInterval(() => {
-					if(modalOpen && !this.profile_display) {
+					if(modalOpen && !this.profile_display && !this.modalLoading) {
 						this.addRecentMessages();
 					}
 				}, 1000);
