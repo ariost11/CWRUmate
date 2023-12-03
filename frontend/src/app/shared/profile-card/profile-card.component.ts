@@ -9,6 +9,8 @@ export class ProfileCardComponent {
 
     @Input() profile: any = {};
 
+    picture: any;
+
     apple_map: {[key: string]: string} = {"apple": "fa-brands fa-apple", "android": "fa-brands fa-android", "phone": "fa-solid fa-phone-flip"}
 	political_map: {[key: string]: string} = {"democrat": "fa-solid fa-democrat", "republican": "fa-solid fa-republican", "trash": "fa-solid fa-trash", "bath": "fa-solid fa-bath", "fish": "fa-solid fa-fish"}
 
@@ -29,5 +31,13 @@ export class ProfileCardComponent {
 
     political_pref(str: string){
         return this.political_map[str];
+    }
+
+    ngOnInit(){
+        this.picture = this.pictureTime(this.profile.photo);
+    }
+
+    pictureTime(str: string){
+        return str + "?" + new Date().getMilliseconds();
     }
 }

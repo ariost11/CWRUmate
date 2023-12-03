@@ -27,4 +27,8 @@ export class AppComponent {
     routeProfile() {
         this.router.navigate(['/profile'],  { state: {caseID: this.userLoginStatuService.caseID} });
     }
+
+    pictureTime(str: string){
+        return str + "?" + new Date().getMilliseconds();
+    }
 }

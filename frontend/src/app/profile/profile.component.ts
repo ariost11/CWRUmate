@@ -1071,7 +1071,7 @@ export class ProfileComponent implements AfterViewInit {
 	getProfile() {
 		this.profileLoading = true;
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
-			this.picture = resp.resp.photo + "?" + new Date().getMilliseconds();
+			this.picture = this.pictureTime(resp.resp.photo)
 			console.log(resp);
 			console.log(resp.resp.photo);
 			console.log(this.picture);
@@ -1161,4 +1161,8 @@ export class ProfileComponent implements AfterViewInit {
 	routeHome() {
 		this.router.navigate(['/home'], { state: {caseID: this.caseID, newUser: true} });
 	}
+
+	pictureTime(str: string){
+        return str + "?" + new Date().getMilliseconds();
+    }
 }

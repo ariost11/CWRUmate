@@ -79,7 +79,7 @@ export class ModalComponent implements OnInit {
 		this.modalService.getName(this.caseID).subscribe(resp => {
 			this.myName = resp.resp ? resp.resp : 'ERROR';
 		});
-
+		this.picture = this.pictureTime(this.picture);
 		//loop messages check
 		var tempName = this.name;
 		var modalOpen = false;
@@ -106,4 +106,8 @@ export class ModalComponent implements OnInit {
 			firstClicked = false;
 		});
 	}
+	
+	pictureTime(str: string){
+        return str + "?" + new Date().getMilliseconds();
+    }
 }
