@@ -186,6 +186,13 @@ $body-bg: #F9F9F9;
     width: 50vw;
     max-width: 75vw;
     overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.notif-bubble{
+    position: sticky;
+    top: 5px;
+    right: 5px;
 }
 
 .btn-nav{

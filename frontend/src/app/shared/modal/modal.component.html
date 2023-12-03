@@ -1,16 +1,14 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn messages-btn" data-bs-toggle="modal" attr.data-bs-target="#chatModal_{{replaceSpace(name)}}">
-    <div class="row">
-        <div class="col-sm-2 justify-content-center align-items-center"> 
-            <div class="d-flex justify-content-center profile-mini-box" (click)="activateProfileCard()">
-                <img [src]="picture" class="picture-mini"/>
-            </div>
+    <div class="d-flex" style="width: 100%">
+        <div class="d-flex justify-content-center profile-mini-box" (click)="activateProfileCard()">
+            <img [src]="picture" class="picture-mini"/>
         </div>
-        <div class="col-sm-9" (click)="profile_display = false;">
-            <div class="row message-name justify-content-left">{{name}}</div>
-            <div class="row message-last justify-content-left">{{lastMessage}}</div>
+        <div class="d-flex-column" style="margin-left: 10px; width: calc(100% - 10px - 86px)" (click)="profile_display = false;">
+            <div class="d-flex message-name justify-content-left">{{name}}</div>
+            <div class="d-flex message-last justify-content-left">{{lastMessage}}</div>
         </div>
-        <div class="col-sm-1">
+        <div class="notif-bubble">
             <img *ngIf="!read" class="read-bubble" src="../../../assets/icons8-filled-circle-24.png"/>
         </div>
     </div>
@@ -34,7 +32,7 @@
                 </div>
 
                 <nb-chat *ngIf="!modalLoading" title="Chat with {{name}}!" size="giant">
-                    <nb-chat-message *ngIf="messages.length == 0"
+                    <nb-chat-message *ngIf="!modalLoading && messages.length == 0"
                                     message='To break the ice, say something like:
 "How do you like your classes?"
 "Are you struggling in classes like I am?"

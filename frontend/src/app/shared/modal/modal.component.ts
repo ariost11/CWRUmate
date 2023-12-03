@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
 
 	profile:any;
 	profile_display:boolean = false;
-	modalLoading = false;
+	modalLoading = true;
 	messages: any[];
 	myName = 'ERROR';
 
@@ -94,9 +94,11 @@ export class ModalComponent implements OnInit {
 				var modal = document.getElementById(`chatModal_${tempName}`);
 				modal?.addEventListener('hidden.bs.modal', () => {
 					modalOpen = false;
+					this.modalLoading = true;
 				});
 				modal?.addEventListener('shown.bs.modal', () => {
 					if(this.messages.length === 0)
+						this.modalLoading = true;
 						this.getAllMessages();
 					modalOpen = true;
 				});
