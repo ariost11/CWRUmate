@@ -56,7 +56,7 @@ async function isMutualSwipe(swipe) {
     };
 
     const { resources: users } = await container.items.query(querySpec).fetchAll();
-    if (users.length > 0) return users[0].YES.includes(swipe.userA)
+    if (users.length > 0) return users[0].yes.includes(swipe.userA)
     return false;
 }
 
@@ -65,7 +65,7 @@ async function setUpMessages(swipe) {
     const client = new CosmosClient({ endpoint, key });
     const database = client.database(databaseId);
     const container = database.container(containerId);
-    
+
     new_chat = {
         participants: swipe.userA + "-" + swipe.userB,
         messages: [],
