@@ -24,10 +24,10 @@
     </div>
 
 
-    <div *ngIf="!profile_display" class="modal-dialog modal-dialog-scrollable">
+    <div *ngIf="!profile_display" class="modal-dialog modal-dialog-scrollable" style="height: 43.5rem;">
         <nb-layout class="modal-content" scrollBottom="true">
-            <nb-layout-column class="" style="padding: 0;">
-                <div class="spinner-border text-primary align-self-center justify-self-center" style="width: 5rem; height: 5rem;" role="status" *ngIf="modalLoading">
+            <nb-layout-column class="flex" style="padding: 0;">
+                <div class="spinner-border text-primary" style="position: absolute; width: 5rem; height: 5rem; top: calc(50% - 5rem/2); left: calc(50% - 5rem/2);" role="status" *ngIf="modalLoading">
                     <span class="sr-only"></span>
                 </div>
 

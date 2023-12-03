@@ -118,6 +118,6 @@ export class ModalComponent implements OnInit {
     }
 
 	replaceSpace(str: string){
-		return str.replaceAll(" ", "_");
+		return str.replaceAll(" ", "_").replaceAll('"', "'");
 	}
 }
