@@ -57,9 +57,7 @@ export class ModalComponent implements OnInit {
 		this.modalLoading = true;
 		this.modalService.getRecentMessages(this.caseID, this.otherID, -1).subscribe(resp => {
 			resp.resp.forEach((a : any) => {
-				if(!this.messages.includes(a)) {
-					this.messages.push(a);
-				}
+				this.messages.push(a);
 			});
 		}, () => {}, () => {
 			this.modalLoading = false;
@@ -69,9 +67,14 @@ export class ModalComponent implements OnInit {
 	addRecentMessages() {
 		this.modalService.getRecentMessages(this.caseID, this.otherID, this.getCount()).subscribe(resp => {
 			resp.resp.forEach((a: any) => {
-				if(!this.messages.includes(a)) {
-					this.messages.push(a);
+				var exists = false;
+				for(let message of this.messages) {
+					if(message.sender === a.sender && message.text === a.text && message.date === a.date)
+						exists = true;
 				}
+				
+				if(!exists)
+					this.messages.push(a);
 			});
 		});
 	}
