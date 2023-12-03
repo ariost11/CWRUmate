@@ -55,7 +55,7 @@ export class ModalComponent implements OnInit {
 
 	getAllMessages() {
 		this.modalLoading = true;
-		this.modalService.getRecentMessages(this.caseID, this.otherID, 0).subscribe(resp => {
+		this.modalService.getRecentMessages(this.caseID, this.otherID, -1).subscribe(resp => {
 			resp.resp.forEach((a : any) => {
 				if(!this.messages.includes(a)) {
 					this.messages.push(a);
