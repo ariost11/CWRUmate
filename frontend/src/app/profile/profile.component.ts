@@ -1071,7 +1071,7 @@ export class ProfileComponent implements AfterViewInit {
 	getProfile() {
 		this.profileLoading = true;
 		this.profileService.getProfile(this.caseID).subscribe(resp => {
-			this.picture = resp.resp.photo + "?" + new Date().toTimeString();
+			this.picture = resp.resp.photo + "?" + new Date().getMilliseconds();
 			console.log(resp);
 			console.log(resp.resp.photo);
 			console.log(this.picture);

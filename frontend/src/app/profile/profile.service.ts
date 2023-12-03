@@ -36,7 +36,6 @@ export class ProfileService {
 		season: answers[18],
 	}
 	const fileData = answers[1];
-	console.log(fileData);
 	const formData = new FormData();
     formData.append('file', new Blob([fileData]));
 
@@ -66,7 +65,6 @@ export class ProfileService {
 		season: answers.season,
 	}
 	const fileData = answers.photo;
-	console.log(fileData);
 	const formData = new FormData();
 	formData.append('file', new Blob([fileData]));
 
