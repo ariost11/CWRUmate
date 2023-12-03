@@ -53,7 +53,7 @@ export class ProfileService {
 		gender_preferences: answers.gender_preferences,
 		majors: answers.majors,
 		clubs: answers.clubs,
-		ideal_date: answers.ideaL_date,
+		ideal_date: answers.ideal_date,
 		looking_for: answers.looking_for,
 		political_leaning: answers.political_leaning,
 		apple_android: answers.apple_android,

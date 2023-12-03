@@ -34,33 +34,37 @@ module.exports = async function (context, req) {
 }
 
 async function sendMessage(message) {
-    const { endpoint, key, databaseId, containerId } = messages_config;
-    const client = new CosmosClient({ endpoint, key });
-    const database = client.database(databaseId);
-    const container = database.container(containerId);
+    try {
+        const { endpoint, key, databaseId, containerId } = messages_config;
+        const client = new CosmosClient({ endpoint, key });
+        const database = client.database(databaseId);
+        const container = database.container(containerId);
 
-    const key1 = message.userA + "-" + message.userB
-    const key2 = message.userB + "-" + message.userA
+        const key1 = message.userA + "-" + message.userB;
+        const key2 = message.userB + "-" + message.userA;
 
+        const querySpec = {
+            query: `SELECT * FROM c WHERE c.participants = "${key1}" OR c.participants = "${key2}"`
+        };
 
-    const querySpec = {
-        query: `SELECT * FROM c WHERE c.participants = "${key1}" OR c.participants = "${key2}"`
-    };
+        const { resources: chats } = await container.items.query(querySpec).fetchAll();
 
-    const { resources: chats } = await container.items.query(querySpec).fetchAll();
+        let item = chats[0];
 
-    let item = chats[0]
+        const new_message = {
+            sender: message.userA,
+            text: message.text,
+            date: message.date,
+            count: item.messages.length + 1
+        };
 
-    new_message = {
-        sender: message.userA,
-        text: message.text,
-        date: message.date,
-        count: item.messages.length + 1
+        item.messages.push(new_message);
+
+        const { resource: updatedItem } = await container.items.upsert(item);
+
+        return "SUCCESS";
+    } catch (error) {
+        console.error("Error in sendMessage:", error);
+        return "FAILURE";
     }
-
-    item.messages.push(new_message);
-
-    const { resource: updatedItem } = await container.items.upsert(item);
-
-    return updatedItem
 }
